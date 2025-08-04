@@ -1,0 +1,174 @@
+@font-face {
+  font-family: 'Olympic Headline';
+  src:
+    local('Olympic Headline'),
+    url(../fonts/OlympicHeadline-Regular.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Olympic Headline Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Olympic Headline Condensed'),
+    url(../fonts/OlympicHeadline-Condensed.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Olympic Serif';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Olympic Serif'),
+    url(../fonts/OlympicSerif-Regular.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Olympic Sans';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Olympic Sans'),
+    url(../fonts/OlympicSans-Regular.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Olympic Sans';
+  font-style: normal;
+  font-weight: 500;
+  src:
+    local('Olympic Sans'),
+    url(../fonts/OlympicSans-Medium.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Olympic Headline';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Olympic Headline'),
+    url(../fonts/OlympicHeadline-Regular.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Olympic Headline Condensed';
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Olympic Headline Condensed'),
+    url(../fonts/OlympicHeadline-Condensed.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Olympic Serif';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Olympic Serif'),
+    url(../fonts/OlympicSerif-Regular.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Olympic Sans';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Olympic Sans'),
+    url(../fonts/OlympicSans-Regular.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Olympic Sans';
+  font-style: normal;
+  font-weight: 500;
+  src:
+    local('Olympic Sans'),
+    url(../fonts/OlympicSans-Medium.woff2) format('woff2');
+}
+
+// ==============================|| PERFECT SCROLLBAR ||============================== //
+.react-flow__handle {
+  opacity: 0;
+}
+.react-flow__panel.react-flow__attribution {
+  display: 'none';
+}
+.react-flow__attribution,
+.react-flow__attribution a {
+  display: 'none';
+}
+.scrollbar-container {
+  .ps__rail-y {
+    &:hover > .ps__thumb-y,
+    &:focus > .ps__thumb-y,
+    &.ps--clicking .ps__thumb-y {
+      background-color: #a2a9b0;
+      width: 5px;
+    }
+  }
+  .ps__thumb-y {
+    background-color: #a2a9b0;
+    border-radius: 6px;
+    width: 5px;
+    right: 0;
+  }
+}
+
+.scrollbar-container.ps,
+.scrollbar-container > .ps {
+  &.ps--active-y > .ps__rail-y {
+    width: 5px;
+    background-color: transparent !important;
+    z-index: 999;
+    &:hover,
+    &.ps--clicking {
+      width: 5px;
+      background-color: transparent;
+    }
+  }
+  &.ps--scrolling-y > .ps__rail-y,
+  &.ps--scrolling-x > .ps__rail-x {
+    opacity: 0.4;
+    background-color: transparent;
+  }
+}
+
+.ql-editor {
+  font-family: 'Olympic Sans';
+  font-size: 16px;
+}
+.rxv-container {
+  font-family: 'Olympic Sans';
+  font-size: 12px;
+}
+._GzYRV {
+  //background-color: white !important;
+}
+
+.fc .fc-toolbar-title,
+.fc .fc-col-header-cell-cushion {
+  font-family: 'Olympic Headline';
+}
+
+.fc-button,
+.fc-event-title {
+  font-family: 'Olympic Sans';
+}
+.fc .fc-button-primary {
+  background-color: #0083c9;
+  border-color: #0083c9;
+}
+
+.xml-viewer {
+  table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border: 1px solid #000;
+  }
+  tr:nth-child(even) {
+    background-color: #eeeeee;
+  }
+  th {
+    background: #d6d6d6;
+    padding: 5px;
+    border: 1px solid black;
+  }
+
+  td {
+    padding: 5px;
+    border: 1px solid black;
+  }
+}

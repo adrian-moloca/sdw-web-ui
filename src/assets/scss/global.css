@@ -1,0 +1,291 @@
+/* Define Olympic Font Families as CSS variables */
+:root {
+  --font-family-base:
+    'Olympic Sans', -apple-system, BlinkMacMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-family-headline:
+    'Olympic Headline', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-family-secondary: 'Olympic Serif', Georgia, 'Times New Roman', Times, serif;
+  /* Font Sizes and Line Heights - Desktop */
+  --font-size-quote-desktop: 32px;
+  --font-line-height-quote-desktop: 42px;
+  --font-size-quote-mobile: 22px;
+  --font-line-height-quote-mobile: 32px;
+
+  --font-size-deck-desktop: 24px;
+  --font-line-height-deck-desktop: 34px;
+  --font-size-deck-mobile: 20px;
+  --font-line-height-deck-mobile: 28px;
+
+  --font-size-footer-desktop: 20px;
+  --font-line-height-footer-desktop: 28px;
+  --font-size-footer-bold-desktop: 20px;
+  --font-line-height-footer-bold-desktop: 28px;
+  --font-size-footer-mobile: 18px;
+  --font-line-height-footer-mobile: 24px;
+  --font-size-footer-bold-mobile: 18px; /* Same as regular mobile */
+  --font-line-height-footer-bold-mobile: 24px; /* Same as regular mobile */
+
+  --font-size-title1-desktop: 56px;
+  --font-line-height-title1-desktop: 48px;
+  --font-size-title1-mobile: 50px;
+  --font-line-height-title1-mobile: 44px;
+
+  --font-size-title2-desktop: 48px;
+  --font-line-height-title2-desktop: 42px;
+  --font-size-title2-mobile: 42px;
+  --font-line-height-title2-mobile: 36px;
+
+  --font-size-title3-desktop: 34px;
+  --font-line-height-title3-desktop: 30px;
+  --font-size-title3-mobile: 30px;
+  --font-line-height-title3-mobile: 26px;
+
+  --font-size-headline1-desktop: 42px;
+  --font-line-height-headline1-desktop: 52px;
+  --font-size-headline1-mobile: 28px;
+  --font-line-height-headline1-mobile: 38px;
+
+  --font-size-headline2-desktop: 28px;
+  --font-line-height-headline2-desktop: 36px;
+  --font-size-headline2-mobile: 22px;
+  --font-line-height-headline2-mobile: 30px;
+
+  --font-size-headline3-desktop: 20px;
+  --font-line-height-headline3-desktop: 28px;
+  --font-size-headline3-mobile: 18px;
+  --font-line-height-headline3-mobile: 27px;
+
+  --font-size-headline4-desktop: 16px;
+  --font-line-height-headline4-desktop: 24px;
+  --font-size-headline4-mobile: 16px;
+  --font-line-height-headline4-mobile: 24px;
+
+  --font-size-body1-desktop: 16px;
+  --font-line-height-body1-desktop: 22px;
+  --font-size-body1-mobile: 16px; /* Changed to MD */
+  --font-line-height-body1-mobile: 22px; /* Changed to MD */
+
+  --font-size-body2-desktop: 14px;
+  --font-line-height-body2-desktop: 20px;
+  --font-size-body2-mobile: 14px;
+  --font-line-height-body2-mobile: 20px;
+
+  --font-size-caption1-desktop: 12px;
+  --font-line-height-caption1-desktop: 18px;
+  --font-size-caption1-mobile: 12px;
+  --font-line-height-caption1-mobile: 18px;
+
+  --font-size-caption2-desktop: 10px;
+  --font-line-height-caption2-desktop: 16px;
+  --font-size-caption2-mobile: 10px; /* Same as caption1 mobile */
+  --font-line-height-caption2-mobile: 16px; /* Same as caption1 mobile */
+
+  --font-size-button-l-desktop: 16px;
+  --font-line-height-button-l-desktop: 24px;
+  --font-size-button-l-mobile: 16px;
+  --font-line-height-button-l-mobile: 24px;
+
+  --font-size-button-s-desktop: 14px;
+  --font-line-height-button-s-desktop: 20px;
+  --font-size-button-s-mobile: 14px;
+  --font-line-height-button-s-mobile: 20px;
+
+  --color-base-brand-blue: #3e72c2;
+  --color-base-brand-yellow: #f9a80e;
+  --color-base-brand-green: #2eaa48;
+  --color-base-brand-red: #ee212e;
+
+  --color-base-neutral-black: #100f0d;
+  --color-base-neutral-grey900: #252423;
+  --color-base-neutral-grey800: #3a3937;
+  --color-base-neutral-grey700: #484745;
+  --color-base-neutral-grey600: #5a5957;
+  --color-base-neutral-grey500: #767676;
+  --color-base-neutral-grey400: #a1a1a1;
+  --color-base-neutral-grey300: #cacaca;
+  --color-base-neutral-grey200: #d5d5d5;
+  --color-base-neutral-grey100: #e5e5e5;
+  --color-base-neutral-grey50: #f2f2f2;
+  --color-base-neutral-white: #ffffff;
+
+  --color-base-medals-textBronze: #642e19;
+  --color-base-medals-textSilver: #4a4a4a;
+  --color-base-medals-textGold: #674100;
+
+  --color-light-general-background: #ffffff;
+  --color-light-general-surface: #f5f5f5;
+  --color-light-general-surfaceVariant: #ffffff;
+  --color-light-general-divider: #e5e5e5;
+  --color-light-general-accent: #0078d0;
+  --color-light-general-onAccent: #ffffff;
+  --color-light-general-fixedNavStroke: rgba(0, 0, 0, 0.05);
+  --color-light-general-background-light: #fbfbfb;
+
+  --color-light-text-primary: #0d0d10;
+  --color-light-text-secondary: #707070;
+
+  --color-light-button-primary: #0078d0;
+  --color-light-button-onPrimary: #ffffff;
+  --color-light-button-secondary: #f5f5f5;
+  --color-light-button-onSecondary: #006cbb;
+  --color-light-button-disabled: #cacaca;
+  --color-light-button-onDisabled: #707070;
+  --color-light-button-hover: #006cbb;
+  --color-light-button-iconSelected: rgba(25, 144, 231, 0.1);
+
+  --color-light-input-default: #ffffff;
+  --color-light-input-outline: #e5e5e5;
+  --color-light-input-disabled: #e5e5e5;
+  --color-light-input-onDisabled: #a1a1a1;
+
+  --color-light-icon-primary: #0d0d10;
+  --color-light-icon-secondary: #707070;
+
+  --color-light-controls-off: #e5e5e5;
+
+  --color-light-semantic-error: #c7050c;
+  --color-light-semantic-errorOnContainer: #c7050c;
+  --color-light-semantic-errorContainer: #ffeced;
+  --color-light-semantic-success: #008340;
+  --color-light-semantic-successOnContainer: #008340;
+  --color-light-semantic-successContainer: #e3fff1;
+  --color-light-semantic-warning: #946000;
+  --color-light-semantic-warningOnContainer: #946000;
+  --color-light-semantic-warningContainer: #fff4df;
+
+  --color-dark-general-background: #232325;
+  --color-dark-general-surface: #0d0d10;
+  --color-dark-general-surfaceVariant: #37373a;
+  --color-dark-general-divider: #37373a;
+  --color-dark-general-accent: #1592ee;
+  --color-dark-general-onAccent: #ffffff;
+  --color-dark-general-fixedNavStroke: rgba(255, 255, 255, 0.05);
+  --color-dark-general-background-light: #0d0d10;
+
+  --color-dark-text-primary: #ffffff;
+  --color-dark-text-secondary: #cacaca;
+
+  --color-dark-button-primary: #1592ee;
+  --color-dark-button-onPrimary: #ffffff;
+  --color-dark-button-secondary: #232325;
+  --color-dark-button-onSecondary: #36aaff;
+  --color-dark-button-disabled: #57575a;
+  --color-dark-button-onDisabled: #a1a1a1;
+  --color-dark-button-hover: #0078d0;
+  --color-dark-button-iconSelected: rgba(25, 144, 231, 0.3);
+
+  --color-dark-input-default: #232325;
+  --color-dark-input-outline: #37373a;
+  --color-dark-input-disabled: #454548;
+  --color-dark-input-onDisabled: #707070;
+
+  --color-dark-icon-primary: #ffffff;
+  --color-dark-icon-secondary: #a1a1a1;
+
+  --color-dark-controls-off: #454548;
+
+  --color-dark-semantic-error: #ff494f;
+  --color-dark-semantic-errorOnContainer: #ff494f;
+  --color-dark-semantic-errorContainer: #4f0408;
+  --color-dark-semantic-success: #1cc16d;
+  --color-dark-semantic-successOnContainer: #1cc16d;
+  --color-dark-semantic-successContainer: #084526;
+  --color-dark-semantic-warning: #d69824;
+  --color-dark-semantic-warningOnContainer: #d69824;
+  --color-dark-semantic-warningContainer: #452f06;
+
+  --blue-600: #00287f;
+  --blue-500: #0049aa;
+  --blue-400: #0078d0;
+  --blue-300: #00b4eb;
+  --blue-200: #5ed6ff;
+  --blue-100: #abebff;
+
+  --yellow-600: #e67324;
+  --yellow-500: #fa8e1e;
+  --yellow-400: #ffb114;
+  --yellow-300: #ffce19;
+  --yellow-200: #ffe045;
+  --yellow-100: #fff08c;
+
+  --green-600: #005a46;
+  --green-500: #00804d;
+  --green-400: #00a651;
+  --green-300: #00cb50;
+  --green-200: #6bdb83;
+  --green-100: #aae8b8;
+
+  --red-600: #980f30;
+  --red-500: #bf192b;
+  --red-400: #f0252d;
+  --red-300: #ff555f;
+  --red-200: #ff9196;
+  --red-100: #ffc7c9;
+
+  --neutral-50: #f2f2f2;
+  --neutral-100: #e5e5e5;
+  --neutral-200: #d5d5d5;
+  --neutral-300: #cacaca;
+  --neutral-400: #a1a1a1;
+  --neutral-500: #767676;
+  --neutral-600: #5a5957;
+  --neutral-700: #484745;
+  --neutral-800: #3a3937;
+  --neutral-900: #252423;
+  --neutral-white: #ffffff;
+  --neutral-black: #100f0d;
+
+  --font-dark: #0d0d10;
+  --font-dark-medium: #707070;
+  --font-dark-soft: #818185;
+  --font-light: #ffffff;
+  --font-light-medium: #cacaca;
+  --font-light-soft: #bfbfbf;
+
+  --spacing-none: 0rem;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 1rem;
+  --spacing-4: 1.5rem;
+  --spacing-5: 2rem;
+  --spacing-6: 2.5rem;
+  --spacing-7: 3rem;
+  --spacing-8: 3.75rem;
+
+  --radius-none: 0rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-2xl: 2.5rem;
+
+  --box-shadow-sm:
+    0px 6px 25px 0px rgba(0, 0, 0, 0.07), 0px 2.735px 4.772px 0px rgba(0, 0, 0, 0.04);
+  --box-shadow-md:
+    0px 16px 20px 0px rgba(0, 0, 0, 0.05), 0px 6.163px 6.37px 0px rgba(0, 0, 0, 0.03),
+    0px 1.304px 1.63px 0px rgba(0, 0, 0, 0.02);
+  --box-shadow-lg:
+    0px 29px 80px 0px rgba(0, 0, 0, 0.1), 0px 11.17px 25.481px 0px rgba(0, 0, 0, 0.06),
+    0px 2.363px 6.519px 0px rgba(0, 0, 0, 0.04);
+  --box-shadow-xl:
+    0px 54px 80px 0px rgba(0, 0, 0, 0.1), 0px 20.8px 25.481px 0px rgba(0, 0, 0, 0.06),
+    0px 4.4px 6.519px 0px rgba(0, 0, 0, 0.04);
+
+  --z-overtop: 9010;
+  --z-modal-content: 9003;
+  --z-modal-overlay: 9002;
+  --z-super: 9000;
+  --z-above: 900;
+  --z-over-default: 5;
+  --z-default: 1;
+  --z-zero: 0;
+  --z-below: -1;
+
+  --breakpoint-md: 1366px;
+  --breakpoint-l: 1919px;
+  --breakpoint-m: 1399px;
+  --breakpoint-s: 1199px;
+}

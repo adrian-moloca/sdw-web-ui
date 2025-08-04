@@ -1,0 +1,53 @@
+jenkins_job_params:
+  BUILD_TYPE:
+    type: choice
+    description: Type of build
+    value:
+      - production
+      - development
+  API_POSTFIX:
+    type: choice
+    description: Custom API_POSTFIX endpoint
+    value:
+      - r1
+      - ''
+      - a1
+      - b1
+      - c1
+      - f1
+      - n1
+      - p1
+      - r1
+      - s1
+      - t1
+      - q1
+      - v1
+      - v2
+      - v3
+      - w1
+      - x1
+      - y1
+      - z1
+  API_HOST:
+    type: string
+    description: Custom API_HOST endpoint (https://sdw-api-dev.olympicchannel.com)
+    value: '[API_HOST]'
+  FORGEROCK_REALM:
+    type: string
+    description: ForgeRock Realms such as - dev, qa, staging, ee
+    value: '[FORGEROCK_REALM]'
+  WEB_HOST:
+    type: string
+    description: Custom endpoint for Data Viewer (https://sdw-web-dev.olympicchannel.com)
+    value: '[WEB_UI_HOST]'
+  GDS_API:
+    type: string
+    description: Custom endpoint for GDS Reports Service (https://gds-api-dev.olympicchannel.com)
+    value: '[GDS_API]'
+  GDS_VERSION:
+    type: string
+    description: Custom GDS_VERSION of the GDS endpoint. Default value for Paris = 2024
+    value: '2026'
+
+is_public: true
+compiler: 'yarn'

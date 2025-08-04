@@ -1,0 +1,17 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🧹 Running lint-staged on staged files..."
+
+if ! yarn lint-staged --concurrent false --no-stash; then
+  echo "❌ lint-staged failed"
+  exit 1
+fi
+
+if ! yarn sonar:lint; then
+  echo "❌ Sonar-lint failed. Fix issues before committing."
+  exit 1
+fi
+
+echo "✅ Pre-commit passed"
+exit 0

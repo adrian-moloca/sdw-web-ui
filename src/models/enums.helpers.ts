@@ -1,0 +1,171 @@
+export enum EnumType {
+  MergeStatus,
+  ConflictStatus,
+  ComparisonStatus,
+  OperatorTypeData,
+  EntityStatus,
+  FieldOperation,
+  MergeType,
+  MergeEntityType,
+  MergeEntitySubType,
+  WorkflowState,
+  ParticipantType,
+  IndividualParticipantType,
+  IngestType,
+  Season,
+  ViewMode,
+  DocumentType,
+  IngestResultStatus,
+  UsdfFormat,
+  UsdfType,
+  GdsStatus,
+  BioStatus,
+  BiographyType,
+  AccreditationStatus,
+  PersonType,
+  NoteType,
+  EditionType,
+  ReportType,
+  ReportFormat,
+  SourceType,
+  SourceCategory,
+  IngestSource,
+  SectionType,
+  ContentType,
+  ReportStatus,
+  OdfRule,
+  DataStatus,
+  BlockPosition,
+  BlockType,
+  TextAlignment,
+  TextStyle,
+  DisplayFormat,
+  BiographyAction,
+  ReportParticipantType,
+  ExecutionStatus,
+  DeliveryStatus,
+  RunMode,
+  FieldSettings,
+  DeliveryType,
+  FeedFlag,
+  StageType,
+  RuleMode,
+  ReportEntityType,
+  IngestStatus,
+  ScopeType,
+}
+export const OdfRuleEnum = {
+  CreateStage: 'CreateStage',
+  LinkPhaseToStage: 'LinkPhaseToStage',
+  ConvertPhaseToStage: 'ConvertPhaseToStage',
+  ConvertSubunitToUnit: 'ConvertSubunitToUnit',
+  MessageRedirect: 'MessageRedirect',
+  HideUnit: 'HideUnit',
+  HideSubUnit: 'HideSubUnit',
+};
+export const ConflictStatusEnum = {
+  Conflict: 'CONFLICT',
+  OK: 'NO_CONFLICT',
+  Diff: 'DIFF',
+  DataMissing: 'DATA_MISSING',
+  REview: 'REVIEW_NEEDED',
+};
+export const ComparisonStatusEnum = {
+  Match: 'MATCH',
+  FullMatch: 'FULL_MATCH',
+  FoundInSource: 'FOUND_IN_SOURCE',
+  FoundInTarget: 'FOUND_IN_TARGET',
+};
+export const MergeStatusEnum = {
+  Active: 'ACTIVE',
+  Inactive: 'INACTIVE',
+  Pending: 'PENDING',
+  PendingConfirmation: 'PENDING_CONFIRMATION',
+  Done: 'ACTIVE_MERGED',
+  ActivePrevious: 'ACTIVE_PREVIOUS',
+};
+export const MergeEntitySubTypeEnum = {
+  Person: 'PERSON',
+  Horse: 'HORSE',
+  Team: 'TEAM',
+  Organization: 'ORGANISATION',
+  Venue: 'VENUE',
+  NotAvailable: '0',
+};
+export const MergeEntityTypeEnum = {
+  Individual: 'INDIVIDUAL',
+  Horse: 'INDIVIDUALS_HORSES',
+  Team: 'TEAM',
+  Organization: 'ORGANISATION',
+  Venue: 'VENUE',
+};
+export enum BioStatusEnum {
+  Draft = 'Draft',
+  Editing = 'Editing',
+  Conflict = 'Conflict',
+  Approved = 'Approved',
+  Ready = 'Ready',
+  Delivered = 'Delivered',
+  Spiked = 'Spiked',
+}
+export enum ContentTypeEnum {
+  TextBlock = 'TextBlock',
+  EmbedHtml = 'EmbedHtml',
+  Table = 'Table',
+  LoopTable = 'LoopTable',
+}
+export enum BlockTypeEnum {
+  Title = 'Title',
+  Subtitle = 'Subtitle',
+  Text = 'Text',
+  Paragraph = 'Paragraph',
+  HTML = 'HTML',
+}
+export enum RuleModeEnum {
+  Manual = 'MANUAL',
+  Auto = 'AUTO',
+  Ignored = 'IGNORED',
+}
+export enum SectionTypeEnum {
+  Header = 'Header',
+  SubHeader = 'SubHeader',
+  Content = 'Content',
+  Footer = 'Footer',
+  Legend = 'Legend',
+}
+export enum TextAlignmentEnum {
+  None = 'None',
+  Right = 'Right',
+  Left = 'Left',
+  Top = 'Top',
+  Bottom = 'Bottom',
+  Center = 'Center',
+  Middle = 'Middle',
+}
+export enum TextStyleEnum {
+  Normal = 'Normal',
+  Bold = 'Bold',
+  Underline = 'Underline',
+  Italic = 'Italic',
+  Stroke = 'Stroke',
+  Title = 'Title',
+  Subtitle = 'Subtitle',
+  Caption = 'Caption',
+}
+export enum SourceTypeEnum {
+  Table = 'Table',
+  Api = 'Api',
+}
+
+export enum ScopeTypeEnum {
+  Results = 'Results',
+  Ranking = 'Ranking',
+  Medallists = 'Medallists',
+  TeamMembers = 'TeamMembers',
+  Pools = 'Pools',
+  ResultsBreakdown = 'ResultsBreakdown',
+  SeasonalStandings = 'SeasonalStandings',
+  SeasonalRankings = 'SeasonalRankings',
+  OverallStandings = 'OverallStandings',
+  Relay = 'Relay',
+}

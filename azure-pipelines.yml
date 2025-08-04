@@ -1,0 +1,101 @@
+name: PR_$(Build.SourceBranchName)_$(Date:yyyyMMdd).$(Rev:r)
+trigger:
+  branches:
+    include:
+      - main
+      - 'release/*'
+      - feature/azure-devops-pipelines
+
+# resources:
+#   repositories:
+#     - repository: e2eCodeceptJs
+#       type: git
+#       name: e2e-codeceptjs
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
+  VM_IMAGE: 'ubuntu-latest'
+  CI: 'true'
+  ${{ if eq(variables['Build.Reason'], 'PullRequest') }}:
+    NX_BRANCH: $(System.PullRequest.PullRequestNumber)
+    TARGET_BRANCH: $[replace(variables['System.PullRequest.TargetBranch'],'refs/heads/','origin/')]
+    BASE_SHA: $(git merge-base $(TARGET_BRANCH) HEAD)
+    APP_VERSION: $(Build.BuildNumber)
+  ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
+    NX_BRANCH: $(Build.SourceBranchName)
+    BASE_SHA: $(git rev-parse HEAD~1)
+    APP_VERSION: $[replace(variables['Build.BuildNumber'],'release/','')]
+  HEAD_SHA: $(git rev-parse HEAD)
+
+stages:
+  - stage: Build
+    pool:
+      vmImage: $(VM_IMAGE)
+    jobs:
+      - job: BuildJob
+        displayName: 'Build and test'
+        steps:
+          - task: UseNode@1
+            inputs:
+              version: '20.x'
+            displayName: 'Use Node.js 20.x'
+
+          # - task: Cache@2
+          #   inputs:
+          #     key: 'yarn | "$(Agent.OS)" | ./yarn.lock'
+          #     restoreKeys: |
+          #       yarn | "$(Agent.OS)"
+          #     path: $(YARN_CACHE_FOLDER)
+          #   displayName: Cache Yarn packages
+
+          - script: yarn install
+            displayName: 'Installing dependencies with yarn'
+
+          # - script: |
+          #     yarn lint
+          #   displayName: 'Run lint'
+
+          # This script can be enabled and use it if we want to don't create the build if one of the test will fail
+          # - script: yarn test
+          #   displayName: 'Run Unit Tests'
+          #   continueOnError: "false"
+
+          - task: SonarCloudPrepare@3
+            inputs:
+              SonarCloud: 'Sonarcloud'
+              organization: 'ocs-sed'
+              scannerMode: 'CLI'
+              configMode: 'manual'
+              cliProjectKey: 'obsdev_sdw-web-ui'
+              projectKey: 'obsdev_sdw-web-ui'
+              projectName: 'SDW Web UI'
+
+          - script: yarn build
+            displayName: 'Build'
+
+          # This script it will be removed if the previous test script it will be un-comment
+          - script: yarn test
+            displayName: 'Run Unit Tests'
+
+          # - publish: $(System.DefaultWorkingDirectory)/dist
+          #   artifact: dist
+
+          # - task: JavaToolInstaller@0
+          #   inputs:
+          #     versionSpec: '17'
+          #     jdkArchitectureOption: 'x64'
+          #     jdkSourceOption: 'PreInstalled'
+
+          - task: SonarCloudAnalyze@3
+            displayName: 'Run SonarCloud Analysis'
+
+          - task: SonarCloudPublish@3
+            displayName: 'Publish Quality Gate Result'
+
+          # - script: yarn nx affected --base=$(BASE_SHA) -t test --parallel=3 --configuration=ci
+          #   displayName: 'Run tests'
+          #   env:
+          #     NODE_OPTIONS: --max-old-space-size=16384
