@@ -1,14 +1,6 @@
 import disciplines from '../_locales/sports_data/disciplines-min';
 import { formatMasterCode } from './utils';
-import master from '_locales/sports_data/master';
 import orderBy from 'lodash/orderBy';
-
-export const getMasterValue = (input: string, key: 'unitType'): string => {
-  const value = master[key]?.find((x: any) => x.code === input);
-  if (value?.name) return value.name;
-
-  return formatMasterCode(input);
-};
 
 export const formatDisciplineList = (input?: any[]) => {
   if (!input) return [];

@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { getOdfDefinition, transformOdfExtensions } from '_helpers';
+import { camelCaseToWords, transformOdfExtensions } from '_helpers';
 import { OdfTable } from 'components';
 
 export const OdfExtendedResults = (param: { data: any; discipline: string }) => {
@@ -15,7 +15,7 @@ export const OdfExtendedResults = (param: { data: any; discipline: string }) => 
             <Grid key={`${row.code}-${row?.pos}-${row.value}`} size={12}>
               <Box sx={{ display: 'flex' }}>
                 <Typography variant="body2" fontWeight={'bold'}>
-                  {`${getOdfDefinition(row.code, param.discipline)?.text ?? row.code} ${row.pos ?? ''}`.trim()}
+                  {`${camelCaseToWords(row.code)} ${row.pos ?? ''}`.trim()}
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
                 <Typography variant="body2" fontWeight={'bold'}>

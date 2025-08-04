@@ -3,20 +3,20 @@ import { Grid, useTheme } from '@mui/material';
 import { t } from 'i18next';
 import QueryStatsOutlinedIcon from '@mui/icons-material/QueryStatsOutlined';
 import { GridColDef, GridRowsProp } from '@mui/x-data-grid';
-import { chunkWithMinSize, unifyStats } from '_helpers';
+import { chunkWithMinSize } from '_helpers';
 import { ExtendedCard, StripedDataGridBase } from 'components';
 import baseConfig from 'baseConfig';
 import { CompetitorStatsCharts } from './CompetitorStatsCharts';
+import { unifyStats } from './utils';
 
 type Props = {
   data: Array<any>;
-  discipline: string;
 };
 
-export const CompetitorStats = ({ data, discipline }: Props) => {
+export const CompetitorStats = ({ data }: Props) => {
   if (!data) return null;
 
-  const stats = unifyStats(data, discipline);
+  const stats = unifyStats(data);
   if (!stats || stats.length == 0) return null;
 
   const theme = useTheme();
@@ -24,7 +24,7 @@ export const CompetitorStats = ({ data, discipline }: Props) => {
     field: string,
     header: string,
     charWidth = 10,
-    minWidth = 100
+    minWidth = 140
   ): number => {
     const maxLength = Math.max(
       ...data.map((row) => row[field]?.toString().length ?? 0),
@@ -47,7 +47,7 @@ export const CompetitorStats = ({ data, discipline }: Props) => {
       field: e.id,
       headerName: e.name,
       minWidth: getMaxTextWidth(e.id, e.name),
-      maxWidth: 300,
+      maxWidth: 340,
       headerAlign: 'right',
       align: 'right',
     });
@@ -55,11 +55,11 @@ export const CompetitorStats = ({ data, discipline }: Props) => {
   const rows: GridRowsProp = stats.map((stat) => {
     const row: any = {
       id: stat.code,
-      description: stat.competitors[0]?.description ?? stat.code,
+      description: stat.competitors[0].label,
     };
 
     for (const c of stat.competitors) {
-      row[c.id] = c.value ?? '0';
+      row[c.id] = c.displayValue;
     }
 
     return row;
@@ -85,7 +85,7 @@ export const CompetitorStats = ({ data, discipline }: Props) => {
             />
           </Grid>
         ))}
-        <CompetitorStatsCharts data={data} discipline={discipline} />
+        <CompetitorStatsCharts data={data} />
       </Grid>
     </ExtendedCard>
   );

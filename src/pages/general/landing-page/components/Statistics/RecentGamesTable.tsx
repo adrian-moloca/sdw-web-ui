@@ -1,24 +1,24 @@
-import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid-pro';
 import { useQuery } from '@tanstack/react-query';
-import { StyledIconButton } from 'components';
+import { CompetitionAvatar, CountryChip, MainCard, StyledIconButton } from 'components';
 import { useModelConfig } from 'hooks';
 import useApiService from 'hooks/useApiService';
 import { t } from 'i18next';
-import { ColumnData, EntityType } from 'models';
-import { statsValueGetter, statsValueRender } from 'pages/explorer/components';
+import { EntityType } from 'models';
 import { useNavigate } from 'react-router-dom';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import baseConfig from 'baseConfig';
-import { StatsDataGrid } from './StatsDataGrid';
-import { StatsCard } from './StatsCard';
 import dayjs from 'dayjs';
+import { Stack, Typography, useMediaQuery } from '@mui/material';
 
 export const RecentGamesTable: React.FC = () => {
   const apiService = useApiService();
   const navigate = useNavigate();
   const { getConfig } = useModelConfig();
   const config = getConfig(EntityType.Competition);
-  const url = `${config.apiNode}/search?start=0&rows=10`;
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery((theme: any) => theme.breakpoints.down('lg'));
+  const randomCount = isMobile ? 3 : isTablet ? 5 : 6;
+  const url = `${config.apiNode}/search?start=0&rows=8`;
   const filter = {
     query: {
       operator: 'AND',
@@ -38,31 +38,12 @@ export const RecentGamesTable: React.FC = () => {
     queryFn: () => apiService.post(url, filter),
   });
 
-  const dataContent = isLoading ? [] : (data?.content ?? []);
-  const rowsWithOrder = dataContent.map((row: any, index: number) => ({
-    ...row,
-    order: index + 1,
-  }));
-  const columns: ColumnData[] = [
-    { width: 290, label: t('general.name'), dataKey: 'competitionItem', flex: 1, minWidth: 200 },
-    { width: 160, label: t('general.startDate'), dataKey: 'startDate', align: 'right' },
-    { width: 160, label: t('general.finishDate'), dataKey: 'finishDate', align: 'right' },
-  ];
-  const gridColumns: GridColDef[] = [];
-  columns.forEach((column: ColumnData) => {
-    gridColumns.push({
-      field: column.dataKey,
-      headerName: column.label,
-      headerAlign: column.align,
-      align: column.align,
-      width: column.width,
-      sortable: true,
-      valueGetter: (_value, row) => statsValueGetter(column, row),
-      renderCell: (params: GridRenderCellParams) => statsValueRender(column, params),
-    });
-  });
+  const dataContent = isLoading ? [] : (data?.content?.slice(0, randomCount) ?? []);
   return (
-    <StatsCard
+    <MainCard
+      size="xlarge"
+      divider={false}
+      sx={{ background: 'transparent', width: '100%' }}
       title={t('general.recent-games')}
       secondary={
         <StyledIconButton
@@ -75,25 +56,33 @@ export const RecentGamesTable: React.FC = () => {
         </StyledIconButton>
       }
     >
-      <StatsDataGrid
-        rows={rowsWithOrder.slice(0, 10)}
-        columns={gridColumns}
-        loading={isLoading}
-        disableColumnMenu
-        disableColumnFilter
-        disableColumnSorting
-        disableRowSelectionOnClick
-        density="compact"
-        columnHeaderHeight={baseConfig.defaultColumnHeaderHeight}
-        rowHeight={baseConfig.defaultRowHeight}
-        hideFooter
-        slotProps={{
-          loadingOverlay: {
-            variant: 'linear-progress',
-            noRowsVariant: 'linear-progress',
-          },
-        }}
-      />
-    </StatsCard>
+      <Stack direction={'row'} spacing={3} justifyContent="space-between" alignItems="center">
+        {dataContent.map((competition: any) => (
+          <MainCard
+            key={competition.id}
+            sx={{ width: '100%', cursor: 'pointer' }}
+            onClick={() => navigate(`/explorer/competitions/${competition.id}`)}
+          >
+            <Stack alignItems={'center'} spacing={1} sx={{ pt: 4, height: 365 }}>
+              <CompetitionAvatar src={competition.logo} size="14rem" title={competition.title} />
+              <Typography
+                variant="subtitle1"
+                textAlign={'center'}
+                fontWeight={'bold'}
+                sx={{ pt: 4 }}
+              >
+                {competition.title}
+              </Typography>
+              <CountryChip code={competition.country} hideTitle={false} size="small" />
+              <Typography variant="body2" sx={{ mt: 5 }}>
+                {dayjs(competition.startDate).format(baseConfig.generalDateFormat).toUpperCase()}
+                {' - '}
+                {dayjs(competition.finishDate).format(baseConfig.generalDateFormat).toUpperCase()}
+              </Typography>
+            </Stack>
+          </MainCard>
+        ))}
+      </Stack>
+    </MainCard>
   );
 };

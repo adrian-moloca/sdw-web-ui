@@ -41,6 +41,12 @@ export const StatusCell: React.FC<{ status: StatusType }> = ({ status }) => {
       color: colors.red['600'],
       bgColor: colors.red['100'],
     },
+    notApplicable: {
+      icon: <Close fontSize="small" color="inherit" />,
+      text: t('report-manager.not-applicable'),
+      color: colors.red['600'],
+      bgColor: colors.red['100'],
+    },
   };
 
   const config = statusConfig[status];

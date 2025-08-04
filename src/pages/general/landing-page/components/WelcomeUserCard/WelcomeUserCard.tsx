@@ -1,28 +1,49 @@
 import { t } from 'i18next';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { CardVariantData } from 'types/cards';
-import { InfoCard } from 'components/cards/InfoCard';
-import { OlympicColors } from 'themes/colors';
-import SDW_HighJump from 'assets/images/SDW_HighJump.avif';
 import { RootState } from 'store';
-import { layout } from 'themes/layout';
+import { Box, Chip, Grid, Typography, useTheme } from '@mui/material';
+import { profileTitle } from '_helpers/utils';
 
 export const WelcomeUserCard = memo(() => {
   const auth = useSelector((x: RootState) => x.auth);
+  const theme = useTheme();
   const userName = auth.user?.fullName ?? auth.user?.loginName;
-  const data: CardVariantData = {
-    background: `radial-gradient(circle at bottom left, ${OlympicColors.BLUE} 20%,  transparent  20%),
-      radial-gradient(circle at top right, ${OlympicColors.RED} 20%, transparent  10%)`,
-    imgSrc: SDW_HighJump,
-    borderRadius: layout.radius.sm,
-    direction: 'up',
-    imgAlt: `${t('general.hello')} ${userName}!`,
-    title: `${t('general.hello')} ${userName}!`,
-    imageHeight: { xs: 200, md: 300, lg: 300 },
-    content: t('landing.welcome-intro', { returnObjects: true }) as string[],
-    buttons: [],
-  };
-
-  return <InfoCard card={data} reverse={false} />;
+  const content = t('landing.welcome-intro', { returnObjects: true }) as string[];
+  return (
+    <>
+      <Grid container size={4}>
+        <Box sx={{ px: 4, py: 8 }}>
+          <Typography variant="h3" gutterBottom>
+            {t('general.hello')}
+          </Typography>
+          <Typography variant="h1">{userName}</Typography>
+          <Typography gutterBottom variant="subtitle1">
+            {content[0]}
+          </Typography>
+          <Typography gutterBottom variant="body1" sx={{ pt: 2 }}>
+            {t('messages.your-profile')}
+          </Typography>
+          <Chip
+            label={profileTitle(auth)}
+            color="primary"
+            sx={{ fontSize: theme.typography.body1.fontSize, borderRadius: 0 }}
+          />
+        </Box>
+      </Grid>
+      <Grid container size={8}>
+        <Box sx={{ px: 4, py: 16 }}>
+          {content.slice(1).map((text, index) => (
+            <Typography
+              key={`${text}-${index}`}
+              component={'div'}
+              gutterBottom
+              variant="subtitle1"
+              dangerouslySetInnerHTML={{ __html: text }}
+            />
+          ))}
+        </Box>
+      </Grid>
+    </>
+  );
 });

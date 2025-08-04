@@ -8,10 +8,12 @@ import { ScheduleStatusChip } from '../ScheduleDisplay';
 import { CompetitorTable } from '../CompetitorTable';
 import { UnitSubUnits } from '../UnitSubUnits';
 
+import { useTranslation } from 'react-i18next';
+
 export const UnitDisplay = ({ data: sourceData, discipline }: TCardProps) => {
   const apiService = useApiService();
-
-  const url = `${apiConfig.apiUsdmEndPoint}/units/${sourceData.id}`;
+  const { i18n } = useTranslation();
+  const url = `${apiConfig.apiUsdmEndPoint}/units/${sourceData.id}?languageCode=${i18n.language}`;
   const { data, error, isLoading } = useQuery({
     queryKey: [url],
     queryFn: () => apiService.fetch(url),

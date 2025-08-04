@@ -6,7 +6,6 @@ export * from './DisplayWinField';
 export * from './DisplayAgeField';
 export * from './DisplayMainField';
 export * from './DisplayBioField';
-export * from './BiosCountry';
 export * from './DisplayResult';
 export * from './DisplayRound';
 export * from './EditionChip';

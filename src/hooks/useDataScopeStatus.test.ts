@@ -74,9 +74,13 @@ describe('useDataScopeStatus', () => {
     const { result } = renderHook(() => useDataScopeStatus({ page: 0, pageSize: 25 }, 'all'));
 
     expect(result.current.isLoading).toBe(false);
-    expect(result.current.ingestionDeliveryStatus.fullyReceived.count).toBe(90);
-    expect(result.current.deliveryStatusBreakDown?.[0].competitionName).toBe(
-      'Ingestion Archive One'
+    expect(result.current.packageDeliveryStatus?.fullyReceived.count).toBe(90);
+    expect(result.current.packageDeliveryStatusBreakDown?.[0].competitionName).toBe(
+      'Winter Archive Dataset'
+    );
+    expect(result.current.competitionsDeliveryStatus?.fullyReceived.count).toBe(180);
+    expect(result.current.competitionsDeliveryStatusBreakDown?.[0].competitionName).toBe(
+      'Winter Olympics 2026'
     );
   });
 
@@ -100,7 +104,7 @@ describe('useDataScopeStatus', () => {
     expect(result.current.isLoading).toBe(false);
   });
 
-  it('should return an empty array for deliveryStatusBreakDown when API content is empty', () => {
+  it('should return empty arrays when API content is empty', () => {
     mockUseStoreCache.mockReturnValue({
       managerSetup: { currentEdition: { id: 'edition-123' }, defaultFormat: 'xml' },
       handleManagerSetup: vi.fn(),
@@ -115,8 +119,10 @@ describe('useDataScopeStatus', () => {
 
     const { result } = renderHook(() => useDataScopeStatus({ page: 0, pageSize: 25 }, 'all'));
 
-    expect(result.current.deliveryStatusBreakDown).toEqual([]);
-    expect(result.current.ingestionDeliveryStatus).toBeUndefined();
+    expect(result.current.packageDeliveryStatusBreakDown).toEqual([]);
+    expect(result.current.competitionsDeliveryStatusBreakDown).toEqual([]);
+    expect(result.current.packageDeliveryStatus).toBeUndefined();
+    expect(result.current.competitionsDeliveryStatus).toBeUndefined();
   });
 
   it('should not fetch data if editionId is missing', () => {

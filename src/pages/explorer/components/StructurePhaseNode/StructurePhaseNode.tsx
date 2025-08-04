@@ -21,7 +21,7 @@ const slugify = (str: string) =>
 export const StructurePhaseNode = ({ data, competitionId, disciplineId, eventId }: Props) => {
   const navigate = useNavigate();
   const { dataInfo } = useStoreCache();
-  const title = getRoundTitle(data, dataInfo[MasterData.RoundType]);
+  const title = getRoundTitle(data, dataInfo[MasterData.RoundType], dataInfo[MasterData.StageType]);
   const baseRoute = `/explorer/competition/${competitionId}/discipline/${disciplineId}/event/${eventId}?category=results&round=${slugify(title)}`;
   return (
     <MainCard

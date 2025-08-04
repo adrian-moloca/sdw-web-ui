@@ -25,7 +25,7 @@ export const OfficialsDisplay = ({ data = [] }: Props) => {
       sortable: true,
       renderCell: (params: GridRenderCellParams) => {
         const value = getMasterDataValue(get(params.row, 'function'), MasterData.Function);
-        return <Typography variant="body2">{value?.value ?? t('general.official')}</Typography>;
+        return <Typography variant="body1">{value?.value ?? t('general.official')}</Typography>;
       },
     },
     {
@@ -36,15 +36,15 @@ export const OfficialsDisplay = ({ data = [] }: Props) => {
       flex: 1,
       valueGetter: (_value, row) => row.participationName,
       renderCell: (params: GridRenderCellParams) => (
-        <OfficialChip data={params.row} variant="body2" />
+        <OfficialChip data={params.row} variant="body1" />
       ),
     },
     {
       field: 'gender',
       headerName: t('general.gender'),
-      width: 80,
+      width: 120,
       renderCell: (params: GridRenderCellParams) => (
-        <Typography variant="body2">
+        <Typography variant="body1">
           {getMasterDataValue(params.value, MasterData.PersonGender)?.value}
         </Typography>
       ),
@@ -55,7 +55,7 @@ export const OfficialsDisplay = ({ data = [] }: Props) => {
       <StripedDataGridBase
         rows={orderBy(data.officials, 'order')}
         columns={columns}
-        fontSize={theme.typography.body2.fontSize}
+        fontSize={theme.typography.body1.fontSize}
         getRowId={(row) => row.participationName}
         disableRowSelectionOnClick
         disableColumnMenu

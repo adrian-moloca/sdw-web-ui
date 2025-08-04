@@ -26,8 +26,7 @@ export const ExtendedSingleMetrics = ({ data }: Props) => {
             .map((row, index) => (
               <Grid key={index} size={12}>
                 <Typography>
-                  <b>{t(`extendedInfo.${row?.key}`, { defaultValue: row?.label || row?.key })}</b>:{' '}
-                  {row?.formattedValue}
+                  <b>{row?.label}</b>: {row?.formattedValue}
                 </Typography>
               </Grid>
             ))}

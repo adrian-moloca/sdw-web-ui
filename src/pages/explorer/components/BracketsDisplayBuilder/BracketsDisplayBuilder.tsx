@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import { Node, Edge, Position } from '@xyflow/react';
-import { grey, pink } from '@mui/material/colors';
 import groupBy from 'lodash/groupBy';
 import appConfig from 'config/app.config';
 import type { IParameter } from 'types/views';
 import type { Participant } from 'types/explorer';
 import useApiService from 'hooks/useApiService';
-import { ErrorPanel, GenericLoadingPanel } from 'components';
+import { ErrorPanel, GenericLoadingPanel, MainCard } from 'components';
 import {
   getGap,
   getPhaseCompetitorStructure,
@@ -22,6 +21,7 @@ import { BracketsFlow } from '../BracketsFlow';
 import { CompetitorNode } from '../CompetitorNode';
 import { PhaseNode } from '../PhaseNode';
 import { UnitNode } from '../UnitNode';
+import { useTheme } from '@mui/material';
 
 type Props = {
   parameter: IParameter;
@@ -31,7 +31,7 @@ type Props = {
 export const BracketsDisplayBuilder = ({ discipline, parameter }: Props) => {
   const apiService = useApiService();
   const url = `${appConfig.apiEndPoint}${appConfig.EVENT_EXTENDED.replace('{0}', parameter.id ?? '')}`;
-
+  const theme = useTheme();
   const { data, error, isLoading } = useQuery({
     queryKey: [url],
     queryFn: () => apiService.fetch(url),
@@ -71,11 +71,11 @@ export const BracketsDisplayBuilder = ({ discipline, parameter }: Props) => {
           targetPosition: Position.Left,
           sourcePosition: Position.Right,
           width: 300,
-          data: { label: <PhaseNode data={phase} discipline={discipline} /> },
+          data: { label: <PhaseNode data={phase} /> },
           position: { x: xOffset, y: 0 },
-          style: { borderColor: pink[500], borderWidth: 1, padding: 0 },
+          style: { borderWidth: 0, padding: 0 },
         });
-        yOffset += 80;
+        yOffset += 40;
 
         const finalPhase = isFinalPhase(phase) || phaseId == lastPhaseId;
         if (finalPhase) {
@@ -88,9 +88,9 @@ export const BracketsDisplayBuilder = ({ discipline, parameter }: Props) => {
               targetPosition: Position.Left,
               sourcePosition: Position.Right,
               width: 400,
-              data: { label: <UnitNode data={competitors[0].unit} discipline={discipline} /> },
+              data: { label: <UnitNode data={competitors[0].unit} /> },
               position: { x: xOffset, y: yOffset - 35 },
-              style: { borderColor: grey[500], borderWidth: 0, padding: 0 },
+              style: { borderColor: theme.palette.divider, borderWidth: 0, padding: 0 },
             });
             competitors.forEach((competitor: any, competitorIndex: number) => {
               const participantId = competitor.participantId;
@@ -102,7 +102,7 @@ export const BracketsDisplayBuilder = ({ discipline, parameter }: Props) => {
                 width: 300,
                 data: { label: <CompetitorNode data={competitor} discipline={discipline} /> },
                 position: { x: xOffset, y: yOffset },
-                style: { borderColor: grey[500], borderWidth: 1, padding: 0 },
+                style: { borderColor: theme.palette.divider, borderWidth: 1, padding: 0 },
               });
               const indexForWinner =
                 competitor.frameBracket?.winner === true
@@ -123,7 +123,7 @@ export const BracketsDisplayBuilder = ({ discipline, parameter }: Props) => {
                   width: 300,
                   data: { label: <CompetitorNode data={competitor} discipline={discipline} /> },
                   position: { x: xOffset + 350, y: yOffset + winnerOffset },
-                  style: { borderColor: grey[500], borderWidth: 2, padding: 0 },
+                  style: { borderColor: theme.palette.divider, borderWidth: 2, padding: 0 },
                 });
 
                 edges.push({
@@ -161,7 +161,7 @@ export const BracketsDisplayBuilder = ({ discipline, parameter }: Props) => {
               width: 300,
               data: { label: <CompetitorNode data={competitor} discipline={discipline} /> },
               position: { x: xOffset, y: yOffset },
-              style: { borderColor: grey[500], borderWidth: 1, padding: 0 },
+              style: { borderColor: theme.palette.divider, borderWidth: 1, padding: 0 },
             });
 
             yOffset += finalPhase ? 50 : yCompetitorGap;
@@ -191,5 +191,9 @@ export const BracketsDisplayBuilder = ({ discipline, parameter }: Props) => {
   const stages = event.stages.filter((x: any) => x.type === ROUNDS.BRACKETS_TYPE);
   const { nodes, edges } = generateNodesAndEdges(stages, discipline);
 
-  return <BracketsFlow nodes={nodes} edges={edges} />;
+  return (
+    <MainCard>
+      <BracketsFlow nodes={nodes} edges={edges} />
+    </MainCard>
+  );
 };

@@ -5,11 +5,12 @@ import { layout } from 'themes/layout';
 interface StyleMainCardProps {
   border?: boolean;
   fullWidth?: boolean;
+  fullHeight?: boolean;
   shadow?: string;
 }
 export const StyleMainCard = styled(Card, {
   shouldForwardProp: (prop) => prop !== 'border', // Avoid passing border to DOM
-})<StyleMainCardProps>(({ theme, border, fullWidth, shadow }) => ({
+})<StyleMainCardProps>(({ theme, border, fullWidth, fullHeight, shadow }) => ({
   borderRadius: layout.radius.sm,
   ...(border && {
     border: '1px solid',
@@ -20,6 +21,9 @@ export const StyleMainCard = styled(Card, {
   }),
   ...(fullWidth && {
     width: '100%',
+  }),
+  ...(fullHeight && {
+    height: '100%',
   }),
   ':hover': {
     boxShadow: shadow ? layout.shadows.md : 'inherit',

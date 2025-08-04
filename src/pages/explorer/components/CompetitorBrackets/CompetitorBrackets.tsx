@@ -55,7 +55,13 @@ export const CompetitorBrackets: React.FC<Props> = ({ roundData, data, disciplin
           >
             {hasParticipants ? (
               <IconButton
-                sx={{ p: 0.5, color: theme.palette.secondary.contrastText }}
+                sx={{
+                  p: 1,
+                  height: 24,
+                  width: 24,
+                  color: theme.palette.common.white,
+                  border: `1px solid ${theme.palette.common.white}`,
+                }}
                 onClick={() => setOpen(!open)}
                 title={open ? t('general.hideTeamMembers') : t('general.showTeamMembers')}
                 aria-label={open ? t('general.hideTeamMembers') : t('general.showTeamMembers')}
@@ -71,7 +77,7 @@ export const CompetitorBrackets: React.FC<Props> = ({ roundData, data, disciplin
         </Paper>
       </Grid>
       <Grid size={12}>
-        <CompetitorStats data={data} discipline={discipline} />
+        <CompetitorStats data={data} />
       </Grid>
       {officials && officials?.length > 0 && (
         <Grid size={12}>

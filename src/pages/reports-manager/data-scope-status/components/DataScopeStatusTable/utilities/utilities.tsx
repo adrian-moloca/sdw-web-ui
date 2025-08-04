@@ -1,10 +1,9 @@
 import { JSX } from 'react';
-import { DeliveryStatusBreakDown } from 'types/delivery-data-scope';
-import { StatusType } from '../types';
 import { t } from 'i18next';
 import FileDownloadDoneOutlinedIcon from '@mui/icons-material/FileDownloadDoneOutlined';
 import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
 import { blue, orange, pink, green, lime, teal, purple, amber } from '@mui/material/colors';
+import { StatusType } from '../types';
 
 export const scopeTypeMap: Record<string, { label: string; icon: JSX.Element }> = {
   results: {
@@ -59,29 +58,51 @@ export const isValidStatus = (status: string | undefined): status is StatusType 
     'partiallyReceived',
     'partiallyReceivedWithErrors',
     'notReceived',
+    'notApplicable',
   ].includes(status);
 };
 
-export const transformDeliveryScopeRows = (items: DeliveryStatusBreakDown[]): any[] => {
+export const transformDeliveryScopeRows = (items: any): any[] => {
   if (!items?.length) return [];
 
-  return items.flatMap((item) =>
-    item.scope?.map((scopeEntry) => ({
-      id: `${item.competitionId}-${scopeEntry.scopeType}`,
-      status: scopeEntry.status,
-      readiness: scopeEntry.readinessPercentage,
+  return items.map((item: any) => {
+    const cleanCategories =
+      item.competitionCategories?.map((cat: any) => cat.replace('CCAT$', '').replace(/_/g, ' ')) ||
+      [];
+
+    return {
+      id: item.competitionId || `${item.disciplineName}-${item.fromYear}`,
+      competitionId: item.competitionId,
+      status: item.status,
+      readiness: item.readinessPercentage ?? 0,
       disciplineName: item.disciplineName,
-      competitionName: item.competitionName,
-      competitionCategories: item.competitionCategories,
-      fromYear: item.fromYear,
-      toYear: item.toYear,
-      frequency: item.frequency,
-      country: item.country,
-      region: item.region ?? '',
+      competitionName: item.competitionName || '',
+      competitionCategories: cleanCategories,
+      fromYear: item.fromYear?.toString() || '',
+      toYear: item.toYear?.toString() || '',
+      frequency: item.frequency || 0,
+      country: item.country || '',
+      region: item.region || '',
       season: item.fromYear && item.toYear ? `${item.fromYear}/${item.toYear}` : '',
-      scopeTypes: [scopeEntry.scopeType],
-      lastDataReceivedOn: item.lastDataReceivedOn ?? '',
-      comments: item.comments ?? '',
-    }))
-  );
+      scopeTypes: item.scopeType || [],
+      lastDataReceivedOn: item.lastDataReceivedOn || '',
+      comments: item.comments || '',
+      expectedCompetitions: 0,
+      successfullyReceived: 0,
+    };
+  });
+};
+export const calculateOverallStatus = (scopes: any[]): StatusType => {
+  if (!scopes.length) return 'notApplicable';
+
+  const statuses = scopes.map((s) => s.status);
+
+  if (statuses.every((s) => s === 'fullyReceived')) return 'fullyReceived';
+
+  if (statuses.some((s) => s === 'notReceived')) return 'notReceived';
+
+  if (statuses.some((s) => s === 'partiallyReceivedWithErrors'))
+    return 'partiallyReceivedWithErrors';
+
+  return 'partiallyReceived';
 };

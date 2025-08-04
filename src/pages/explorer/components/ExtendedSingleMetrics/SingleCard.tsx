@@ -1,5 +1,4 @@
 import { Card, CardContent, Grid, Typography } from '@mui/material';
-import { t } from 'i18next';
 import { olympicsDesignColors } from 'themes/colors';
 
 type Props = {
@@ -44,7 +43,7 @@ export const SingleCard = ({ data }: Props) => {
             noWrap
             sx={{ mb: 0 }}
           >
-            {t(`extendedInfo.${data?.key}`, { defaultValue: data?.label || data?.key })}
+            {data?.label}
           </Typography>
           <Typography variant="body1" fontWeight={500} color={'text.primary'} noWrap>
             {data?.formattedValue}

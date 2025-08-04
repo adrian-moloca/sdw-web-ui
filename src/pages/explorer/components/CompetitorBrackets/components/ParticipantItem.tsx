@@ -17,7 +17,6 @@ export const ParticipantItem: React.FC<ParticipantProps> = ({ data, textAlign, o
   const displayName = formatAthleteName(data);
   const { extendedResultMetrics } = useResults();
   const extendedMetrics = get(data, 'result.extensions.extendedResult');
-  const detailScore = get(data, 'result.extensions.extendedResult.detailScore');
   const filterData = data?.participants;
   const hasFilterData = filterData && filterData.length > 0;
   if (!data) return null;
@@ -29,12 +28,11 @@ export const ParticipantItem: React.FC<ParticipantProps> = ({ data, textAlign, o
     >
       <ParticipantBracketChip data={data} textAlign={textAlign} />
       <ParticipantIdentity data={data} textAlign={textAlign} displayName={displayName} />
-      {(extendedMetrics || detailScore) && (
+      {extendedMetrics && (
         <ExtendedMetricsList
           metrics={extendedMetrics}
           resultDefinitions={extendedResultMetrics}
           textAlign={textAlign}
-          detailScore={detailScore}
         />
       )}
       {hasFilterData && (

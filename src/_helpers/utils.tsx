@@ -697,3 +697,8 @@ export function stripCommonPrefixFromField(data: any[], field: string): any[] {
     [field]: item[field].slice(prefixLength).trim(),
   }));
 }
+export const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .replace(/[^\w]+/g, '-')
+    .replace(/^-+|-+$/g, '');

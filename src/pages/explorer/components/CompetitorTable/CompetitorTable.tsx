@@ -63,7 +63,8 @@ export const CompetitorTable: React.FC<Props> = ({ data, discipline, officials, 
       valueGetter: (_value, row) => valueGetter(col, row, extendedResultMetrics) ?? '',
       renderCell: (params: GridRenderCellParams) =>
         valueRender(col, params.row, discipline, extendedResultMetrics),
-      sortComparator: col.dataKey == 'rank' ? numericPrefixSortComparator : undefined,
+      sortComparator:
+        col.dataKey == 'rank' || col.dataKey == 'bib' ? numericPrefixSortComparator : undefined,
     });
   });
   if (withExpandedResults) {

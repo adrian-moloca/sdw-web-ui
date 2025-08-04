@@ -61,6 +61,7 @@ export const DataScopeStatusTable: React.FC<DataScopeStatusTableProps> = ({
         getRowClassName={(params: any) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
         }
+        getRowHeight={() => 'auto'}
         showToolbar
         slots={{
           toolbar: (): JSX.Element => <CustomToolbarStatusScope clearFilters={clearFilters} />,
@@ -87,17 +88,15 @@ export const DataScopeStatusTable: React.FC<DataScopeStatusTableProps> = ({
             borderBottom: 'none',
           },
           '& .MuiDataGrid-row': {
-            height: '32px',
-            maxHeight: '32px !important',
-            minHeight: '32px !important',
+            minHeight: 'auto !important',
+            height: 'auto !important',
+            maxHeight: 'none !important',
           },
           '& .MuiDataGrid-virtualScroller': {
             border: 'none',
           },
           '& .MuiDataGrid-cell': {
             borderBottom: 'none',
-            height: '32px',
-            maxHeight: '32px',
           },
           '& .MuiDataGrid-columnSeparator': {
             display: 'none',

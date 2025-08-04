@@ -1,6 +1,6 @@
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { AvatarHeader, CountryChip, MainCard, StyledIconButton } from 'components';
+import { AthleteAvatar, CountryChip, MainCard, StyledIconButton } from 'components';
 import { useModelConfig } from 'hooks';
 import useApiService from 'hooks/useApiService';
 import { t } from 'i18next';
@@ -8,7 +8,6 @@ import { EntityType } from 'models';
 import { useNavigate } from 'react-router-dom';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 import baseConfig from 'baseConfig';
-import { StatsCard } from './StatsCard';
 import dayjs from 'dayjs';
 import { Stack } from '@mui/system';
 import { formatAthleteName } from '_helpers';
@@ -29,12 +28,12 @@ export const RandomAthletes: React.FC = () => {
   const apiService = useApiService();
   const navigate = useNavigate();
   const { getConfig } = useModelConfig();
-  //const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery((theme: any) => theme.breakpoints.down('lg'));
   const config = getConfig(EntityType.Person);
   const randomLetters = getRandomLetters();
-  //user this if more athletes are needed
-  //const url = `${config.apiNode}/search?start=0&rows=${isMobile ? 3 : 6}&search=${randomLetters.vowel}${randomLetters.nonVowel}`;
-  const url = `${config.apiNode}/search?start=0&rows=3&search=${randomLetters.vowel}${randomLetters.nonVowel}`;
+  const randomCount = isMobile ? 3 : isTablet ? 5 : 6;
+  const url = `${config.apiNode}/search?start=0&rows=8&search=${randomLetters.vowel}${randomLetters.nonVowel}`;
   const filter = {
     query: {
       operator: 'AND',
@@ -54,10 +53,13 @@ export const RandomAthletes: React.FC = () => {
     queryFn: () => apiService.post(url, filter),
   });
 
-  const dataContent = isLoading ? [] : (data?.content ?? []);
+  const dataContent = isLoading ? [] : (data?.content?.slice(0, randomCount) ?? []);
   return (
-    <StatsCard
+    <MainCard
+      size="xlarge"
+      divider={false}
       title={t('general.random-olympians')}
+      sx={{ background: 'transparent', width: '100%' }}
       secondary={
         <StyledIconButton
           title={t('actions.see-more')}
@@ -69,27 +71,42 @@ export const RandomAthletes: React.FC = () => {
         </StyledIconButton>
       }
     >
-      <Stack direction={'row'} spacing={2} justifyContent="space-between" alignItems="center">
+      <Stack direction={'row'} spacing={3} justifyContent="space-between" alignItems="center">
         {dataContent.map((athlete: any) => (
           <MainCard
             key={athlete.id}
             sx={{ width: '100%', cursor: 'pointer' }}
             onClick={() => navigate(`/explorer/persons/${athlete.id}`)}
           >
-            <Stack alignItems={'center'} spacing={3} sx={{ pt: 6, height: 315 }}>
-              <AvatarHeader element={athlete} config={config} size="13rem" />
-              <Typography variant="body1" fontWeight={'bold'} sx={{ mt: 4 }}>
+            <Stack alignItems={'center'} spacing={2} sx={{ pt: 8, height: 380 }}>
+              <AthleteAvatar
+                src={athlete.profileImages}
+                size="13rem"
+                title={formatAthleteName(athlete)}
+              />
+              <Typography
+                variant="subtitle1"
+                textAlign={'center'}
+                fontWeight={'bold'}
+                sx={{ pt: 4 }}
+              >
                 {formatAthleteName(athlete)}
               </Typography>
               <CountryChip
                 code={athlete.country ?? athlete.nationality}
                 hideTitle={false}
-                size="tiny"
+                size="small"
               />
+              <Typography variant="body2" sx={{ mt: 5 }}>
+                {dayjs(athlete.dateOfBirth)
+                  .subtract(100, 'year')
+                  .format(baseConfig.generalDateFormat)
+                  .toUpperCase()}
+              </Typography>
             </Stack>
           </MainCard>
         ))}
       </Stack>
-    </StatsCard>
+    </MainCard>
   );
 };

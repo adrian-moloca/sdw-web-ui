@@ -29,7 +29,7 @@ export const getPointsBreakdownTableData = (
           pointsBreakdown.type == 'ROUTINE' || pointsBreakdown.type == 'SPEED'
             ? ''
             : t('general.points'),
-        width: 100,
+        width: 140,
         sortable: false,
       },
       ...pointsBreakdown.rounds.map((round: CodeNameDefinition) => ({

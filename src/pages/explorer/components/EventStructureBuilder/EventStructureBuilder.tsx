@@ -170,7 +170,7 @@ export const EventStructureBuilder = ({ parameter }: IPanelTabProps) => {
 
   const { nodes, edges } = generateNodesAndEdges(event, eCompetitionId, eDisciplineId);
   const noNodes = nodes.length / 4;
-  const calculatedHeight = noNodes * 90 + 200;
+  const calculatedHeight = noNodes * 180 + 200;
   const height = calculatedHeight < 900 ? calculatedHeight : 900;
 
   return (

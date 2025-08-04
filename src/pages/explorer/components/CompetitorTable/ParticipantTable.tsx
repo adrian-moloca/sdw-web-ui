@@ -43,7 +43,7 @@ export const ParticipantTable = ({ data, discipline }: Props) => {
                 ? t('general.helmet-number')
                 : t('general.bib'),
             renderCell: (params: GridRenderCellParams) => (
-              <Typography variant="body2">{params.value}</Typography>
+              <Typography variant="body1">{params.value}</Typography>
             ),
           },
         ]
@@ -54,7 +54,7 @@ export const ParticipantTable = ({ data, discipline }: Props) => {
       width: 120,
       valueGetter: (_value, row) => row.organisation.country,
       renderCell: (params: GridRenderCellParams) => (
-        <OrganisationChip data={params.row.organisation} extended={false} variant="body2" />
+        <OrganisationChip data={params.row.organisation} extended={false} variant="body1" />
       ),
     },
     {
@@ -64,7 +64,7 @@ export const ParticipantTable = ({ data, discipline }: Props) => {
       width: getMaxTextWidth('name', rowsWithOrder),
       valueGetter: (_value, row) => row.name,
       renderCell: (params: GridRenderCellParams) => (
-        <ParticipantChip data={params.row} variant="body2" />
+        <ParticipantChip data={params.row} variant="body1" />
       ),
     },
     {
@@ -72,7 +72,7 @@ export const ParticipantTable = ({ data, discipline }: Props) => {
       headerName: t('general.gender'),
       width: 80,
       renderCell: (params: GridRenderCellParams) => (
-        <Typography variant="body2">
+        <Typography variant="body1">
           {getMasterDataValue(params.value, MasterData.PersonGender)?.value}
         </Typography>
       ),
@@ -82,7 +82,7 @@ export const ParticipantTable = ({ data, discipline }: Props) => {
       headerName: t('common.dateOfBirth'),
       width: 130,
       renderCell: (params: GridRenderCellParams) => (
-        <Typography variant="body2">
+        <Typography variant="body1">
           {params.value
             ? dayjs(params.value).format(baseConfig.generalDateFormat).toUpperCase()
             : '-'}
@@ -95,7 +95,7 @@ export const ParticipantTable = ({ data, discipline }: Props) => {
       <ExtendedCard titleText={t('general.team-line-up')} icon={WorkspacesIcon}>
         <StripedDataGridBase
           rows={rowsWithOrder}
-          fontSize={theme.typography.body2.fontSize}
+          fontSize={theme.typography.body1.fontSize}
           getRowId={(row) => row.metaOrder}
           columns={columns}
           disableColumnMenu

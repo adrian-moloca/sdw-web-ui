@@ -9,16 +9,14 @@ export const OdfExtensionRow = (param: { row: any; discipline: string }) => {
     return (
       <>
         <TableRow>
-          <TableCell>{OdfTitle(param.row, param.discipline)}</TableCell>
+          <TableCell>{OdfTitle(param.row)}</TableCell>
           <TableCell>
             <Typography variant="body2">{formatCompactValue(param.row)}</Typography>
           </TableCell>
         </TableRow>
         {extension?.map((ext: any, i: number) => (
           <TableRow key={`${ext.code}-${ext.value}-${i}`}>
-            <TableCell sx={{ marginRight: 0.5 }}>
-              {OdfExtTitle(param.row, ext, param.discipline)}
-            </TableCell>
+            <TableCell sx={{ marginRight: 0.5 }}>{OdfExtTitle(param.row, ext)}</TableCell>
             <TableCell>
               <Typography
                 variant="body2"
@@ -35,7 +33,7 @@ export const OdfExtensionRow = (param: { row: any; discipline: string }) => {
     );
   return (
     <TableRow>
-      <TableCell>{OdfTitle(param.row, param.discipline)}</TableCell>
+      <TableCell>{OdfTitle(param.row)}</TableCell>
       <TableCell>
         <Typography variant="body2">{formatCompactValue(param.row)}</Typography>
       </TableCell>

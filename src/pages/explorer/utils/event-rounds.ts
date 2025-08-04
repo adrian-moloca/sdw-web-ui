@@ -4,9 +4,8 @@ import uniqBy from 'lodash/uniqBy';
 import { ROUNDS } from 'constants/explorer';
 import { Entry } from 'models';
 
-export const getRoundTitle = (row: any, roundTypes: Array<Entry>) => {
+export const getRoundTitle = (row: any, roundTypes: Array<Entry>, stageTypes: Array<Entry>) => {
   let round = get(row, 'round');
-
   if (round) {
     if (round === 'RTYP$8') {
       round = 'RTYP$8F';
@@ -17,7 +16,8 @@ export const getRoundTitle = (row: any, roundTypes: Array<Entry>) => {
 
     return roundTitle ?? normalizeTitle(row.title).trim();
   } else {
-    return normalizeTitle(row.title).trim();
+    const value = stageTypes?.find((x: any) => x.key === row.stageType);
+    return value?.value ?? normalizeTitle(row.title).trim();
   }
 };
 export const numberAvatar = (name: number | string) => {

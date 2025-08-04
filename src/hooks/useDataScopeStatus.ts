@@ -8,10 +8,9 @@ import {
 } from 'types/delivery-data-scope';
 
 export type UseDataScopeStatus = {
-  ingestionDeliveryStatus: DeliveryStatus;
+  packageDeliveryStatus: DeliveryStatus;
   competitionsDeliveryStatus: DeliveryStatus;
-  deliveryStatusBreakDown: DeliveryStatusBreakDown[];
-  ingestionDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
+  packageDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
   competitionsDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
   isLoading: boolean;
   isError: boolean;
@@ -64,11 +63,10 @@ export const useDataScopeStatus = (
   const content = deliveryDataScope?.content?.[0];
 
   return {
-    ingestionDeliveryStatus: content?.ingestionDeliveryStatus as DeliveryStatus,
+    packageDeliveryStatus: content?.packageDeliveryStatus as DeliveryStatus,
     competitionsDeliveryStatus: content?.competitionsDeliveryStatus as DeliveryStatus,
-    deliveryStatusBreakDown: content?.deliveryStatusBreakDown ?? [],
     competitionsDeliveryStatusBreakDown: content?.competitionsDeliveryStatusBreakDown ?? [],
-    ingestionDeliveryStatusBreakDown: content?.ingestionDeliveryStatusBreakDown ?? [],
+    packageDeliveryStatusBreakDown: content?.packageDeliveryStatusBreakDown ?? [],
     isLoading:
       isLoadingDeliveryDataScope ||
       isLoadingSetupData ||

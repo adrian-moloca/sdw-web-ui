@@ -18,7 +18,14 @@ export const PhaseUnitsDisplay = ({ data: sourceData, showTitle, discipline, lin
   const { i18n } = useTranslation();
   const { data, error, isLoading } = useQuery({
     queryKey: [link, i18n.language],
-    queryFn: () => apiService.fetch(link.replace('?trim=3', '') + '?languageCode=' + i18n.language),
+    queryFn: () => {
+      const cleanLink = link.replace('?trim=3', '');
+
+      if (!cleanLink.includes('languageCode')) {
+        return apiService.fetch(cleanLink + '?languageCode=' + i18n.language);
+      }
+      return apiService.fetch(cleanLink);
+    },
   });
 
   const dataContent = isLoading ? [] : (data?.data ?? []);

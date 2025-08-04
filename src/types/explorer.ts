@@ -46,14 +46,18 @@ export interface MedalProps {
   medals: Array<any>;
 }
 export type UsdmType = 'stage' | 'phase' | 'unit' | 'phase-units';
-export type CompetitorStat = {
-  code: string;
-  description: string;
-  value: string | null;
-  valueNum: number | null;
+
+export interface StatItem {
+  label: string;
+  value: number;
+  displayValue: string;
+  field: string;
+  breakdown: string[];
+}
+export interface CompetitorStat extends StatItem {
   name: string;
   id: string;
-};
+}
 export type UnifiedStat = {
   code: string;
   competitors: CompetitorStat[];

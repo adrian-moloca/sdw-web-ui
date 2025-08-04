@@ -3,7 +3,6 @@ export * from './Feature2Card';
 export * from './Feature3Card';
 export * from './Feature4Card';
 export * from './MainLinks';
-export * from './MainShortCuts';
 export * from './Tools';
 export * from './WelcomeCard';
 export * from './WelcomeUserCard';

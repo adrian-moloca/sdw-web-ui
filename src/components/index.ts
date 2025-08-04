@@ -1,4 +1,5 @@
 export * from './AthleteAvatar';
+export * from './CompetitionAvatar';
 export * from './AwardAvatar';
 export * from './AvatarBox';
 export * from './AvatarWrapper';

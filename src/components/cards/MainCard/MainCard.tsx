@@ -15,7 +15,7 @@ import { defaultHeaderSX, defaultHeaderSmSX } from './constants';
 import { Title } from './Title';
 import { StyleMainCard } from './StyleMainCard';
 
-type Size = 'large' | 'medium' | 'small' | 'tiny' | 'toolbar';
+type Size = 'large' | 'medium' | 'small' | 'tiny' | 'toolbar' | 'xlarge';
 
 type Props = {
   id?: string;
@@ -89,6 +89,7 @@ export const MainCard = ({
   const [showDetail, setShowDetail] = useState<boolean>(defaultExpanded === true);
 
   const titleSizeMap: Record<string, TypographyVariant> = {
+    xlarge: 'h2',
     large: 'h5',
     medium: 'h6',
     small: 'subtitle1',

@@ -32,16 +32,15 @@ export const EventResultsTab: React.FC<IPanelTabProps> = ({ data: eventData, par
     queryKey: [parameter.id, 'rounds'],
     queryFn: () => apiService.fetch(url),
   });
-
+  const dataContent = isLoading ? [] : (data?.data ?? []);
+  const displayResults = processResults(dataContent).reverse();
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
     setUnit(null);
   };
-
-  useEffect(() => setValue(0), [parameter.id]);
-
-  const dataContent = isLoading ? [] : (data?.data ?? []);
-
+  useEffect(() => {
+    setValue(0);
+  }, [parameter.id]);
   if (isLoading) {
     return <GenericLoadingPanel loading={true} />;
   }
@@ -60,7 +59,6 @@ export const EventResultsTab: React.FC<IPanelTabProps> = ({ data: eventData, par
     );
   }
 
-  const displayResults = processResults(dataContent).reverse();
   const numRounds = displayResults.length ?? 0;
   const disciplineCode = eventData.discipline?.code ?? eventData.sportDisciplineId;
   const hasBrackets =
@@ -86,24 +84,33 @@ export const EventResultsTab: React.FC<IPanelTabProps> = ({ data: eventData, par
         variant="scrollable"
         sx={{ '.MuiTabs-indicator': { backgroundColor: 'transparent' } }}
       >
-        {displayResults?.map((row: any, i: number) => (
-          <ButtonTab
-            key={row.id}
-            label={getRoundTitle(row, dataInfo[MasterData.RoundType])}
-            value={i}
-          />
-        ))}
-        {hasBrackets && <ButtonTab label={t('general.brackets')} value={numRounds + 1} />}
+        {displayResults?.map((row: any, i: number) => {
+          const label = getRoundTitle(
+            row,
+            dataInfo[MasterData.RoundType],
+            dataInfo[MasterData.StageType]
+          );
+          return <ButtonTab key={row.id} label={label} value={i} />;
+        })}
+        {hasBrackets && (
+          <ButtonTab label={t('general.brackets')} value={displayResults.length + 1} />
+        )}
       </TabList>
-      {displayResults?.map((row: any, i: number) => (
-        <TabPanel key={`${row.id}_content`} value={i} sx={{ p: 0, pb: 2, pt: 0 }}>
-          <MainCard>
-            <ResultsBuilder data={row} rounds={dataContent.rounds} discipline={disciplineCode} />
-          </MainCard>
-        </TabPanel>
-      ))}
+      {displayResults?.map((row: any, i: number) => {
+        return (
+          <TabPanel key={`${row.id}_content`} value={i} sx={{ p: 0, pb: 2, pt: 0 }}>
+            <MainCard>
+              <ResultsBuilder data={row} rounds={dataContent.rounds} discipline={disciplineCode} />
+            </MainCard>
+          </TabPanel>
+        );
+      })}
       {hasBrackets && (
-        <TabPanel key={`${ROUNDS.BRACKETS_TYPE}_content`} value={numRounds + 1} sx={{ p: 0 }}>
+        <TabPanel
+          key={`${ROUNDS.BRACKETS_TYPE}_content`}
+          value={displayResults.length + 1}
+          sx={{ p: 0 }}
+        >
           <BracketsDisplayBuilder discipline={disciplineCode} parameter={parameter} />
         </TabPanel>
       )}

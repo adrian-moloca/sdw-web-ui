@@ -48,7 +48,7 @@ export const ScoreBracket: React.FC<ParticipantProps> = ({ data, open, disciplin
             lineHeight={1.1}
             color={olympicsDesignColors.base.neutral.white}
           >
-            {formatMasterCode(data[0]?.frameBracket.result)}
+            {formatMasterCode(data[0]?.frameBracket?.result ?? '-')}
           </Typography>
           <RemoveOutlinedIcon sx={{ color: olympicsDesignColors.base.neutral.white }} />
           <Typography
@@ -56,7 +56,7 @@ export const ScoreBracket: React.FC<ParticipantProps> = ({ data, open, disciplin
             lineHeight={1.1}
             color={olympicsDesignColors.base.neutral.white}
           >
-            {formatMasterCode(data[1]?.frameBracket.result)}
+            {formatMasterCode(data[1]?.frameBracket?.result ?? '-')}
           </Typography>
         </Stack>
         <CombinedFrameResultsDisplay data={data} discipline={discipline} />

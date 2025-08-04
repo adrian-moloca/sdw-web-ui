@@ -17,33 +17,48 @@ export type DeliveryStatus = {
   };
 };
 
-export type DeliveryStatusBreakDownScope = {
-  readinessPercentage: number;
-  scopeType: string;
-  status: string;
-};
+export type StatusType =
+  | 'fullyReceived'
+  | 'partiallyReceived'
+  | 'partiallyReceivedWithErrors'
+  | 'notReceived'
+  | 'notApplicable';
+
+export enum ScopeTypeEnum {
+  RESULTS = 'results',
+  RANKING = 'ranking',
+  MEDALLISTS = 'medallists',
+  TEAM_MEMBERS = 'teamMembers',
+  POOLS = 'pools',
+  RESULTS_BREAKDOWN = 'resultsBreakdown',
+  SEASONAL_STANDINGS = 'seasonalStandings',
+  SEASONAL_RANKINGS = 'seasonalRankings',
+  OVERALL_STANDINGS = 'overallStandings',
+  RELAY = 'relay',
+}
 
 export type DeliveryStatusBreakDown = {
-  competitionCategories: string[];
-  competitionId: string;
-  competitionName: string;
-  disciplineCode: string;
+  competitionId?: string;
+  competitionName?: string;
   disciplineName: string;
-  country: string;
-  frequency: number;
-  fromYear: string;
-  scope: DeliveryStatusBreakDownScope[];
-  toYear: string;
+  disciplineCode?: string;
+  competitionCategories: string[];
+  fromYear?: string | number;
+  toYear?: string | number;
+  country?: string;
+  frequency?: number;
+  scopeType: ScopeTypeEnum[];
+  readinessPercentage: number;
+  status: StatusType;
   region?: string;
   lastDataReceivedOn?: string;
   comments?: string;
 };
 
 export type DeliveryDataScope = {
-  ingestionDeliveryStatus: DeliveryStatus;
+  packageDeliveryStatus: DeliveryStatus;
   competitionsDeliveryStatus: DeliveryStatus;
-  deliveryStatusBreakDown: DeliveryStatusBreakDown[];
-  ingestionDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
+  packageDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
   competitionsDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
   edition: {
     id: string;

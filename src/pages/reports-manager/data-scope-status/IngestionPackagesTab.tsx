@@ -14,26 +14,21 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [paginationModel] = useState({ pageSize: 25, page: 0 });
 
-  const { ingestionDeliveryStatus, ingestionDeliveryStatusBreakDown, isLoading, isError } =
+  const { packageDeliveryStatus, packageDeliveryStatusBreakDown, isLoading, isError } =
     useDataScopeStatus(paginationModel, selectedStatus);
 
   const filteredRows = () => {
-    if (!ingestionDeliveryStatusBreakDown) return [];
-
-    const raw = ingestionDeliveryStatusBreakDown;
+    if (!packageDeliveryStatusBreakDown) return [];
 
     if (selectedStatus === 'all') {
-      return transformDeliveryScopeRows(raw);
+      return transformDeliveryScopeRows(packageDeliveryStatusBreakDown);
     }
 
-    const filtered = raw.filter((item) => item.scope?.some((s) => s.status === selectedStatus));
-
-    return transformDeliveryScopeRows(
-      filtered.map((item) => ({
-        ...item,
-        scope: item.scope?.filter((s) => s.status === selectedStatus),
-      }))
+    const filtered = packageDeliveryStatusBreakDown.filter(
+      (item) => item.status === selectedStatus
     );
+
+    return transformDeliveryScopeRows(filtered);
   };
 
   if (isLoading) {
@@ -55,7 +50,7 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
     <DashboardLayout
       leftContent={
         <Metrics
-          deliveryStatus={ingestionDeliveryStatus}
+          deliveryStatus={packageDeliveryStatus}
           currentTab="ingestion-packages"
           onCardSelect={setSelectedStatus}
           selectedCard={selectedStatus ?? 'all'}

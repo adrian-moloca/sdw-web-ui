@@ -19,7 +19,6 @@ export const ParticipantItemMobile: React.FC<ParticipantProps> = ({ data, textAl
   const theme = useTheme();
   const { extendedResultMetrics } = useResults();
   const extendedMetrics = get(data, 'result.extensions.extendedResult');
-  const detailScore = get(data, 'result.extensions.extendedResult.detailScore');
   const filterData = data?.participants;
   const hasFilterData = filterData && filterData.length > 0;
   if (!data) return null;
@@ -38,12 +37,11 @@ export const ParticipantItemMobile: React.FC<ParticipantProps> = ({ data, textAl
       </Stack>
       <ParticipantIdentity data={data} textAlign={textAlign} displayName={displayName} />
 
-      {(extendedMetrics || detailScore) && (
+      {extendedMetrics && (
         <ExtendedMetricsList
           metrics={extendedMetrics}
           resultDefinitions={extendedResultMetrics}
           textAlign={textAlign}
-          detailScore={detailScore}
         />
       )}
 

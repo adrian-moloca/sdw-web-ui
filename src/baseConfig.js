@@ -11,10 +11,10 @@ const baseConfig = {
   defaultColumnHeaderHeight: 60,
   defaultSecondaryColumnHeaderHeight: 50,
   requestAccessForm: 'https://forms.office.com/e/EPYtudVWYb?origin=lprLink',
-  generalDateFormat: 'DD MMM YYYY',
-  dateTimeDateFormat: 'DD MMM YYYY HH:mm:ss',
-  dayDateFormat: 'ddd, DD MMM YYYY',
-  fullDayDateFormat: 'dddd DD MMMM YYYY',
+  generalDateFormat: 'D MMM YYYY',
+  dateTimeDateFormat: 'D MMM YYYY HH:mm:ss',
+  dayDateFormat: 'ddd, D MMM YYYY',
+  fullDayDateFormat: 'dddd D MMMM YYYY',
 };
 
 export default baseConfig;

@@ -2,7 +2,6 @@ import { Avatar, useMediaQuery, useTheme } from '@mui/material';
 import { apiConfig } from 'config/app.config';
 import { formatMasterCode, stringAvatar, stringImageAvatar, stringLargeAvatar } from '_helpers';
 import React, { ElementType } from 'react';
-import isoCodes from '_locales/sports_data/isoCodes-min';
 
 type AvatarSize = 'xlarge' | 'large' | 'medium' | 'tiny' | 'small' | null;
 
@@ -25,9 +24,6 @@ const AvatarBoxTemplate = (props: AvatarBoxProps) => {
     if (['REF', 'IOP', 'AIN', 'XXB', 'UKN'].includes(countryCode)) {
       countryCode = 'EOR';
     }
-
-    const isoCode = isoCodes.countries.find((x: any) => x.code === countryCode);
-
     const getAvatarStylesLookup = (size: AvatarSize | undefined) => {
       const commonStyles = {
         bgcolor: theme.palette.grey[100],
@@ -74,8 +70,8 @@ const AvatarBoxTemplate = (props: AvatarBoxProps) => {
         variant={variant ?? 'rounded'}
         color="primary"
         src={apiConfig.flagIso3EndPoint.replace('{0}', countryCode)}
-        alt={isoCode?.title}
-        {...stringImageAvatar(isoCode?.title?.toLocaleString().toUpperCase() ?? 'unknown')}
+        alt={countryCode}
+        {...stringImageAvatar(countryCode?.toLocaleString().toUpperCase() ?? 'unknown')}
       />
     );
   }

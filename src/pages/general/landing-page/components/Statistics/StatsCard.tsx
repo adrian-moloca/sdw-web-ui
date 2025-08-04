@@ -1,4 +1,5 @@
 import { MainCard } from 'components/cards/MainCard/MainCard';
+import { olympicsDesignColors } from 'themes/colors';
 import { layout } from 'themes/layout';
 
 interface StatsCardProps {
@@ -21,7 +22,8 @@ export const StatsCard: React.FC<StatsCardProps> = ({ title, secondary, subHeade
           px: theme.spacing(2),
           py: theme.spacing(2),
           textAlign: 'left',
-          backgroundColor: theme.palette.grey[100],
+          border: `1px solid ${olympicsDesignColors.light.general.divider}`,
+          backgroundColor: theme.palette.background.paper,
         }),
         (theme) =>
           theme.applyStyles('dark', {
@@ -30,7 +32,8 @@ export const StatsCard: React.FC<StatsCardProps> = ({ title, secondary, subHeade
             px: theme.spacing(2),
             py: theme.spacing(2),
             textAlign: 'left',
-            backgroundColor: theme.palette.grey[800],
+            border: `1px solid ${olympicsDesignColors.dark.general.divider}`,
+            backgroundColor: olympicsDesignColors.dark.general.background,
           }),
       ]}
       subHeader={subHeader}

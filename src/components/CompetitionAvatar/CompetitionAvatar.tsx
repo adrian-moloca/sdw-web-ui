@@ -1,18 +1,18 @@
 import { Avatar, AvatarProps } from '@mui/material';
 import { useState } from 'react';
 
-interface AthleteAvatarProps extends AvatarProps {
+interface CompetitionAvatarProps extends AvatarProps {
   src?: string;
   alt?: string;
   size?: number | string;
 }
 
-export const AthleteAvatar = ({
+export const CompetitionAvatar = ({
   src,
-  alt = 'Athlete',
+  alt = 'Competition',
   size = 40,
   ...props
-}: AthleteAvatarProps) => {
+}: CompetitionAvatarProps) => {
   const [imageError, setImageError] = useState(false);
 
   let urlImage = src ?? '';
@@ -48,7 +48,14 @@ export const AthleteAvatar = ({
             d="M53.2222 34.2222C53.2222 29.9267 56.7045 26.4444 61 26.4444C65.2955 26.4444 68.7778 29.9267 68.7778 34.2222C68.7778 38.5178 65.2955 42 61 42C56.7045 42 53.2222 38.5178 53.2222 34.2222ZM68.8387 43.6001C71.5181 41.3581 73.2222 37.9892 73.2222 34.2222C73.2222 27.4721 67.7501 22 61 22C54.2499 22 48.7778 27.4721 48.7778 34.2222C48.7778 37.9892 50.4819 41.3581 53.1613 43.6001C50.8077 44.6028 48.6677 46.048 46.8579 47.8579C45.0007 49.715 43.5275 51.9198 42.5224 54.3463C41.5173 56.7728 41 59.3736 41 62H45.4444C45.4444 59.9572 45.8468 57.9344 46.6285 56.0471C47.4103 54.1599 48.5561 52.445 50.0006 51.0006C51.445 49.5561 53.1599 48.4103 55.0471 47.6285C56.9344 46.8468 58.9572 46.4444 61 46.4444C63.0428 46.4444 65.0656 46.8468 66.9529 47.6285C68.8401 48.4103 70.555 49.5561 71.9994 51.0006C73.4439 52.445 74.5897 54.1599 75.3715 56.0471C76.1532 57.9344 76.5556 59.9572 76.5556 62H81C81 59.3736 80.4827 56.7728 79.4776 54.3463C78.4725 51.9198 76.9993 49.715 75.1421 47.8579C73.3323 46.048 71.1923 44.6028 68.8387 43.6001Z"
             fill="white"
           ></path>
-          <mask id="mask_athlete_0" maskUnits="userSpaceOnUse" x="61" y="80" width="23" height="22">
+          <mask
+            id="mask_Competition_0"
+            maskUnits="userSpaceOnUse"
+            x="61"
+            y="80"
+            width="23"
+            height="22"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -56,7 +63,7 @@ export const AthleteAvatar = ({
               fill="white"
             ></path>
           </mask>
-          <g mask="url(#mask_athlete_0)">
+          <g mask="url(#mask_Competition_0)">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -64,7 +71,14 @@ export const AthleteAvatar = ({
               fill="white"
             ></path>
           </g>
-          <mask id="mask_athlete_1" maskUnits="userSpaceOnUse" x="37" y="80" width="23" height="22">
+          <mask
+            id="mask_Competition_1"
+            maskUnits="userSpaceOnUse"
+            x="37"
+            y="80"
+            width="23"
+            height="22"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -72,7 +86,7 @@ export const AthleteAvatar = ({
               fill="white"
             ></path>
           </mask>
-          <g mask="url(#mask_athlete_1)">
+          <g mask="url(#mask_Competition_1)">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -80,7 +94,14 @@ export const AthleteAvatar = ({
               fill="white"
             ></path>
           </g>
-          <mask id="mask_athlete_2" maskUnits="userSpaceOnUse" x="73" y="70" width="23" height="22">
+          <mask
+            id="mask_Competition_2"
+            maskUnits="userSpaceOnUse"
+            x="73"
+            y="70"
+            width="23"
+            height="22"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -88,7 +109,7 @@ export const AthleteAvatar = ({
               fill="white"
             ></path>
           </mask>
-          <g mask="url(#mask_athlete_2)">
+          <g mask="url(#mask_Competition_2)">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -96,7 +117,14 @@ export const AthleteAvatar = ({
               fill="white"
             ></path>
           </g>
-          <mask id="mask_athlete_3" maskUnits="userSpaceOnUse" x="49" y="70" width="23" height="22">
+          <mask
+            id="mask_Competition_3"
+            maskUnits="userSpaceOnUse"
+            x="49"
+            y="70"
+            width="23"
+            height="22"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -104,7 +132,7 @@ export const AthleteAvatar = ({
               fill="white"
             ></path>
           </mask>
-          <g mask="url(#mask_athlete_3)">
+          <g mask="url(#mask_Competition_3)">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -112,7 +140,14 @@ export const AthleteAvatar = ({
               fill="white"
             ></path>
           </g>
-          <mask id="mask_athlete_4" maskUnits="userSpaceOnUse" x="26" y="70" width="22" height="22">
+          <mask
+            id="mask_Competition_4"
+            maskUnits="userSpaceOnUse"
+            x="26"
+            y="70"
+            width="22"
+            height="22"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -120,7 +155,7 @@ export const AthleteAvatar = ({
               fill="white"
             ></path>
           </mask>
-          <g mask="url(#mask_athlete_4)">
+          <g mask="url(#mask_Competition_4)">
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -139,6 +174,7 @@ export const AthleteAvatar = ({
       sx={{ height: size, width: size }}
       alt={alt}
       src={urlImage}
+      variant="rounded"
       imgProps={{ onError: () => setImageError(true) }} // Set onError to trigger fallback
       {...props}
     />

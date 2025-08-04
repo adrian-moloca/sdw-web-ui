@@ -20,20 +20,15 @@ const CompetitionsTab: React.FC = (): JSX.Element => {
   const filteredRows = () => {
     if (!competitionsDeliveryStatusBreakDown) return [];
 
-    const raw = competitionsDeliveryStatusBreakDown;
-
     if (selectedStatus === 'all') {
       return transformDeliveryScopeRows(competitionsDeliveryStatusBreakDown);
     }
 
-    const filtered = raw.filter((item) => item.scope?.some((s) => s.status === selectedStatus));
-
-    return transformDeliveryScopeRows(
-      filtered.map((item) => ({
-        ...item,
-        scope: item.scope?.filter((s) => s.status === selectedStatus),
-      }))
+    const filtered = competitionsDeliveryStatusBreakDown.filter(
+      (item) => item.status === selectedStatus
     );
+
+    return transformDeliveryScopeRows(filtered);
   };
 
   if (isLoading) {

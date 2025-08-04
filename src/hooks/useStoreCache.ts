@@ -153,7 +153,9 @@ export function useStoreCache(): UseStoreCache {
     for (const category of masterDataCategories) {
       if (!dataInfo[category] || dataInfo[category].length === 0) {
         const response = await apiService.getMasterData(`${url}${category}`, variables);
-        dispatch(dataActions.setMasterData({ category, data: response.content }));
+        if (!dataInfo[category] || dataInfo[category].length === 0) {
+          dispatch(dataActions.setMasterData({ category, data: response.content }));
+        }
       }
     }
     if (!dataInfo.sources || dataInfo.sources.length == 0) {

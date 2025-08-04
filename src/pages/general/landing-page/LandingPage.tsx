@@ -1,6 +1,5 @@
 import Grid from '@mui/material/Grid';
 import { MasterFooter } from 'layout/MasterFooter';
-import bannerOg from 'assets/images/run.jpg';
 import SDW_Locations from 'assets/images/SDW_Locations.avif';
 import { t } from 'i18next';
 import { PageContainer } from '@toolpad/core';
@@ -12,7 +11,6 @@ import {
   Feature3Card,
   Feature4Card,
   MainLinks,
-  MainShortCuts,
   WelcomeCard,
   WelcomeUserCard,
   WhatCard,
@@ -24,7 +22,6 @@ import {
   RecentDeathsTable,
   BornTodayTable,
 } from './components/Statistics';
-import { layout } from 'themes/layout';
 import baseConfig from 'baseConfig';
 import { RecentGamesTable } from './components/Statistics/RecentGamesTable';
 import { RandomAthletes } from './components/Statistics/RandomAthletes';
@@ -36,14 +33,13 @@ const LandingPage = () => {
     return (
       <PageContainer maxWidth="xl" title="" breadcrumbs={[]}>
         <Grid container spacing={baseConfig.gridSpacing}>
-          <Grid size={12}>
+          <Grid container size={12}>
             <WelcomeUserCard />
           </Grid>
-          <MainShortCuts />
-          <Grid size={{ xs: 12, md: 6 }} sx={{ mb: 2 }}>
+          <Grid size={12} sx={{ mb: 2 }}>
             <RecentGamesTable />
           </Grid>
-          <Grid size={{ xs: 12, md: 6 }} sx={{ mb: 2 }}>
+          <Grid size={12} sx={{ mb: 2 }}>
             <RandomAthletes />
           </Grid>
           <Grid size={{ xs: 12, md: 6 }} sx={{ mb: 2 }}>
@@ -51,18 +47,6 @@ const LandingPage = () => {
           </Grid>
           <Grid size={{ xs: 12, md: 6 }} sx={{ mb: 2 }}>
             <MedalAthleteTable />
-          </Grid>
-          <Grid size={12}>
-            <img
-              src={bannerOg}
-              alt={t('main.project.name')}
-              style={{
-                height: 'auto',
-                width: '100%',
-                marginRight: 5,
-                borderRadius: layout.radius.sm,
-              }}
-            />
           </Grid>
           <Grid size={{ xs: 12, md: 6 }} sx={{ mb: 2 }}>
             <RecentDeathsTable />

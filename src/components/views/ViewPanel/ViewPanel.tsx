@@ -111,7 +111,7 @@ export function ViewPanel<T>(props: Readonly<IViewPanelProps<T>>): React.ReactEl
         title={''}
         breadcrumbs={breadCrumbs}
         slots={{ header: BasicPageHeader }}
-        slotProps={{ header: { title: getName(), breadcrumbs: breadCrumbs } }}
+        slotProps={{ header: { title: '', breadcrumbs: breadCrumbs } }}
       >
         <ViewSkeleton />
       </PageContainer>

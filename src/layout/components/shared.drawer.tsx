@@ -13,7 +13,6 @@ const CategoryForm = lazy(() => import('pages/reports-manager/forms/CategoryForm
 const VariationForm = lazy(() => import('pages/reports-manager/forms/VariationForm'));
 const SourceForm = lazy(() => import('pages/reports-manager/forms/SourceForm'));
 const QuotaForm = lazy(() => import('pages/reports-manager/forms/QuotaForm'));
-const CompetitorDisplay = lazy(() => import('pages/explorer/forms/CompetitorDisplay'));
 const CompetitorUsdfDisplay = lazy(() => import('pages/explorer/forms/CompetitorUsdfDisplay'));
 const EditGeneralForm = lazy(() => import('pages/tools/consolidation/components/EditGeneralForm'));
 const DeliverDataScopeForm = lazy(() => import('pages/reports-manager/forms/DeliverDataScopeForm'));
@@ -87,15 +86,6 @@ const SharedDrawer: React.FC = () => {
       case EntityType.SecurityClient:
         return (
           <SecurityClientForm
-            data={selectedItem}
-            onClose={handleClose}
-            editionMode={mode!}
-            type={type}
-          />
-        );
-      case EntityType.Participant:
-        return (
-          <CompetitorDisplay
             data={selectedItem}
             onClose={handleClose}
             editionMode={mode!}

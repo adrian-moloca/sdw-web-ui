@@ -9,7 +9,6 @@ export * from './TableCellResultStatus';
 export * from './TableCellStartDate';
 export * from './TableCellEvent';
 export * from './TableCellTeam';
-export * from './TableCellExtendedCompetitor';
 export * from './TableCellMedal';
 export * from './TableCellTeamMembers';
 export * from './TableExtendedResults';

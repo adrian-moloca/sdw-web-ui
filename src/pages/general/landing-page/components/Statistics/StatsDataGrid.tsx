@@ -20,11 +20,11 @@ export const StatsDataGrid = styled(DataGridPro, {
     }),
   },
   '& .MuiDataGrid-columnHeader': {
-    borderRightColor: theme.palette.background.default,
-    backgroundColor: theme.palette.background.paper,
+    borderRightColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
     color: theme.palette.text.primary,
     ...theme.applyStyles('dark', {
-      backgroundColor: olympicsDesignColors.dark.general.background,
+      backgroundColor: olympicsDesignColors.dark.general.surface,
       color: olympicsDesignColors.dark.text.primary,
     }),
     fontFamily: theme.typography.body1.fontFamily,

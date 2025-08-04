@@ -89,12 +89,13 @@ export const InfoCard = ({ card, reverse = false, vertical = false }: Props) => 
               }}
             />
             <Box sx={{ zIndex: 2 }}>
-              <Typography variant="h2" gutterBottom>
+              <Typography variant="h1" gutterBottom>
                 {variantData.title}
               </Typography>
               {variantData.subTitle && (
                 <Typography
                   gutterBottom
+                  variant="h1"
                   dangerouslySetInnerHTML={{ __html: variantData.subTitle }}
                 />
               )}

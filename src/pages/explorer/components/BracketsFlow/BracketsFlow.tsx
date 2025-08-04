@@ -8,7 +8,7 @@ type Props = {
 
 export const BracketsFlow = ({ nodes, edges }: Props) => {
   const noNodes = nodes.length / 4;
-  const calculatedHeight = noNodes * 80 + 200;
+  const calculatedHeight = noNodes * 120 + 200;
   const height = calculatedHeight < 900 ? calculatedHeight : 900;
 
   return (

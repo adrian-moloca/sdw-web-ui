@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 import { Chip, TableCell, TableRow } from '@mui/material';
-import { BiosCountry } from '../BiosCountry';
+import { CountryChip } from 'components';
 
 export const DisplayMainField = (props: Readonly<{ opponent1: any; opponent2: any }>) => {
   const value1 = get(props.opponent1, 'team') ?? get(props.opponent1, 'participationName');
@@ -47,18 +47,10 @@ export const DisplayMainField = (props: Readonly<{ opponent1: any; opponent2: an
       </TableRow>
       <TableRow>
         <TableCell sx={{ textAlign: 'right', borderBottom: 'unset', width: '45%' }}>
-          <BiosCountry
-            countryCode={get(props.opponent1, 'organisationCode')}
-            size="default"
-            position="1"
-          />
+          <CountryChip code={get(props.opponent1, 'organisationCode')} hideTitle={false} />
         </TableCell>
         <TableCell sx={{ textAlign: 'left', borderBottom: 'unset', width: '45%' }}>
-          <BiosCountry
-            countryCode={get(props.opponent2, 'organisationCode')}
-            size="default"
-            position="2"
-          />
+          <CountryChip code={get(props.opponent2, 'organisationCode')} hideTitle={false} />
         </TableCell>
       </TableRow>
     </>

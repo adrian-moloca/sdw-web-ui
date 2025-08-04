@@ -11,12 +11,11 @@ import {
 } from '@mui/material';
 import get from 'lodash/get';
 import Grid from '@mui/material/Grid';
-import { MainCard } from 'components';
+import { CountryChip, MainCard } from 'components';
 import { apiConfig } from 'config/app.config';
 import LandscapeTwoToneIcon from '@mui/icons-material/LandscapeTwoTone';
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import EmojiEventsTwoToneIcon from '@mui/icons-material/EmojiEventsTwoTone';
-import { BiosCountry } from '../BiosCountry';
 import { DisplayResult } from '../DisplayResult';
 
 export function DisplayRound(props: Readonly<{ data: any; opponent1: any; opponent2: any }>) {
@@ -124,10 +123,10 @@ export function DisplayRound(props: Readonly<{ data: any; opponent1: any; oppone
                     <Chip size="small" color="primary" label="TIE" />
                   )}
                   <Typography>{value1}</Typography>
-                  <BiosCountry
-                    countryCode={get(props.opponent1, 'organisationCode')}
+                  <CountryChip
+                    code={get(props.opponent1, 'organisationCode')}
                     size="small"
-                    position="1"
+                    hideTitle={false}
                   />
                 </Stack>
               </TableCell>
@@ -173,10 +172,10 @@ export function DisplayRound(props: Readonly<{ data: any; opponent1: any; oppone
                           }
                   }
                 >
-                  <BiosCountry
-                    countryCode={get(props.opponent2, 'organisationCode')}
+                  <CountryChip
+                    code={get(props.opponent2, 'organisationCode')}
                     size="small"
-                    position="2"
+                    hideTitle={false}
                   />
                   <Typography>{value2}</Typography>
                   {props.data.winnerOpponentId === props.opponent2.id && (

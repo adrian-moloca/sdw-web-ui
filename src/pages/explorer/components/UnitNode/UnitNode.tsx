@@ -1,11 +1,9 @@
-import { Avatar, Typography } from '@mui/material';
-import { cyan } from '@mui/material/colors';
+import { Typography } from '@mui/material';
 import { MainCard } from 'components';
 import { normalizeTitle } from '../../utils/event-rounds';
 
 type Props = {
   data: any;
-  discipline: any;
 };
 
 export const UnitNode = ({ data }: Props) => {
@@ -16,14 +14,9 @@ export const UnitNode = ({ data }: Props) => {
       border={false}
       divider={false}
       title={
-        <Typography textAlign="left" lineHeight={1.1} fontWeight="bold">
+        <Typography textAlign="left" lineHeight={1.1} fontWeight="500">
           {normalizeTitle(data.title)}
         </Typography>
-      }
-      avatar={
-        <Avatar
-          sx={{ height: '26px', width: '26px', bgcolor: cyan[600], fontSize: '14px' }}
-        >{`U`}</Avatar>
       }
     />
   );

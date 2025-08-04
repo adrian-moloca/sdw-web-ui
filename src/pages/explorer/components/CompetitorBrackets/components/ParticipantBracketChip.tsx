@@ -13,7 +13,7 @@ export const ParticipantBracketChip: React.FC<{ data: any; textAlign: 'left' | '
     <Stack direction="row" spacing={2} alignItems={'center'}>
       {textAlign == 'left' && (
         <>
-          {data.frameBracket.winner && (
+          {data.frameBracket?.winner && (
             <CheckCircleOutlineOutlinedIcon
               sx={{ color: olympicsDesignColors.base.neutral.white }}
             />
@@ -29,7 +29,7 @@ export const ParticipantBracketChip: React.FC<{ data: any; textAlign: 'left' | '
           <Typography variant="h1" lineHeight={1.1} color={olympicsDesignColors.base.neutral.white}>
             {formatMasterCode(get(data, 'organisation.country'))}
           </Typography>
-          {data.frameBracket.winner && (
+          {data.frameBracket?.winner && (
             <CheckCircleOutlineOutlinedIcon
               sx={{ color: olympicsDesignColors.base.neutral.white }}
             />

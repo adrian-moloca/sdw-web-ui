@@ -55,22 +55,22 @@ export const CombinedFrameResultsDisplay = ({ data, discipline }: Props) => {
             border={false}
             dividerColor={theme.palette.text.secondary}
             headerSX={{
-              bgcolor: theme.palette.background.default,
-              borderRadius: 1,
+              bgcolor: theme.palette.primary.light,
+              borderRadius: 0,
               px: 2,
-              pb: 1,
-              pt: 2,
+              pb: 2,
+              pt: 3,
               textAlign: 'center',
               whiteSpace: 'nowrap',
             }}
             title={
-              <Typography variant="body2" lineHeight={1.1} fontWeight={600}>
+              <Typography variant="body2" lineHeight={1.1} fontWeight={500}>
                 {getFrameTitle(i, discipline)}
               </Typography>
             }
             content={false}
           >
-            <Box sx={{ py: 1, px: 1 }}>
+            <Box sx={{ py: 2, px: 1 }}>
               {hasValues && preferredValue(i, discipline) === 'value' && (
                 <Typography variant="body2" lineHeight={1.2}>
                   {values.join(' - ')}

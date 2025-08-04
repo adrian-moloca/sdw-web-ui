@@ -3,26 +3,26 @@ import { ViewPanel } from 'components';
 import { useModelConfig, useSecurityProfile, useStoreCache } from 'hooks';
 import { EntityType, MenuFlagEnum } from 'models';
 import { CompetitionProfile } from 'pages/profiles';
+import { useTranslation } from 'react-i18next';
 
 const CompetitionDetailsPage = () => {
   const { getConfig } = useModelConfig();
   const config = getConfig(EntityType.Competition);
   const { checkPermission } = useSecurityProfile();
-  const { getMetadata, handleMetadata, handleHidden } = useStoreCache();
-
+  const { getMetadata, handleMetadata, handleHidden, handleMasterDataInfo } = useStoreCache();
+  const { i18n } = useTranslation();
   useEffect(() => {
     handleMetadata(config.type);
     handleHidden(config.type);
-    handleMetadata(EntityType.Discipline);
-    handleMetadata(EntityType.Event);
-    handleMetadata(EntityType.Phase);
-    handleMetadata(EntityType.Unit);
-    handleMetadata(EntityType.Participant);
-    handleMetadata(EntityType.Result);
-    handleMetadata(EntityType.Record);
     checkPermission(MenuFlagEnum.Explorer);
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      await handleMasterDataInfo();
+    };
+    fetchData();
+  }, [i18n.language]);
   return (
     <ViewPanel
       config={config}

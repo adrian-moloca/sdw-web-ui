@@ -1,5 +1,5 @@
 import { Grid, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
-import { formatCompactValue, getOdfDefinition, isNumeric, transformOdfExtensions } from '_helpers';
+import { camelCaseToWords, formatCompactValue, transformOdfExtensions } from '_helpers';
 import {
   BorderedTable,
   DisplayValue,
@@ -35,7 +35,7 @@ export const BuildOdfTablePosition = (param: { data: Array<any>; discipline: str
               component="span"
               sx={{ marginRight: 0.5 }}
             >
-              {OdfTitle(y, param.discipline)} {DisplayValue('', y.value)}
+              {OdfTitle(y)} {DisplayValue('', y.value)}
             </Typography>
           ))}
         </TableCell>
@@ -44,7 +44,7 @@ export const BuildOdfTablePosition = (param: { data: Array<any>; discipline: str
 
     return (
       <TableRow key={item.code}>
-        <TableCell>{OdfTitle(item, param.discipline)}</TableCell>
+        <TableCell>{OdfTitle(item)}</TableCell>
         {cells}
       </TableRow>
     );
@@ -56,9 +56,7 @@ export const BuildOdfTablePosition = (param: { data: Array<any>; discipline: str
           <TableRow>
             <StyledSmallCell />
             {uniquePositions.map((pos) => (
-              <StyledSmallCell key={pos}>
-                {!isNumeric(pos) ? (getOdfDefinition(pos, param.discipline)?.text ?? pos) : pos}
-              </StyledSmallCell>
+              <StyledSmallCell key={pos}>{pos}</StyledSmallCell>
             ))}
           </TableRow>
         </TableHead>
@@ -77,7 +75,7 @@ export const OdfTablePositionPlain = (param: { data: Array<any>; discipline: str
     source.filter((x: any) => get(x, field)).length > 0;
   const getOdfTitle = (row: any) => {
     const code = get(row, 'code');
-    const title = getOdfDefinition(get(row, 'code'), param.discipline)?.text;
+    const title = camelCaseToWords(code);
     return title ?? code;
   };
   return (
