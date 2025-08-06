@@ -89,7 +89,7 @@ export const InfoCard = ({ card, reverse = false, vertical = false }: Props) => 
               }}
             />
             <Box sx={{ zIndex: 2 }}>
-              <Typography variant="h1" gutterBottom>
+              <Typography variant="h2" gutterBottom>
                 {variantData.title}
               </Typography>
               {variantData.subTitle && (
@@ -112,7 +112,7 @@ export const InfoCard = ({ card, reverse = false, vertical = false }: Props) => 
                 spacing={1}
                 justifyContent={'flex-start'}
                 width="100%"
-                sx={{ mt: 1 }}
+                sx={{ mt: 4 }}
               >
                 {variantData.buttons.map((button, index) => {
                   const { href } = button;

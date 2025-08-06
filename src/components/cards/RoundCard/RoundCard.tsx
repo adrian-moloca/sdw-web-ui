@@ -9,9 +9,10 @@ interface Props {
   icon?: OverridableComponent<SvgIconTypeMap>;
   secondary?: React.ReactElement;
   children?: React.ReactElement | React.ReactElement[];
+  transparent?: boolean;
 }
 
-export const RoundCard: React.FC<Props> = ({ title, icon, children, secondary }) => {
+export const RoundCard: React.FC<Props> = ({ title, icon, children, secondary, transparent }) => {
   const Icon = icon;
   return (
     <MainCard
@@ -25,7 +26,6 @@ export const RoundCard: React.FC<Props> = ({ title, icon, children, secondary })
                 (theme) => ({
                   width: 24,
                   height: 24,
-                  background: theme.palette.background.default,
                   color: theme.palette.text.primary,
                   borderColor: theme.palette.text.primary,
                   border: '1px solid',
@@ -35,6 +35,7 @@ export const RoundCard: React.FC<Props> = ({ title, icon, children, secondary })
                     width: 24,
                     height: 24,
                     background: olympicsDesignColors.dark.general.background,
+
                     color: olympicsDesignColors.dark.text.primary,
                     borderColor: olympicsDesignColors.dark.general.divider,
                     border: '1px solid',
@@ -48,17 +49,18 @@ export const RoundCard: React.FC<Props> = ({ title, icon, children, secondary })
       }
       divider={false}
       border={false}
-      headerSX={{ px: 1, pt: 2, textAlign: 'left' }}
+      headerSX={{ px: transparent === true ? 0 : 1, pt: 2, textAlign: 'left' }}
       contentSX={{ paddingTop: '0!important' }}
       sx={[
         (theme) => ({
           width: '100%',
-          backgroundColor: theme.palette.grey[50],
+          backgroundColor: transparent === true ? 'transparent' : theme.palette.grey[50],
         }),
         (theme) =>
           theme.applyStyles('dark', {
             width: '100%',
-            backgroundColor: olympicsDesignColors.dark.general.background,
+            backgroundColor:
+              transparent === true ? 'transparent' : olympicsDesignColors.dark.general.background,
           }),
       ]}
       secondary={secondary}

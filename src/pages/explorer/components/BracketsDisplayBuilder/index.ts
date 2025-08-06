@@ -1,1 +1,1 @@
-export * from './BracketsDisplayBuilder';
+export * from './EventBracketsDisplayBuilder';

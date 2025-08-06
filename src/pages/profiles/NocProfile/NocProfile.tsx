@@ -21,7 +21,7 @@ import { OlympicColors } from 'themes/colors';
 import { MedalKpiControl } from 'pages/explorer/components';
 import { ViewProfile as NocViewProfile, EditProfile as NocEditProfile } from './components';
 import { BiographyProfile, BioStatusControl } from 'pages/biographies-manager/components';
-import { ProfileButtons, EditProfile, ProfileItemText, ProfileItemElement } from '../components';
+import { EditProfile, ProfileItemText, ProfileItemElement } from '../components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 
@@ -62,7 +62,7 @@ export const NocProfile = (props: Props) => {
     <Grid container spacing={2}>
       {isOpen && (
         <Grid size={isOpen ? { xs: 12, sm: 12, md: 12, lg: 4 } : 0}>
-          <MainCard content={false}>
+          <MainCard content={false} sx={{ pb: 4 }}>
             <Stack
               spacing={1}
               sx={{
@@ -164,29 +164,15 @@ export const NocProfile = (props: Props) => {
             <BiographyProfile data={data} type={props.type} />
             <Divider variant="fullWidth" />
             {get(data, 'externalIds') && (
-              <List>
-                <ProfileItemElement
-                  element={
-                    <FieldTemplate
-                      type={TemplateType.ExternalIds}
-                      value={get(data, 'externalIds')}
-                      withText={false}
-                      icon={ContactsOutlinedIcon}
-                    />
-                  }
+              <List dense={true}>
+                <FieldTemplate
+                  type={TemplateType.ExternalIds}
+                  value={get(data, 'externalIds')}
+                  withText={false}
+                  icon={ContactsOutlinedIcon}
                 />
               </List>
             )}
-            <>
-              {canUpdate && editionMode == EditionMode.Detail && (
-                <ProfileButtons
-                  canEdit={canUpdate}
-                  canMerge={false}
-                  hasMerge={false}
-                  handleOnClickEdit={handleOnClickEdit}
-                />
-              )}
-            </>
           </MainCard>
         </Grid>
       )}

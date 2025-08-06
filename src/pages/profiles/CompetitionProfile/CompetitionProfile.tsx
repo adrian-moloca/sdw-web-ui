@@ -37,7 +37,6 @@ import { OlympicColors } from 'themes/colors';
 import { HideShowDialog } from 'pages/tools/consolidation/components';
 import { CompetitionDetails } from './components';
 import {
-  ProfileButtons,
   EditProfile,
   BiographySocialMediaBlock,
   ProfileItem,
@@ -97,7 +96,7 @@ export const CompetitionProfile = ({ data, type, setup }: Props) => {
     <Grid container spacing={2}>
       {isOpen && (
         <Grid size={isOpen ? { xs: 12, sm: 12, md: 12, lg: 3 } : 0}>
-          <MainCard content={false}>
+          <MainCard content={false} sx={{ pb: 4 }}>
             <Stack
               spacing={1}
               sx={{
@@ -212,29 +211,14 @@ export const CompetitionProfile = ({ data, type, setup }: Props) => {
               <BiographySocialMediaBlock data={data} />
             </List>
             <Divider variant="fullWidth" />
-            <List>
-              <ProfileItemElement
-                element={
-                  <FieldTemplate
-                    type={TemplateType.ExternalIds}
-                    value={get(data, 'externalIds')}
-                    withText={false}
-                    icon={ContactsOutlinedIcon}
-                  />
-                }
+            <List dense={true}>
+              <FieldTemplate
+                type={TemplateType.ExternalIds}
+                value={get(data, 'externalIds')}
+                withText={false}
+                icon={ContactsOutlinedIcon}
               />
             </List>
-            <>
-              {canUpdate && editionMode === EditionMode.Detail && (
-                <ProfileButtons
-                  canEdit={canUpdate}
-                  canMerge={false}
-                  hasMerge={setup?.request}
-                  handleOnClickEdit={handleOnClickEdit}
-                  handleOnClickHide={handleOnClickHide}
-                />
-              )}
-            </>
           </MainCard>
         </Grid>
       )}

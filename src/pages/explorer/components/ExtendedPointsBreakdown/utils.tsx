@@ -7,6 +7,7 @@ import {
   PointPropertyDefinition,
 } from './types';
 import get from 'lodash/get';
+import { Typography } from '@mui/material';
 
 interface RowItem {
   id: string;
@@ -83,6 +84,61 @@ export const getPointsBreakdownTableData = (
       });
       return item;
     });
+    return { columns, rows };
+  } else if (hasRounds && hasCategories) {
+    const columns: GridColDef[] = [
+      {
+        field: 'code',
+        headerName: '',
+        width: 140,
+        flex: pointsBreakdown.type == 'ROUTINE' ? undefined : 1,
+        sortable: false,
+      },
+      ...pointsBreakdown.rounds.map(
+        (round: CodeNameDefinition) =>
+          ({
+            field: round.code,
+            headerName: round.title,
+            width: 100,
+            sortable: false,
+            renderCell: ({ value, row }) => {
+              const discarded = row[`${round.code}_discarded`];
+              return (
+                <>
+                  {discarded === 'Y' ? (
+                    <Typography color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                      {value}
+                    </Typography>
+                  ) : (
+                    <Typography>{value}</Typography>
+                  )}
+                </>
+              );
+            },
+          }) as GridColDef
+      ),
+    ];
+    const rows = pointsBreakdown.categories.map((category: CodeNameDefinition) => {
+      const item: RowItem = {
+        id: category.code,
+        code: category.title,
+      };
+
+      pointsBreakdown.rounds.forEach((round: CodeNameDefinition) => {
+        pointsBreakdown.properties
+          .filter((property: PointPropertyDefinition) => property.field !== 'discarded')
+          .forEach((property: PointPropertyDefinition) => {
+            const value = pointsBreakdown.breakdown.find(
+              (b: BreakdownItem) => b.category === category.code && b.round === round.code
+            );
+            item[round.code] = get(value, property.field) ?? undefined;
+            item[round.code + '_discarded'] = get(value, 'discarded') ?? undefined;
+          });
+      });
+
+      return item;
+    });
+
     return { columns, rows };
   }
   return { columns: [], rows: [] };

@@ -775,7 +775,8 @@
     "years": "年",
     "usdf-output": "USDF输出",
     "recent-games": "最近的奥运会",
-    "random-olympians": "随机奥运选手"
+    "random-olympians": "随机奥运选手",
+    "date-of-passing": "自从记忆中"
   },
   "access-request": {
     "acceptTerms": "您接受并同意SDW使用条款和OCS隐私条款",
@@ -962,7 +963,8 @@
     "showLess": "少显示",
     "showMore": "显示更多",
     "start": "开始",
-    "stop": "停止"
+    "stop": "停止",
+    "copy-to-clipboard": "复制到剪贴板"
   },
   "charts": {
     "continents-by-medals": "大陆的奖牌",

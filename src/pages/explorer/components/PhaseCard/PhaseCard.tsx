@@ -14,7 +14,11 @@ export const PhaseCard = ({ data, discipline }: TCardProps) => {
     );
 
   return (
-    <RoundCard title={<PhaseHeader data={data} />} secondary={<ScheduleDisplay data={data} />}>
+    <RoundCard
+      title={<PhaseHeader data={data} />}
+      secondary={<ScheduleDisplay data={data} />}
+      transparent={data?.competitors.length === 2}
+    >
       {data?.competitors.length > 2 ? (
         <CompetitorTable
           data={data.competitors}

@@ -45,7 +45,7 @@ import { TypographyLink } from 'components';
 import baseConfig from 'baseConfig';
 import orderBy from 'lodash/orderBy';
 
-const filterEnumOperators = (type: EnumType): GridFilterOperator[] => {
+export const filterEnumOperators = (type: EnumType): GridFilterOperator[] => {
   return [
     {
       label: 'Is Any Of',
@@ -618,9 +618,9 @@ export const buildCountryColumn = (
         headerName: label,
         filterable: true,
         type: 'singleSelect',
-        valueOptions: data.map((x: Entry) => ({
-          label: x.description,
-          value: x.value,
+        valueOptions: data.map((x: any) => ({
+          label: x.value,
+          value: x.key,
         })),
       }
     : { ...commonFields, headerName: label ?? field, filterable: true };

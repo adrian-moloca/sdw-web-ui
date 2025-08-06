@@ -24,12 +24,10 @@ import useConsolidation from 'hooks/useConsolidation';
 import { EditProfile as PersonEditProfile, ViewProfile as PersonViewProfile } from './components';
 import { BiographyProfile, BioStatusControl } from 'pages/biographies-manager/components';
 import {
-  ProfileButtons,
   EditProfile,
   MergeProfile,
   BiographySocialMediaBlock,
   ProfileItemText,
-  ProfileItemElement,
   ProfileItemCountry,
   ValidateProfile,
 } from '../components';
@@ -100,7 +98,7 @@ export const PersonProfile = ({ data, type, setup }: Props) => {
     <Grid container spacing={2}>
       {isOpen && (
         <Grid size={isOpen ? { xs: 12, sm: 12, md: 12, lg: 3 } : 0}>
-          <MainCard content={false}>
+          <MainCard content={false} sx={{ pb: 4 }}>
             <Stack
               spacing={1}
               sx={{
@@ -214,16 +212,12 @@ export const PersonProfile = ({ data, type, setup }: Props) => {
             />
             <BiographyProfile data={data} type={type} />
             <Divider variant="fullWidth" />
-            <List>
-              <ProfileItemElement
-                element={
-                  <FieldTemplate
-                    type={TemplateType.ExternalIds}
-                    value={get(data, 'externalIds')}
-                    withText={false}
-                    icon={ContactsOutlinedIcon}
-                  />
-                }
+            <List dense={true}>
+              <FieldTemplate
+                type={TemplateType.ExternalIds}
+                value={get(data, 'externalIds')}
+                withText={false}
+                icon={ContactsOutlinedIcon}
               />
             </List>
             {couldMerge(type) && setup?.request && (
@@ -233,16 +227,6 @@ export const PersonProfile = ({ data, type, setup }: Props) => {
                   <MergeRequestCard data={setup?.request} />
                 </Box>
               </>
-            )}
-            {canUpdate && editionMode === EditionMode.Detail && (
-              <ProfileButtons
-                canEdit={canUpdate}
-                canMerge={canMerge()}
-                hasMerge={setup?.request && type == EntityType.Person}
-                handleOnClickValidate={handleOnClickValidate}
-                handleOnClickMerge={handleOnClickMerge}
-                handleOnClickEdit={handleOnClickEdit}
-              />
             )}
           </MainCard>
         </Grid>

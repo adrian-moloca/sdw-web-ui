@@ -47,9 +47,9 @@ export type DeliveryStatusBreakDown = {
   toYear?: string | number;
   country?: string;
   frequency?: number;
-  scopeType: ScopeTypeEnum[];
-  readinessPercentage: number;
-  status: StatusType;
+  scope: ScopeTypeEnum[];
+  completionRate: number;
+  overallStatus: StatusType;
   region?: string;
   lastDataReceivedOn?: string;
   comments?: string;
@@ -57,9 +57,9 @@ export type DeliveryStatusBreakDown = {
 
 export type DeliveryDataScope = {
   packageDeliveryStatus: DeliveryStatus;
-  competitionsDeliveryStatus: DeliveryStatus;
+  competitionDeliveryStatus: DeliveryStatus;
   packageDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
-  competitionsDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
+  competitionDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
   edition: {
     id: string;
     name: string;
@@ -71,11 +71,31 @@ export type DeliveryDataScopeResponse = {
   pagination: { rows: number; start: number; total: number };
 };
 
+export type SortItem = {
+  column: string;
+  operator: string;
+};
+
+export type FilterItem =
+  | {
+      column: string;
+      isNot: boolean;
+      operator: string;
+      value: string;
+    }
+  | {
+      column: string;
+      isNot: boolean;
+      operator: string;
+      values: any[];
+    };
+
 export type DeliveryDataScopePayload = {
-  enablePagination: boolean;
-  rows: number;
-  start: number;
   editionId: string;
-  parentId: string | null;
-  disciplines: string[];
+  enablePagination: boolean;
+  filters: FilterItem[];
+  rows: number;
+  search: string;
+  sort: SortItem[];
+  start: number;
 };

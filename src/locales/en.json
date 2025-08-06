@@ -906,7 +906,8 @@
     "years": "Years",
     "usdf-output": "USDF Output",
     "recent-games": "Recent Olympic Games",
-    "random-olympians": "Random Olympians"
+    "random-olympians": "Random Olympians",
+    "date-of-passing": "In Memory Since"
   },
   "extendedInfo": {
     "votes": "Votes",
@@ -1195,7 +1196,8 @@
     "buttonRestore": "Restore",
     "createUser": "Add User",
     "createApiClient": "Add API Client",
-    "buttonSubmitRequest": "Submit Access Request"
+    "buttonSubmitRequest": "Submit Access Request",
+    "copy-to-clipboard": "Copy to clipboard"
   },
   "languages": {
     "italian": "Italian",

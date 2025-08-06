@@ -43,7 +43,11 @@ export const UnitCard = ({ data, discipline, phaseType }: Props) => {
   }
 
   return (
-    <RoundCard title={getScheduleDate(data)} secondary={<ScheduleStatusChip data={data} />}>
+    <RoundCard
+      title={getScheduleDate(data)}
+      secondary={<ScheduleStatusChip data={data} />}
+      transparent={true}
+    >
       <CompetitorBrackets
         roundData={data}
         discipline={discipline}

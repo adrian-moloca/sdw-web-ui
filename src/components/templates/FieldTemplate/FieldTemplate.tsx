@@ -380,9 +380,9 @@ const FieldTemplateBase = (props: Readonly<ITemplateProps>): React.ReactElement 
                                 {isLong ? `${shortCode}...` : code}
                               </Typography>
                               <IconButton
-                                aria-label="Copy to clipboard"
+                                aria-label={t('actions.copy-to-clipboard')}
                                 size="small"
-                                sx={{ p: 0 }}
+                                sx={{ p: 0, height: 12, width: 12 }}
                                 onClick={(event) => {
                                   event.stopPropagation(); // Prevent tooltip from closing on click
                                   handleCopy(code);
@@ -391,7 +391,7 @@ const FieldTemplateBase = (props: Readonly<ITemplateProps>): React.ReactElement 
                                 <ContentCopy
                                   fontSize="small"
                                   sx={{ fontSize: '0.9rem' }}
-                                  aria-label="Copy to clipboard"
+                                  aria-label={t('actions.copy-to-clipboard')}
                                 />
                               </IconButton>
                             </Stack>

@@ -1,29 +1,20 @@
 import { Box, Typography } from '@mui/material';
 import { Check, WarningAmber, Close, ChecklistOutlined } from '@mui/icons-material';
 import { colors } from 'themes/colors';
-import React, { JSX } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StatusType } from '../types';
 
-export const StatusCell: React.FC<{ status: StatusType }> = ({ status }) => {
+export const StatusCell: React.FC<{ status: string }> = ({ status }) => {
   const { t } = useTranslation();
 
-  const statusConfig: Record<
-    StatusType,
-    {
-      icon: JSX.Element;
-      text: string;
-      color: string;
-      bgColor: string;
-    }
-  > = {
+  const statusConfig: any = {
     fullyReceived: {
       icon: <Check fontSize="small" color="inherit" />,
       text: t('report-manager.fully-received'),
       color: colors.green['600'],
       bgColor: colors.green['100'],
     },
-    partiallyReceived: {
+    partiallyReceivedWithoutErrors: {
       icon: <ChecklistOutlined color="inherit" />,
       text: `${t('report-manager.partially-received')}`,
       color: colors.neutral.black,

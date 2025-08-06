@@ -99,7 +99,8 @@
     "open-filters": "Développer le filtre",
     "select": "Sélectionner",
     "select-a-view": "Sélectionnez une vue",
-    "createApiClient": "Ajouter un client API"
+    "createApiClient": "Ajouter un client API",
+    "copy-to-clipboard": "Copier dans le presse-papiers"
   },
   "common": {
     "sources": "Sources",
@@ -889,7 +890,8 @@
     "years": "Années",
     "usdf-output": "Sortie USDF",
     "recent-games": "Jeux olympiques récents",
-    "random-olympians": "Olympiens aléatoires"
+    "random-olympians": "Olympiens aléatoires",
+    "date-of-passing": "En mémoire depuis"
   },
   "main": {
     "notifications": {

@@ -5,12 +5,14 @@ interface AthleteAvatarProps extends AvatarProps {
   src?: string;
   alt?: string;
   size?: number | string;
+  bordered?: boolean;
 }
 
 export const AthleteAvatar = ({
   src,
   alt = 'Athlete',
   size = 40,
+  bordered,
   ...props
 }: AthleteAvatarProps) => {
   const [imageError, setImageError] = useState(false);
@@ -31,6 +33,7 @@ export const AthleteAvatar = ({
           alignItems: 'center',
           justifyContent: 'center',
           borderRadius: '50%',
+          border: bordered ? '4px solid #E0E0E0' : 'none',
         }}
         {...props}
       >
@@ -136,7 +139,7 @@ export const AthleteAvatar = ({
   // Otherwise, attempt to render the image
   return (
     <Avatar
-      sx={{ height: size, width: size }}
+      sx={{ height: size, width: size, border: bordered ? '4px solid #E0E0E0' : 'none' }}
       alt={alt}
       src={urlImage}
       imgProps={{ onError: () => setImageError(true) }} // Set onError to trigger fallback

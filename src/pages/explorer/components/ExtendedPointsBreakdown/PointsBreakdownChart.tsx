@@ -27,6 +27,9 @@ export const PointsBreakdownChart = ({ data }: Props) => {
   ) {
     return null; // No data to display
   }
+  if (data.categories && data.rounds) {
+    return null;
+  }
   const radarCategories = metrics.map((m) => m.title);
   const series = data.categories?.map((categoryDef) => {
     const breakdownForCategory = data.breakdown.find((item) => item.category === categoryDef.code);

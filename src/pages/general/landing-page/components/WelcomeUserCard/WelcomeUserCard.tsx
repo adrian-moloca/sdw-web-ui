@@ -2,18 +2,19 @@ import { t } from 'i18next';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { Box, Chip, Grid, Typography, useTheme } from '@mui/material';
+import { Box, Chip, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { profileTitle } from '_helpers/utils';
 
 export const WelcomeUserCard = memo(() => {
   const auth = useSelector((x: RootState) => x.auth);
   const theme = useTheme();
   const userName = auth.user?.fullName ?? auth.user?.loginName;
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'));
   const content = t('landing.welcome-intro', { returnObjects: true }) as string[];
   return (
     <>
-      <Grid container size={4}>
-        <Box sx={{ px: 4, py: 8 }}>
+      <Grid container size={isMobile ? 12 : 4}>
+        <Box sx={{ px: 4, py: isMobile ? 0 : 8 }}>
           <Typography variant="h3" gutterBottom>
             {t('general.hello')}
           </Typography>
@@ -31,8 +32,8 @@ export const WelcomeUserCard = memo(() => {
           />
         </Box>
       </Grid>
-      <Grid container size={8}>
-        <Box sx={{ px: 4, py: 16 }}>
+      <Grid container size={isMobile ? 12 : 8}>
+        <Box sx={{ px: 4, py: isMobile ? 0 : 16 }}>
           {content.slice(1).map((text, index) => (
             <Typography
               key={`${text}-${index}`}

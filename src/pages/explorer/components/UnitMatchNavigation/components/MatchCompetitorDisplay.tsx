@@ -10,6 +10,13 @@ interface Props {
 
 export const MatchCompetitorDisplay: React.FC<Props> = ({ competitor, isSelected }) => {
   const displayName = formatAthleteName(competitor);
+  const getDisplayName = () => {
+    if (displayName?.includes('/')) {
+      return displayName.split('/');
+    }
+    return displayName;
+  };
+  const formatDisplay = getDisplayName();
   return (
     <Box
       sx={{
@@ -20,14 +27,14 @@ export const MatchCompetitorDisplay: React.FC<Props> = ({ competitor, isSelected
         color: isSelected ? 'white' : 'inherit',
       }}
     >
-      <Stack direction={'row'} spacing={1} alignItems={'center'}>
+      <Stack direction={'row'} spacing={2} alignItems={'center'}>
         <CountryChip
           code={get(competitor, 'organisation.country')}
           hideTitle={true}
           size={'small'}
         />
-        <Typography variant="body1" sx={{ fontWeight: '500' }}>
-          {displayName}
+        <Typography variant="body1" sx={{ fontWeight: '500', whiteSpace: 'pre-line' }}>
+          {Array.isArray(formatDisplay) ? formatDisplay.join('\n') : formatDisplay}
         </Typography>
         {get(competitor, 'frameBracket.winner') === true && (
           <CheckCircleOutlineOutlinedIcon

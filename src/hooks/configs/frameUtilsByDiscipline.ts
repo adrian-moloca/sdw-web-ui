@@ -51,6 +51,7 @@ export const disciplineLabelKeyOverrides: Record<string, Partial<LabelKeyMap>> =
   },
   SDIS$CSL: {
     value: 'general.accumulated-time',
+    value2: 'general.section-time',
   },
   SDIS$SHO: {
     value: 'general.points',

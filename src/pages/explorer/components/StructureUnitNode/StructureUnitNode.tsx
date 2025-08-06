@@ -16,7 +16,12 @@ function findMinMaxDates(data: any[]) {
   if (!data || data.length === 0) {
     return { minDate: null, maxDate: null };
   }
-  const dayjsObjects = data.map((item) => dayjs(item.start.datetime));
+  const dayjsObjects = data
+    .filter((item) => item.start?.datetime)
+    .map((item) => dayjs(item.start?.datetime));
+  if (dayjsObjects.length === 0) {
+    return { minDate: null, maxDate: null };
+  }
   let minDate = dayjsObjects[0];
   let maxDate = dayjsObjects[0];
   for (let i = 1; i < dayjsObjects.length; i++) {
@@ -56,11 +61,15 @@ export const StructureUnitNode = ({ data, competitionId, disciplineId, allData }
       }
       onClick={() => navigate(baseRoute)}
       subHeader={
-        <Typography variant="body2" color="text.secondary" lineHeight={1.1}>
-          {dayjs(minDate).format(baseConfig.dayDateFormat).toUpperCase()}
-          {' - '}
-          {dayjs(maxDate).format(baseConfig.dayDateFormat).toUpperCase()}
-        </Typography>
+        <>
+          {(minDate || maxDate) && (
+            <Typography variant="body2" color="text.secondary" lineHeight={1.1}>
+              {dayjs(minDate).format(baseConfig.dayDateFormat).toUpperCase()}
+              {' - '}
+              {dayjs(maxDate).format(baseConfig.dayDateFormat).toUpperCase()}
+            </Typography>
+          )}
+        </>
       }
     />
   );

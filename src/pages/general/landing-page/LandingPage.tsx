@@ -64,7 +64,7 @@ const LandingPage = () => {
 
   return (
     <PageContainer maxWidth="xl" title="" breadcrumbs={[]}>
-      <Grid container spacing={2}>
+      <Grid container spacing={baseConfig.gridSpacing}>
         <Grid size={12}>
           <WelcomeCard />
         </Grid>

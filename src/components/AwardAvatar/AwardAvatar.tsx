@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material';
-import { medalColors } from 'models';
+import { medalColors, medalGradients } from 'models';
 import { memo } from 'react';
 
 type MedalAvatarProps = {
@@ -14,7 +14,7 @@ const MedalAvatar: React.FC<MedalAvatarProps> = memo(({ label, color, size = 21 
       width: size,
       height: size,
       color: '#000',
-      backgroundColor: color,
+      background: color,
       fontSize: `${(size * 2) / 3}px`,
       fontWeight: 400,
     }}
@@ -36,8 +36,8 @@ export const TotalAvatar = memo(() => (
   <MedalAvatar label="T" color={medalColors.total} size={21} />
 ));
 export const MedalAvatarMap = {
-  golden: (size: number) => <MedalAvatar label="G" color={medalColors.golden} size={size} />,
-  silver: (size: number) => <MedalAvatar label="S" color={medalColors.silver} size={size} />,
-  bronze: (size: number) => <MedalAvatar label="B" color={medalColors.bronze} size={size} />,
-  total: (size: number) => <MedalAvatar label="T" color={medalColors.total} size={size} />,
+  golden: (size: number) => <MedalAvatar label="G" color={medalGradients.golden} size={size} />,
+  silver: (size: number) => <MedalAvatar label="S" color={medalGradients.silver} size={size} />,
+  bronze: (size: number) => <MedalAvatar label="B" color={medalGradients.bronze} size={size} />,
+  total: (size: number) => <MedalAvatar label="T" color={medalGradients.total} size={size} />,
 };

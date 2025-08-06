@@ -1,17 +1,13 @@
-import { Box, Chip, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Stack, Typography, useTheme } from '@mui/material';
+import baseConfig from 'baseConfig';
 import { MedalAvatarMap } from 'components/AwardAvatar';
-import { useStoreCache } from 'hooks';
 import { t } from 'i18next';
-import { MasterData } from 'models';
 
 type Props = {
   data: any;
 };
 export const BracketHeader: React.FC<Props> = ({ data }) => {
-  const { getMasterDataValue } = useStoreCache();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const status = getMasterDataValue(data?.resultStatus, MasterData.ResultStatus)?.value;
   const title =
     data.title?.indexOf('Game') > -1
       ? data.title
@@ -21,29 +17,20 @@ export const BracketHeader: React.FC<Props> = ({ data }) => {
   const isBronze =
     data.title.toLowerCase().includes('bronze') || data.title.toLowerCase().includes('small final');
   return (
-    <Box
-      display="flex"
-      flexDirection={isMobile ? 'column' : 'row'}
-      alignItems="center"
-      justifyContent="space-between"
-      gap={2}
-      sx={{ px: 1 }}
-    >
-      <Stack direction={'row'} spacing={1} alignItems={'center'}>
-        <Typography variant="subtitle1" fontWeight={500} sx={{ color: theme.palette.text.primary }}>
+    <Box gap={2} sx={{ py: 1 }}>
+      <Stack
+        direction="row"
+        spacing={baseConfig.gridSpacing}
+        alignItems="center"
+        justifyContent="center"
+        flexGrow={1}
+      >
+        <Typography variant="body1" sx={{ color: theme.palette.common.white }}>
           {title}
         </Typography>
         {isGolden && <>{MedalAvatarMap.golden(21)}</>}
         {isBronze && <>{MedalAvatarMap.bronze(21)}</>}
       </Stack>
-      {status && (
-        <Chip
-          size="small"
-          variant="outlined"
-          label={status.toUpperCase()}
-          sx={{ fontWeight: 400, color: theme.palette.text.primary }}
-        />
-      )}
     </Box>
   );
 };

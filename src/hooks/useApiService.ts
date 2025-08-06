@@ -1,4 +1,3 @@
-import { Logger } from '../_helpers/logger';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, authActions, IManagerSetup } from 'store';
 import axios, { AxiosError, AxiosInstance } from 'axios';
@@ -10,14 +9,15 @@ import {
   buildUrlId,
   isDevelopment,
   isTokenExpired,
+  Logger,
 } from '_helpers';
 import authService from 'services/auth';
 import JSZip from 'jszip';
 import xmljs from 'xml-js';
 import { saveAs } from 'file-saver';
 import { useModelConfig } from 'hooks';
-import { mockedApiResponse as mockedDeliveryScopeStatusResponse } from 'mocks/delivery-data-scope';
 import { useTranslation } from 'react-i18next';
+import { DeliveryDataScopePayload } from 'types/delivery-data-scope';
 
 export enum HttpStatusCode {
   Ok = 200,
@@ -46,7 +46,8 @@ export type UseApiService = {
   getManagerSetup: () => Promise<IManagerSetup>;
   getHidden: (config: IConfigProps) => Promise<QueryResponse<any>>;
   getById: (config: IConfigProps, id: string, custom_url?: string) => Promise<any>;
-  getDeliveryScopeStatusData: (payload: string) => Promise<any>;
+  getDeliveryScopeStatusData: (payload: DeliveryDataScopePayload) => Promise<any>;
+  getPackagesSummary: (payload: DeliveryDataScopePayload) => Promise<any>;
   post: (url: string, payload?: any, anonymous?: boolean) => Promise<any>;
   put: (url: string, payload: any) => Promise<any>;
   deleteAny: (url: string, payload?: any) => Promise<any>;
@@ -484,18 +485,26 @@ const useApiService = (): UseApiService => {
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const getDeliveryScopeStatusData = async (_payload: string) => {
-    // try {
-    //   const url = `${apiConfig.reportManagerEndPoint}/scope/status`;
-    //   const response = await api.post(url, payload);
-    //   return response.data;
-    // } catch (error) {
-    //   Logger.error(`Error in POST request: ${error}`);
-    // }
-    // return {} as IManagerSetup;
+  const getDeliveryScopeStatusData = async (payload: DeliveryDataScopePayload) => {
+    try {
+      const url = `${apiConfig.reportManagerEndPoint}/scope/status`;
+      const response = await api.post(url, payload);
+      return response.data;
+    } catch (error) {
+      Logger.error(`Error in POST request: ${error}`);
+      throw error;
+    }
+  };
 
-    return Promise.resolve(mockedDeliveryScopeStatusResponse);
+  const getPackagesSummary = async (payload: DeliveryDataScopePayload) => {
+    try {
+      const url = `${apiConfig.reportManagerEndPoint}/scope`;
+      const response = await api.post(url, payload);
+      return response.data;
+    } catch (error) {
+      Logger.error(`Error in POST request: ${error}`);
+      throw error;
+    }
   };
 
   return {
@@ -513,6 +522,7 @@ const useApiService = (): UseApiService => {
     getHidden,
     getById,
     getDeliveryScopeStatusData,
+    getPackagesSummary,
     post,
     put,
     deleteAny,

@@ -1,11 +1,12 @@
 import { Stack, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { ErrorPanel, GenericLoadingPanel, RoundCard } from 'components';
+import { ErrorPanel, GenericLoadingPanel, MainCard, RoundCard } from 'components';
 import useApiService from 'hooks/useApiService';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import { t } from 'i18next';
 import { UnitMatchNavigation } from '../UnitMatchNavigation';
 import { useTranslation } from 'react-i18next';
+import { olympicsDesignColors } from 'themes/colors';
 
 type Props = {
   data: any;
@@ -68,10 +69,27 @@ export const PhaseUnitsDisplay = ({ data: sourceData, showTitle, discipline, lin
       </RoundCard>
     );
   return (
-    <UnitMatchNavigation
-      data={units}
-      discipline={discipline}
-      phaseType={sourceData.stageType ?? sourceData.phaseType}
-    />
+    <MainCard
+      content={false}
+      sx={[
+        (theme) => ({
+          width: '100%',
+          p: 0,
+          backgroundColor: theme.palette.background.default,
+        }),
+        (theme) =>
+          theme.applyStyles('dark', {
+            width: '100%',
+            p: 0,
+            backgroundColor: olympicsDesignColors.dark.general.background,
+          }),
+      ]}
+    >
+      <UnitMatchNavigation
+        data={units}
+        discipline={discipline}
+        phaseType={sourceData.stageType ?? sourceData.phaseType}
+      />
+    </MainCard>
   );
 };

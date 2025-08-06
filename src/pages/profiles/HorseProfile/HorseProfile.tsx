@@ -24,12 +24,10 @@ import { BiographyProfile, BioStatusControl } from 'pages/biographies-manager/co
 import useConsolidation from 'hooks/useConsolidation';
 import { ViewProfile as HorseViewProfile, EditProfile as HorseEditProfile } from './components';
 import {
-  ProfileButtons,
   EditProfile,
   MergeProfile,
   BiographySocialMediaBlock,
   ProfileItemText,
-  ProfileItemElement,
   ProfileItemCountry,
   ValidateProfile,
 } from '../components';
@@ -94,7 +92,7 @@ export const HorseProfile = (props: Props) => {
     <Grid container spacing={2}>
       {isOpen && (
         <Grid size={isOpen ? { xs: 12, sm: 12, md: 12, lg: 3 } : 0}>
-          <MainCard content={false}>
+          <MainCard content={false} sx={{ pb: 4 }}>
             <Stack
               spacing={1}
               sx={{
@@ -181,16 +179,12 @@ export const HorseProfile = (props: Props) => {
             />
             <BiographyProfile data={data} type={props.type} />
             <Divider variant="fullWidth" />
-            <List>
-              <ProfileItemElement
-                element={
-                  <FieldTemplate
-                    type={TemplateType.ExternalIds}
-                    value={get(data, 'externalIds')}
-                    withText={false}
-                    icon={ContactsOutlinedIcon}
-                  />
-                }
+            <List dense={true}>
+              <FieldTemplate
+                type={TemplateType.ExternalIds}
+                value={get(data, 'externalIds')}
+                withText={false}
+                icon={ContactsOutlinedIcon}
               />
             </List>
             {couldMerge(props.type) && props.setup?.request && (
@@ -200,16 +194,6 @@ export const HorseProfile = (props: Props) => {
                   <MergeRequestCard data={props.setup?.request} />
                 </Box>
               </>
-            )}
-            {canUpdate && editionMode == EditionMode.Detail && (
-              <ProfileButtons
-                canEdit={canUpdate}
-                canMerge={canMerge()}
-                hasMerge={props.setup?.request && props.type == EntityType.Horse}
-                handleOnClickValidate={handleOnClickValidate}
-                handleOnClickMerge={handleOnClickMerge}
-                handleOnClickEdit={handleOnClickEdit}
-              />
             )}
           </MainCard>
         </Grid>

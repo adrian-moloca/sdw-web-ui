@@ -3,10 +3,14 @@ import { t } from 'i18next';
 import FileDownloadDoneOutlinedIcon from '@mui/icons-material/FileDownloadDoneOutlined';
 import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
 import { blue, orange, pink, green, lime, teal, purple, amber } from '@mui/material/colors';
-import { StatusType } from '../types';
+import { DeliveryStatusBreakDown, StatusType } from '../types';
 
 export const scopeTypeMap: Record<string, { label: string; icon: JSX.Element }> = {
   results: {
+    label: t('general.results'),
+    icon: <FileDownloadDoneOutlinedIcon sx={{ color: blue[800], fontSize: 18 }} />,
+  },
+  fullResults: {
     label: t('general.fullResults'),
     icon: <FileDownloadDoneOutlinedIcon sx={{ color: blue[800], fontSize: 18 }} />,
   },
@@ -55,36 +59,39 @@ export const isValidStatus = (status: string | undefined): status is StatusType 
 
   return [
     'fullyReceived',
-    'partiallyReceived',
     'partiallyReceivedWithErrors',
+    'partiallyReceivedWithoutErrors',
     'notReceived',
     'notApplicable',
   ].includes(status);
 };
 
-export const transformDeliveryScopeRows = (items: any): any[] => {
+export const transformDeliveryScopeRows = (items: DeliveryStatusBreakDown[]) => {
   if (!items?.length) return [];
 
-  return items.map((item: any) => {
-    const cleanCategories =
-      item.competitionCategories?.map((cat: any) => cat.replace('CCAT$', '').replace(/_/g, ' ')) ||
-      [];
+  return items.map((item: DeliveryStatusBreakDown) => {
+    // const cleanCategories =
+    //   item.competitionCategories?.map((cat: any) => cat.replace('CCAT$', '').replace(/_/g, ' ')) ||
+    //   [];
+
+    const startYear = item?.startDate && new Date(item?.startDate?.toString()).getFullYear();
+    const finishYear = item?.finishDate && new Date(item?.finishDate?.toString()).getFullYear();
 
     return {
-      id: item.competitionId || `${item.disciplineName}-${item.fromYear}`,
+      id: item.competitionId || `${item.disciplineName}-${startYear}`,
       competitionId: item.competitionId,
-      status: item.status,
-      readiness: item.readinessPercentage ?? 0,
+      overallStatus: item.overallStatus,
+      completionRate: item.completionRate ?? 0,
       disciplineName: item.disciplineName,
       competitionName: item.competitionName || '',
-      competitionCategories: cleanCategories,
-      fromYear: item.fromYear?.toString() || '',
-      toYear: item.toYear?.toString() || '',
+      competitionCategories: item.competitionCategories,
+      startDate: startYear || '',
+      finishDate: finishYear || '',
       frequency: item.frequency || 0,
       country: item.country || '',
       region: item.region || '',
-      season: item.fromYear && item.toYear ? `${item.fromYear}/${item.toYear}` : '',
-      scopeTypes: item.scopeType || [],
+      season: startYear && finishYear ? `${startYear}/${finishYear}` : '',
+      scope: item.scope || [],
       lastDataReceivedOn: item.lastDataReceivedOn || '',
       comments: item.comments || '',
       expectedCompetitions: 0,
@@ -92,7 +99,7 @@ export const transformDeliveryScopeRows = (items: any): any[] => {
     };
   });
 };
-export const calculateOverallStatus = (scopes: any[]): StatusType => {
+export const calculateOverallStatus = (scopes: any[]): any => {
   if (!scopes.length) return 'notApplicable';
 
   const statuses = scopes.map((s) => s.status);

@@ -2,7 +2,7 @@ import { SxProps, Theme, Typography, TypographyVariant, useColorScheme } from '@
 import { Nullable } from 'models';
 import { Link as RouteLink } from 'react-router-dom';
 interface Props {
-  value: string;
+  value: string | string[];
   route?: Nullable<string>;
   onClick?: () => void;
   direct?: boolean;
@@ -24,23 +24,29 @@ export const TypographyLink = ({ value, route, onClick, typoSize, direct, sx }: 
     },
     ...sx,
   };
+  const title = Array.isArray(value) ? value.join('-') : value;
   if (onClick)
     return (
-      <Typography variant={typoSize} title={value} onClick={onClick} sx={{ ...commonStyles }}>
-        {value}
+      <Typography
+        variant={typoSize}
+        title={title}
+        onClick={onClick}
+        sx={{ ...commonStyles, whiteSpace: 'pre-line' }}
+      >
+        {Array.isArray(value) ? value.join('\n') : value}
       </Typography>
     );
   if (!route)
     return (
       <Typography
         variant={typoSize}
-        title={value}
+        title={title}
         sx={{
-          lineHeight: 1.2,
           ...sx,
+          whiteSpace: 'pre-line',
         }}
       >
-        {value}
+        {Array.isArray(value) ? value.join('\n') : value}
       </Typography>
     );
   if (direct === true)
@@ -49,10 +55,10 @@ export const TypographyLink = ({ value, route, onClick, typoSize, direct, sx }: 
         variant={typoSize}
         component={RouteLink}
         to={route}
-        title={value}
-        sx={{ ...commonStyles }}
+        title={title}
+        sx={{ ...commonStyles, whiteSpace: 'pre-line' }}
       >
-        {value}
+        {Array.isArray(value) ? value.join('\n') : value}
       </Typography>
     );
   return (
@@ -60,12 +66,12 @@ export const TypographyLink = ({ value, route, onClick, typoSize, direct, sx }: 
       variant={typoSize}
       component={RouteLink}
       to={route}
-      title={value}
+      title={title}
       target="_blank"
       rel="noreferrer"
-      sx={{ ...commonStyles }}
+      sx={{ ...commonStyles, whiteSpace: 'pre-line' }}
     >
-      {value}
+      {Array.isArray(value) ? value.join('\n') : value}
     </Typography>
   );
 };

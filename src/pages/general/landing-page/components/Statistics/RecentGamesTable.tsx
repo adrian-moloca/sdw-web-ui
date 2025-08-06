@@ -23,7 +23,10 @@ export const RecentGamesTable: React.FC = () => {
     query: {
       operator: 'AND',
       where: [
-        { column: 'sources', value: 'HORD' },
+        {
+          column: 'sources',
+          value: ['HORD', 'WYOG2024', 'OG2024', 'OG2020', 'OWG2022', 'OWG2026'],
+        },
         {
           column: 'start_date',
           operator: 'GTE',
@@ -56,17 +59,26 @@ export const RecentGamesTable: React.FC = () => {
         </StyledIconButton>
       }
     >
-      <Stack direction={'row'} spacing={3} justifyContent="space-between" alignItems="center">
+      <Stack
+        direction={'row'}
+        spacing={baseConfig.gridSpacing}
+        justifyContent="space-between"
+        alignItems="center"
+      >
         {dataContent.map((competition: any) => (
           <MainCard
             key={competition.id}
             sx={{ width: '100%', cursor: 'pointer' }}
             onClick={() => navigate(`/explorer/competitions/${competition.id}`)}
           >
-            <Stack alignItems={'center'} spacing={1} sx={{ pt: 4, height: 365 }}>
-              <CompetitionAvatar src={competition.logo} size="14rem" title={competition.title} />
+            <Stack alignItems={'center'} spacing={1} sx={{ pt: 4, height: isMobile ? 260 : 365 }}>
+              <CompetitionAvatar
+                src={competition.logo}
+                size={isMobile ? '9rem' : '14rem'}
+                title={competition.title}
+              />
               <Typography
-                variant="subtitle1"
+                variant={isMobile ? 'body1' : 'subtitle1'}
                 textAlign={'center'}
                 fontWeight={'bold'}
                 sx={{ pt: 4 }}
@@ -74,7 +86,7 @@ export const RecentGamesTable: React.FC = () => {
                 {competition.title}
               </Typography>
               <CountryChip code={competition.country} hideTitle={false} size="small" />
-              <Typography variant="body2" sx={{ mt: 5 }}>
+              <Typography variant={isMobile ? 'caption' : 'body2'} sx={{ mt: 5 }}>
                 {dayjs(competition.startDate).format(baseConfig.generalDateFormat).toUpperCase()}
                 {' - '}
                 {dayjs(competition.finishDate).format(baseConfig.generalDateFormat).toUpperCase()}

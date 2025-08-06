@@ -32,11 +32,15 @@ export const StructurePhaseNode = ({ data, competitionId, disciplineId, eventId 
       title={normalizeTitle(data.title)}
       onClick={() => navigate(baseRoute)}
       subHeader={
-        <Typography variant="body2" color="text.secondary" lineHeight={1.1}>
-          {dayjs(data.start.date).format(baseConfig.dayDateFormat).toUpperCase()}
-          {' - '}
-          {dayjs(data.end.date).format(baseConfig.dayDateFormat).toUpperCase()}
-        </Typography>
+        <>
+          {(data.start || data.end) && (
+            <Typography variant="body2" color="text.secondary" lineHeight={1.1}>
+              {dayjs(data.start.date).format(baseConfig.dayDateFormat).toUpperCase()}
+              {' - '}
+              {data.end && dayjs(data.end.date).format(baseConfig.dayDateFormat).toUpperCase()}
+            </Typography>
+          )}
+        </>
       }
     />
   );

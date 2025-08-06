@@ -41,13 +41,13 @@ export type DeliveryStatusBreakDown = {
   disciplineName: string;
   disciplineCode?: string;
   competitionCategories: string[];
-  fromYear?: string | number;
-  toYear?: string | number;
+  startDate?: string | number;
+  finishDate?: string | number;
   country?: string;
   frequency?: number;
-  scopeType: ScopeTypeEnum[];
-  readinessPercentage: number;
-  status: StatusType;
+  scope: ScopeTypeEnum[];
+  completionRate: number;
+  overallStatus: StatusType;
   region?: string;
   lastDataReceivedOn?: string;
   comments?: string;

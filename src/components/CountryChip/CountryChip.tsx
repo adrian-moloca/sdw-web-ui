@@ -13,7 +13,6 @@ export const CountryChip = (param: IIconChipProps) => {
   if (['REF', 'IOP', 'AIN', 'EUN', 'IOA', 'XXB', 'FIS'].includes(countryCode)) {
     countryCode = 'EOR';
   }
-
   const countryEntry =
     dataInfo[MasterData.Country]?.find((x: Entry) => x.key === param.code) ?? null;
   let display = param.title ?? countryEntry?.value;

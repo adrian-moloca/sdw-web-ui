@@ -1,10 +1,12 @@
-import React, { JSX, useState } from 'react';
+import React, { JSX, useCallback } from 'react';
 import {
   GridValidRowModel,
   useGridApiRef,
   GridFilterModel,
   GridPaginationModel,
   GridColDef,
+  GridSortModel,
+  GridCallbackDetails,
 } from '@mui/x-data-grid-pro';
 import { Box } from '@mui/material';
 import { StyledDataGridPro } from './StyledDataGridPro';
@@ -13,28 +15,44 @@ import { colors } from 'themes/colors';
 
 interface DataScopeStatusTableProps {
   rows: GridValidRowModel[];
+  // rows: any[];
   columns: GridColDef[];
   isLoading?: boolean;
+  paginationModel: GridPaginationModel;
+  onPaginationModelChange: (model: GridPaginationModel, details: GridCallbackDetails) => void;
+  onFilterModelChange: (model: GridFilterModel, details: GridCallbackDetails<'filter'>) => void;
+  onSortModelChange: (model: GridSortModel, details: GridCallbackDetails) => void;
+  onSearchChange?: (searchQuery: string) => void;
+  filterModel?: GridFilterModel;
+  sortModel?: GridSortModel;
+  rowCount?: number;
 }
 
 export const DataScopeStatusTable: React.FC<DataScopeStatusTableProps> = ({
   rows,
   columns,
   isLoading,
+  paginationModel,
+  onPaginationModelChange,
+  onFilterModelChange,
+  onSortModelChange,
+  onSearchChange,
+  filterModel,
+  sortModel,
+  rowCount = 0,
 }) => {
   const apiRef = useGridApiRef();
 
-  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
-    pageSize: 25,
-    page: 0,
-  });
-
-  const clearFilters = (): void => {
+  const clearFilters = useCallback((): void => {
     if (apiRef.current) {
-      apiRef.current.setFilterModel({ items: [] } as GridFilterModel);
+      apiRef.current.setFilterModel({ items: [] });
       apiRef.current.setQuickFilterValues([]);
+      onFilterModelChange({ items: [] }, {} as GridCallbackDetails<'filter'>);
+      if (onSearchChange) {
+        onSearchChange('');
+      }
     }
-  };
+  }, [apiRef, onFilterModelChange, onSearchChange]);
 
   return (
     <Box
@@ -50,21 +68,38 @@ export const DataScopeStatusTable: React.FC<DataScopeStatusTableProps> = ({
         rows={rows}
         columns={columns}
         loading={isLoading}
-        getRowId={(row) => row.id || row.competitionId}
+        getRowId={(row) => row.id || row.competitionId || `${row.competition}-${row.scopeType}`}
         disableRowSelectionOnClick
         checkboxSelection={false}
         density="compact"
+        paginationMode="server"
         pagination
         pageSizeOptions={[10, 25, 50]}
         paginationModel={paginationModel}
-        onPaginationModelChange={setPaginationModel}
+        onPaginationModelChange={onPaginationModelChange}
+        rowCount={rowCount}
+        filterMode="server"
+        filterModel={filterModel}
+        onFilterModelChange={onFilterModelChange}
+        sortingMode="server"
+        sortModel={sortModel}
+        onSortModelChange={onSortModelChange}
         getRowClassName={(params: any) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
         }
         getRowHeight={() => 'auto'}
         showToolbar
         slots={{
-          toolbar: (): JSX.Element => <CustomToolbarStatusScope clearFilters={clearFilters} />,
+          toolbar: (): JSX.Element => (
+            <CustomToolbarStatusScope clearFilters={clearFilters} onSearchChange={onSearchChange} />
+          ),
+        }}
+        slotProps={{
+          toolbar: {
+            showCreateButton: false,
+            flags: 0,
+            onFilterClean: clearFilters,
+          },
         }}
         initialState={{
           columns: {

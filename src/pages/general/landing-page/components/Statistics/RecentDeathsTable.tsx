@@ -47,7 +47,7 @@ export const RecentDeathsTable: React.FC = () => {
   const columns: ColumnData[] = [
     { width: 290, label: t('general.name'), dataKey: 'athlete' },
     { width: 90, label: t('general.noc'), dataKey: 'countryOfBirth' },
-    { width: 140, label: t('general.date-of-death'), dataKey: 'dateOfDeath', align: 'right' },
+    { width: 150, label: t('general.date'), dataKey: 'dateOfDeath', align: 'right' },
     { width: 80, label: t('common.age'), dataKey: 'age', align: 'right' },
   ];
   const gridColumns: GridColDef[] = [];

@@ -34,10 +34,10 @@ export const MatchResults: React.FC<Props> = ({ data }) => {
   const [unitId, setUnit] = useAtom(competitionUnitIdAtom);
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
   const isMediumScreen = useMediaQuery(theme.breakpoints.up('md'));
-  const isSmallScreen = useMediaQuery(theme.breakpoints.up('sm'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const itemsPerPage = React.useMemo(() => {
-    if (isLargeScreen) return 3;
-    if (isMediumScreen) return 3;
+    if (isLargeScreen) return 2;
+    if (isMediumScreen) return 2;
     if (isSmallScreen) return 1;
     return 1;
   }, [isLargeScreen, isMediumScreen, isSmallScreen]);
@@ -82,10 +82,17 @@ export const MatchResults: React.FC<Props> = ({ data }) => {
   const isPrevDisabled = currentPage === 1;
   const isNextDisabled = currentPage === totalPages;
   return (
-    <Grid size={12}>
+    <Grid
+      size={12}
+      sx={{
+        px: isSmallScreen ? theme.spacing(2) : theme.spacing(6),
+        pt: isSmallScreen ? theme.spacing(2) : theme.spacing(6),
+        pb: isSmallScreen ? theme.spacing(0) : theme.spacing(6),
+      }}
+    >
       <Grid size={12} container spacing={3}>
         {displayedMatches.map((match) => (
-          <Grid size={{ xs: 12, sm: 12, md: 4, lg: 4 }} key={match.id}>
+          <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }} key={match.id}>
             <MatchCard
               match={match}
               isSelected={match.id === selectedMatchId}

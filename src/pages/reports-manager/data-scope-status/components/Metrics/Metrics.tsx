@@ -11,7 +11,7 @@ type Tab = 'ingestion-packages' | 'competitions';
 type StatusKey = keyof DeliveryStatus;
 
 type Props = {
-  deliveryStatus: DeliveryStatus;
+  deliveryStatus: DeliveryStatus | undefined;
   currentTab: Tab;
   onCardSelect: (statusKey: string) => void;
   selectedCard: string;
@@ -71,8 +71,24 @@ const statusConfig: {
   },
 ];
 
-export const mapDataToMetrics = (deliveryStatus: DeliveryStatus, currentTab: Tab): Metric[] => {
-  const total = Object.values(deliveryStatus).reduce((sum, item) => sum + item.count, 0);
+export const mapDataToMetrics = (
+  deliveryStatus: DeliveryStatus | undefined,
+  currentTab: Tab
+): Metric[] => {
+  if (!deliveryStatus) {
+    return [
+      {
+        id: 'all',
+        title:
+          currentTab === 'competitions'
+            ? t('report-manager.total-competitions')
+            : t('report-manager.total-packages'),
+        value: 0,
+      },
+    ];
+  }
+
+  const total = Object.values(deliveryStatus).reduce((sum, item) => sum + (item?.count || 0), 0);
 
   const base: Metric[] = [
     {

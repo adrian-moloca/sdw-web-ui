@@ -5,6 +5,7 @@ import { useAtom } from 'jotai';
 import orderBy from 'lodash/orderBy';
 import { isNullOrEmpty } from '_helpers';
 import { UnitCard } from '../UnitCard';
+import { MatchHeader } from './components/MatchHeader';
 
 type Props = {
   data: any;
@@ -36,6 +37,7 @@ export const UnitMatchNavigation = ({ data, discipline, phaseType }: Props) => {
     const currentUnit = orderedData?.find((x: any) => x.id === unitId) ?? orderedData[0];
     return (
       <Grid container spacing={2}>
+        <MatchHeader match={currentUnit} discipline={discipline} />
         <MatchResults data={orderedData} />
         <Grid size={12}>
           <UnitCard data={currentUnit} discipline={discipline} phaseType={phaseType} />

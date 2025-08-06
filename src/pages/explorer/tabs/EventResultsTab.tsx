@@ -10,7 +10,7 @@ import useApiService from 'hooks/useApiService';
 import { useModelConfig, useStoreCache } from 'hooks';
 import { getRoundTitle, processResults } from 'pages/explorer/utils/event-rounds';
 import {
-  BracketsDisplayBuilder,
+  EventBracketsDisplayBuilder,
   competitionUnitIdAtom,
   ResultsBuilder,
 } from 'pages/explorer/components';
@@ -111,7 +111,7 @@ export const EventResultsTab: React.FC<IPanelTabProps> = ({ data: eventData, par
           value={displayResults.length + 1}
           sx={{ p: 0 }}
         >
-          <BracketsDisplayBuilder discipline={disciplineCode} parameter={parameter} />
+          <EventBracketsDisplayBuilder discipline={disciplineCode} parameter={parameter} />
         </TabPanel>
       )}
     </TabContext>

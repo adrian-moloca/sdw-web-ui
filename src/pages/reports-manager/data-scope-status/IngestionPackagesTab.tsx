@@ -1,35 +1,81 @@
+import React, { JSX, useState, useCallback } from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import DashboardLayout from './components/DashboardLayout/DashboardLayout';
 import { Metrics } from './components';
 import { t } from 'i18next';
-import React, { JSX, useState } from 'react';
 import {
   DataScopeStatusTable,
   transformDeliveryScopeRows,
-  columnsIngestionPackages,
+  useColumnsIngestionPackages,
 } from './components/DataScopeStatusTable';
 import { useDataScopeStatus } from 'hooks/useDataScopeStatus';
+import {
+  GridColDef,
+  GridFilterModel,
+  GridPaginationModel,
+  GridSortModel,
+} from '@mui/x-data-grid-pro';
+import { DeliveryStatusBreakDown } from '../../../types/delivery-data-scope';
 
 const IngestionPackagesTab: React.FC = (): JSX.Element => {
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
-  const [paginationModel] = useState({ pageSize: 25, page: 0 });
+  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
+    pageSize: 25,
+    page: 0,
+  });
+  const columnsIngestionPackages = useColumnsIngestionPackages();
+  const [filterModel, setFilterModel] = useState<GridFilterModel>({ items: [] });
+  const [sortModel, setSortModel] = useState<GridSortModel>([]);
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const { packageDeliveryStatus, packageDeliveryStatusBreakDown, isLoading, isError } =
-    useDataScopeStatus(paginationModel, selectedStatus);
+  const {
+    packageDeliveryStatus,
+    packageDeliveryStatusBreakDown,
+    isLoading,
+    isError,
+    packageDeliveryStatusTotalCount,
+  } = useDataScopeStatus({
+    paginationModel,
+    selectedStatus,
+    filterModel,
+    sortModel,
+    searchQuery,
+    selectedTab: 'packages',
+  });
 
-  const filteredRows = () => {
-    if (!packageDeliveryStatusBreakDown) return [];
+  const handlePaginationModelChange = useCallback((model: GridPaginationModel) => {
+    setPaginationModel(model);
+  }, []);
 
-    if (selectedStatus === 'all') {
-      return transformDeliveryScopeRows(packageDeliveryStatusBreakDown);
-    }
+  const handleFilterModelChange = useCallback((model: GridFilterModel) => {
+    setFilterModel(model);
+    setPaginationModel((prev) => ({ ...prev, page: 0 }));
+  }, []);
 
-    const filtered = packageDeliveryStatusBreakDown.filter(
-      (item) => item.status === selectedStatus
+  const handleSortModelChange = useCallback((model: GridSortModel) => {
+    setSortModel(model);
+  }, []);
+
+  const handleStatusSelect = useCallback((status: string) => {
+    setSelectedStatus(status);
+    setPaginationModel((prev) => ({ ...prev, page: 0 }));
+  }, []);
+
+  const handleSearchChange = useCallback((query: string) => {
+    setSearchQuery(query);
+    setPaginationModel((prev) => ({ ...prev, page: 0 }));
+  }, []);
+
+  if (isError) {
+    return (
+      <Box
+        height="calc(100vh - 185px)"
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      >
+        <Typography color="error">{t('message.could-not-fetch-data')}</Typography>
+      </Box>
     );
-
-    return transformDeliveryScopeRows(filtered);
-  };
+  }
 
   if (isLoading) {
     return (
@@ -42,9 +88,7 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
     );
   }
 
-  if (isError) {
-    return <Typography>{t('message.could-not-fetch-data')}</Typography>;
-  }
+  const rows = transformDeliveryScopeRows(packageDeliveryStatusBreakDown || []);
 
   return (
     <DashboardLayout
@@ -52,15 +96,23 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
         <Metrics
           deliveryStatus={packageDeliveryStatus}
           currentTab="ingestion-packages"
-          onCardSelect={setSelectedStatus}
-          selectedCard={selectedStatus ?? 'all'}
+          onCardSelect={handleStatusSelect}
+          selectedCard={selectedStatus}
         />
       }
       rightContent={
         <DataScopeStatusTable
-          rows={filteredRows()}
-          columns={columnsIngestionPackages}
-          isLoading={false}
+          rows={packageDeliveryStatusBreakDown as DeliveryStatusBreakDown[]}
+          columns={columnsIngestionPackages as GridColDef[]}
+          isLoading={isLoading}
+          paginationModel={paginationModel}
+          onPaginationModelChange={handlePaginationModelChange}
+          filterModel={filterModel}
+          onFilterModelChange={handleFilterModelChange}
+          sortModel={sortModel}
+          onSortModelChange={handleSortModelChange}
+          onSearchChange={handleSearchChange}
+          rowCount={packageDeliveryStatusTotalCount || rows.length}
         />
       }
     />

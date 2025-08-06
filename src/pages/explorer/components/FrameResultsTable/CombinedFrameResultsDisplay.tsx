@@ -53,31 +53,36 @@ export const CombinedFrameResultsDisplay = ({ data, discipline }: Props) => {
             divider={true}
             elevation={1}
             border={false}
-            dividerColor={theme.palette.text.secondary}
+            dividerColor={theme.palette.grey[600]}
+            sx={{ backgroundColor: 'rgba(0, 0, 0, 0.30)' }}
             headerSX={{
-              bgcolor: theme.palette.primary.light,
               borderRadius: 0,
-              px: 2,
+              px: 1,
               pb: 2,
-              pt: 3,
+              pt: 2,
               textAlign: 'center',
               whiteSpace: 'nowrap',
             }}
             title={
-              <Typography variant="body2" lineHeight={1.1} fontWeight={500}>
+              <Typography
+                variant="body1"
+                lineHeight={1.1}
+                fontWeight={500}
+                color={theme.palette.common.white}
+              >
                 {getFrameTitle(i, discipline)}
               </Typography>
             }
             content={false}
           >
-            <Box sx={{ py: 2, px: 1 }}>
+            <Box sx={{ py: 2, px: 0.5 }}>
               {hasValues && preferredValue(i, discipline) === 'value' && (
-                <Typography variant="body2" lineHeight={1.2}>
+                <Typography variant="body2" lineHeight={1.2} color={theme.palette.common.white}>
                   {values.join(' - ')}
                 </Typography>
               )}
               {hasTotalValues && preferredValue(i, discipline) === 'totalValue' && (
-                <Typography variant="body2" lineHeight={1.2}>
+                <Typography variant="body2" lineHeight={1.2} color={theme.palette.common.white}>
                   {totalValues.join(' - ')}{' '}
                 </Typography>
               )}

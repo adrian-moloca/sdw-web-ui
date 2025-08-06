@@ -1,7 +1,6 @@
 const baseConfig = {
   defaultPath: '/',
   defaultId: 'main-dashboard',
-  fontFamily: 'Lato, Arial, Helvetica, sans-serif',
   borderRadius: 1.5,
   drawerWidth: 300,
   sidebarWidth: 260,

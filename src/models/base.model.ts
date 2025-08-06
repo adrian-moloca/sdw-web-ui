@@ -29,6 +29,12 @@ export const medalColors = {
   bronze: 'rgb(220, 179, 134)',
   total: '#4CBB17',
 };
+export const medalGradients = {
+  golden: 'linear-gradient(180deg, #FEE181 0%, #FFBE64 100%)',
+  silver: 'linear-gradient(180deg, #ECECEC 0%, #CBCBCB 100%)',
+  bronze: 'linear-gradient(180deg, #F7CBBA 0%, #E9B9A6 100%)',
+  total: '#4CBB17',
+};
 export type MedalColor = 'golden' | 'silver' | 'bronze';
 export const medalMap: Record<string, 'golden' | 'silver' | 'bronze'> = {
   AWSB$ME_GOLD: 'golden',

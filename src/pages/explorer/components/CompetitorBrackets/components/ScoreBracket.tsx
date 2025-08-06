@@ -20,13 +20,40 @@ export const ScoreBracket: React.FC<ParticipantProps> = ({ data, open, disciplin
       <Box
         sx={{
           width: '100%',
+          pt: 1,
           px: 1,
           gap: 2,
         }}
       >
         <ParticipantItemMobile data={data[0]} textAlign={'right'} open={open} />
+        <Typography
+          color={olympicsDesignColors.base.neutral.white}
+          variant={'body1'}
+          sx={{ pb: theme.spacing(4) }}
+        >
+          VS
+        </Typography>
         <ParticipantItemMobile data={data[1]} textAlign={'right'} open={open} />
-        <CombinedFrameResultsDisplay data={data} discipline={discipline} />
+        <Stack spacing={1} alignItems={'center'}>
+          <Stack direction={'row'} spacing={1} alignItems={'center'}>
+            <Typography
+              variant={'h1'}
+              lineHeight={1.1}
+              color={olympicsDesignColors.base.neutral.white}
+            >
+              {formatMasterCode(data[0]?.frameBracket?.result ?? '-')}
+            </Typography>
+            <RemoveOutlinedIcon sx={{ color: olympicsDesignColors.base.neutral.white }} />
+            <Typography
+              variant={'h1'}
+              lineHeight={1.1}
+              color={olympicsDesignColors.base.neutral.white}
+            >
+              {formatMasterCode(data[1]?.frameBracket?.result ?? '-')}
+            </Typography>
+          </Stack>
+          <CombinedFrameResultsDisplay data={data} discipline={discipline} />
+        </Stack>
       </Box>
     );
   return (
@@ -44,7 +71,7 @@ export const ScoreBracket: React.FC<ParticipantProps> = ({ data, open, disciplin
       <Stack spacing={1} alignItems={'center'}>
         <Stack direction={'row'} spacing={1} alignItems={'center'}>
           <Typography
-            variant={'h2'}
+            variant={'h1'}
             lineHeight={1.1}
             color={olympicsDesignColors.base.neutral.white}
           >
@@ -52,7 +79,7 @@ export const ScoreBracket: React.FC<ParticipantProps> = ({ data, open, disciplin
           </Typography>
           <RemoveOutlinedIcon sx={{ color: olympicsDesignColors.base.neutral.white }} />
           <Typography
-            variant={'h2'}
+            variant={'h1'}
             lineHeight={1.1}
             color={olympicsDesignColors.base.neutral.white}
           >

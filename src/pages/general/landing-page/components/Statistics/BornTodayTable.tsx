@@ -47,7 +47,7 @@ export const BornTodayTable: React.FC = () => {
   const columns: ColumnData[] = [
     { width: 290, label: t('general.name'), dataKey: 'athlete', flex: 1, minWidth: 200 },
     { width: 90, label: t('general.noc'), dataKey: 'countryOfBirth' },
-    { width: 160, label: t('general.date_of_birth'), dataKey: 'dateOfBirth', align: 'right' },
+    { width: 150, label: t('general.date'), dataKey: 'dateOfBirth', align: 'right' },
     { width: 80, label: t('common.age'), dataKey: 'age', align: 'right' },
   ];
   const gridColumns: GridColDef[] = [];

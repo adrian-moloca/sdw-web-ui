@@ -12,6 +12,7 @@ import { CompetitorExtendedResult } from './CompetitorExtendedResult';
 import { OfficialsDisplay } from '../OfficialsDisplay';
 import { ScoreBracket } from './components/ScoreBracket';
 import { BracketHeader } from './components/BracketHeader';
+import { layout } from 'themes/layout';
 
 type Props = {
   roundData?: any;
@@ -32,17 +33,20 @@ export const CompetitorBrackets: React.FC<Props> = ({ roundData, data, disciplin
         {t('message.notDataAvailable').replace('{0}', t('general.competitors'))}
       </Alert>
     );
-
   return (
     <Grid container spacing={2}>
       <Grid size={12}>
         <Paper
           elevation={1}
           sx={{
-            borderRadius: 2,
-            background: `linear-gradient(${theme.palette.primary.light},${theme.palette.primary.dark})`,
-            px: 2,
-            py: 3,
+            borderTopLeftRadius: layout.radius.sm,
+            borderTopRightRadius: layout.radius.sm,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+            background:
+              'radial-gradient(125.52% 505.88% at -9.44% 50%, #010000 15.39%, #0B123D 38.94%, #102F49  81.73%)',
+            px: theme.spacing(8),
+            py: theme.spacing(4),
           }}
         >
           <BracketHeader data={roundData} />

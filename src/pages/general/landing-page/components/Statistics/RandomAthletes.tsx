@@ -78,14 +78,18 @@ export const RandomAthletes: React.FC = () => {
             sx={{ width: '100%', cursor: 'pointer' }}
             onClick={() => navigate(`/explorer/persons/${athlete.id}`)}
           >
-            <Stack alignItems={'center'} spacing={2} sx={{ pt: 8, height: 380 }}>
+            <Stack
+              alignItems={'center'}
+              spacing={baseConfig.gridSpacing}
+              sx={{ pt: isMobile ? 4 : 8, height: isMobile ? 280 : 380 }}
+            >
               <AthleteAvatar
                 src={athlete.profileImages}
-                size="13rem"
+                size={isMobile ? '9rem' : '13rem'}
                 title={formatAthleteName(athlete)}
               />
               <Typography
-                variant="subtitle1"
+                variant={isMobile ? 'body1' : 'subtitle1'}
                 textAlign={'center'}
                 fontWeight={'bold'}
                 sx={{ pt: 4 }}
