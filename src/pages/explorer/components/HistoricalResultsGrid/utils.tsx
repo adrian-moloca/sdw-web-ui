@@ -24,7 +24,7 @@ export function getHistoricalResultsColumnData(
     align: 'right',
   };
   const columns: ColumnData[] = [
-    { width: 380, label: t('general.competition'), dataKey: 'competition' },
+    { width: 440, label: t('general.competition'), dataKey: 'competition', flex: 1 },
     { width: 100, label: t('general.noc'), dataKey: 'organisation' },
     { width: 210, label: t('general.event'), dataKey: 'event' },
     { width: hasMedal ? 70 : 60, label: t('general.rank'), dataKey: 'rank', align: 'right' },
@@ -34,7 +34,7 @@ export function getHistoricalResultsColumnData(
     { width: 180, label: t('general.location'), dataKey: 'location' },
     ...(hasStatus ? [{ width: 100, label: t('common.status'), dataKey: 'status' }] : []),
   ];
-  if (canEdit) columns.push({ width: 100, label: '', command: true, dataKey: 'edit' });
+  if (canEdit) columns.push({ width: 90, label: '', command: true, dataKey: 'edit' });
   if (hideCompetition === true) return columns.slice(1);
   return columns;
 }

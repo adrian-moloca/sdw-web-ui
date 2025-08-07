@@ -45,7 +45,7 @@ export const CompetitorStats = ({ data }: Props) => {
   for (const e of data) {
     columns.push({
       field: e.id,
-      headerName: e.name,
+      headerName: e.name.split('/').join('\n'),
       minWidth: getMaxTextWidth(e.id, e.name),
       maxWidth: 340,
       headerAlign: 'right',

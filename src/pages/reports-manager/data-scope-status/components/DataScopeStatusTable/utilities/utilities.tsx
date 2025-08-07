@@ -3,7 +3,7 @@ import { t } from 'i18next';
 import FileDownloadDoneOutlinedIcon from '@mui/icons-material/FileDownloadDoneOutlined';
 import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
 import { blue, orange, pink, green, lime, teal, purple, amber } from '@mui/material/colors';
-import { DeliveryStatusBreakDown, StatusType } from '../types';
+import { StatusType } from 'types/delivery-data-scope';
 
 export const scopeTypeMap: Record<string, { label: string; icon: JSX.Element }> = {
   results: {
@@ -66,39 +66,6 @@ export const isValidStatus = (status: string | undefined): status is StatusType 
   ].includes(status);
 };
 
-export const transformDeliveryScopeRows = (items: DeliveryStatusBreakDown[]) => {
-  if (!items?.length) return [];
-
-  return items.map((item: DeliveryStatusBreakDown) => {
-    // const cleanCategories =
-    //   item.competitionCategories?.map((cat: any) => cat.replace('CCAT$', '').replace(/_/g, ' ')) ||
-    //   [];
-
-    const startYear = item?.startDate && new Date(item?.startDate?.toString()).getFullYear();
-    const finishYear = item?.finishDate && new Date(item?.finishDate?.toString()).getFullYear();
-
-    return {
-      id: item.competitionId || `${item.disciplineName}-${startYear}`,
-      competitionId: item.competitionId,
-      overallStatus: item.overallStatus,
-      completionRate: item.completionRate ?? 0,
-      disciplineName: item.disciplineName,
-      competitionName: item.competitionName || '',
-      competitionCategories: item.competitionCategories,
-      startDate: startYear || '',
-      finishDate: finishYear || '',
-      frequency: item.frequency || 0,
-      country: item.country || '',
-      region: item.region || '',
-      season: startYear && finishYear ? `${startYear}/${finishYear}` : '',
-      scope: item.scope || [],
-      lastDataReceivedOn: item.lastDataReceivedOn || '',
-      comments: item.comments || '',
-      expectedCompetitions: 0,
-      successfullyReceived: 0,
-    };
-  });
-};
 export const calculateOverallStatus = (scopes: any[]): any => {
   if (!scopes.length) return 'notApplicable';
 

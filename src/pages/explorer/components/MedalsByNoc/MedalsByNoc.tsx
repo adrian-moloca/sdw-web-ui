@@ -3,7 +3,13 @@ import { Alert, Box, Typography } from '@mui/material';
 import { t } from 'i18next';
 import { useQuery } from '@tanstack/react-query';
 import get from 'lodash/get';
-import { ErrorPanel, GenericLoadingPanel, OrganisationChip, StripedDataGrid } from 'components';
+import {
+  ErrorPanel,
+  GenericLoadingPanel,
+  MainCard,
+  OrganisationChip,
+  StripedDataGrid,
+} from 'components';
 import type { IPanelTabProps } from 'types/views';
 import { useModelConfig } from 'hooks';
 import useApiService from 'hooks/useApiService';
@@ -94,28 +100,30 @@ export const MedalsByNoc = (props: IPanelTabProps) => {
     (baseConfig.defaultColumnHeaderHeight ?? 40);
   const height = calculatedHeigh < 600 ? undefined : 600;
   return (
-    <>
+    <Grid container spacing={2}>
       <Grid size={12}>
         <AwardNocChart data={dataContent} />
       </Grid>
       <Grid size={12}>
-        <Box height={height}>
-          <StripedDataGrid
-            rows={rowsWithOrder}
-            columns={gridColumns}
-            getRowId={(row) => get(row, 'organisation.id')}
-            disableRowSelectionOnClick
-            disableColumnMenu
-            hideFooter
-            rowHeight={baseConfig.defaultRowHeight ?? 36}
-            columnHeaderHeight={baseConfig.defaultColumnHeaderHeight ?? 60}
-            density="compact"
-            getRowClassName={(params) =>
-              params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
-            }
-          />
-        </Box>
+        <MainCard>
+          <Box height={height}>
+            <StripedDataGrid
+              rows={rowsWithOrder}
+              columns={gridColumns}
+              getRowId={(row) => get(row, 'organisation.id')}
+              disableRowSelectionOnClick
+              disableColumnMenu
+              hideFooter
+              rowHeight={baseConfig.defaultRowHeight ?? 36}
+              columnHeaderHeight={baseConfig.defaultColumnHeaderHeight ?? 60}
+              density="compact"
+              getRowClassName={(params) =>
+                params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
+              }
+            />
+          </Box>
+        </MainCard>
       </Grid>
-    </>
+    </Grid>
   );
 };

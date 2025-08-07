@@ -22,21 +22,20 @@ export const CompetitorExtendedResult = ({ title, data, countryCode, expandable 
     <Grid size={hasExtendedInformation.justFewMetrics ? { xs: 12, md: 6 } : 12}>
       <MainCard
         title={
-          <Typography variant="body1">
+          <Typography variant="body1" sx={{ fontWeight: 500 }}>
             {title ? `${title}: ${t('general.extendedInfo')}` : t('general.extendedInfo')}
           </Typography>
         }
         fullHeight
         avatar={<CountryChip code={countryCode} size={'small'} hideTitle={true} />}
-        divider={true}
-        content={true}
-        border={true}
+        divider={false}
+        content={false}
+        border={false}
         expandable={expandable}
         expandableOnHeader={expandable}
         defaultExpanded={!expandable}
-        sx={{ px: 2 }}
-        contentSX={{ px: 0 }}
-        headerSX={{ px: 0, py: expandable ? 0.5 : 2, textAlign: 'left' }}
+        sx={{ backgroundColor: 'transparent' }}
+        headerSX={{ textAlign: 'left' }}
       >
         <ExtendedPointsBreakdown data={data} />
         <ExtendedJudgeScoring data={data} />

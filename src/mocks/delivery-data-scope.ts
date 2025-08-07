@@ -4,7 +4,7 @@ import {
   DeliveryStatusBreakDown,
   ScopeTypeEnum,
   StatusType,
-} from '../pages/reports-manager/data-scope-status/components/DataScopeStatusTable/types';
+} from 'types/delivery-data-scope';
 
 const mockedPackageDeliveryStatus: DeliveryStatus = {
   fullyReceived: { count: 90, readinessPercentage: 100 },
@@ -40,7 +40,7 @@ const mockedPackageDeliveryStatusStatusBreakDown: DeliveryStatusBreakDown[] = [
     completionRate: 85,
     overallStatus: 'partiallyReceived' as StatusType,
     region: 'Europe',
-    lastDataReceivedOn: '2024-03-10T14:30:00Z',
+    ts: '2024-03-10T14:30:00Z',
     comments: 'Missing some pool data from 2019 season',
   },
   {
@@ -57,7 +57,7 @@ const mockedPackageDeliveryStatusStatusBreakDown: DeliveryStatusBreakDown[] = [
     completionRate: 100,
     overallStatus: 'fullyReceived' as StatusType,
     region: 'Americas',
-    lastDataReceivedOn: '2024-03-15T09:45:00Z',
+    ts: '2024-03-15T09:45:00Z',
     comments: 'Complete dataset received and validated',
   },
   {
@@ -79,7 +79,7 @@ const mockedPackageDeliveryStatusStatusBreakDown: DeliveryStatusBreakDown[] = [
     completionRate: 45,
     overallStatus: 'partiallyReceivedWithErrors' as StatusType,
     region: 'Americas',
-    lastDataReceivedOn: '2024-02-28T11:20:00Z',
+    ts: '2024-02-28T11:20:00Z',
     comments: 'Data quality issues in 2021-2022 seasons',
   },
 ];
@@ -104,7 +104,7 @@ const mockedCompetitionsDeliveryStatusBreakDown: DeliveryStatusBreakDown[] = [
     completionRate: 93,
     overallStatus: 'partiallyReceived' as StatusType,
     region: 'Europe',
-    lastDataReceivedOn: '2024-03-15T10:30:00Z',
+    ts: '2024-03-15T10:30:00Z',
     comments: 'Waiting for final pool results',
   },
   {
@@ -127,7 +127,7 @@ const mockedCompetitionsDeliveryStatusBreakDown: DeliveryStatusBreakDown[] = [
     completionRate: 100,
     overallStatus: 'fullyReceived' as StatusType,
     region: 'Europe',
-    lastDataReceivedOn: '2024-03-18T16:20:00Z',
+    ts: '2024-03-18T16:20:00Z',
     comments: 'All data validated by analyst team',
   },
   {
@@ -149,7 +149,7 @@ const mockedCompetitionsDeliveryStatusBreakDown: DeliveryStatusBreakDown[] = [
     completionRate: 0,
     overallStatus: 'notReceived' as StatusType,
     region: 'Asia',
-    lastDataReceivedOn: '',
+    ts: '',
     comments: 'Competition scheduled for December 2024',
   },
 ];
@@ -162,9 +162,9 @@ const mockedApiResponse: DeliveryDataScopeResponse = {
         name: 'Milano Cortina 2026',
       },
       packageDeliveryStatus: mockedPackageDeliveryStatus,
-      competitionsDeliveryStatus: mockedCompetitionsDeliveryStatus,
+      competitionDeliveryStatus: mockedCompetitionsDeliveryStatus,
       packageDeliveryStatusBreakDown: mockedPackageDeliveryStatusStatusBreakDown,
-      competitionsDeliveryStatusBreakDown: mockedCompetitionsDeliveryStatusBreakDown,
+      competitionDeliveryStatusBreakDown: mockedCompetitionsDeliveryStatusBreakDown,
     },
   ],
   pagination: {

@@ -83,7 +83,7 @@ export const AwardAthleteChart = ({ data }: Props) => {
   if (data.data.length === 0) return null;
 
   return (
-    <MainCard content={false}>
+    <MainCard>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', px: 2, mt: 1 }}>
         <Autocomplete
           options={disciplines}

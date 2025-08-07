@@ -1,5 +1,6 @@
 import { GridFilterModel, GridSortModel } from '@mui/x-data-grid-pro';
 import { FilterItem, SortItem } from 'types/delivery-data-scope';
+import has from 'lodash/has';
 
 export const transformFilters = (filterModel?: GridFilterModel): FilterItem[] => {
   if (!filterModel?.items.length) return [];
@@ -7,17 +8,25 @@ export const transformFilters = (filterModel?: GridFilterModel): FilterItem[] =>
   return filterModel.items
     .filter((item) => item.value !== undefined && item.value !== null && item.value !== '')
     .map((item) => {
-      if (item.operator === 'isAnyOf' && Array.isArray(item.value)) {
-        return {
-          column: item.field,
-          operator: 'in',
-          values: item.value,
-          isNot: false,
-        };
-      }
+      if (item.operator === 'isAnyOf') {
+        if (Array.isArray(item.value)) {
+          return {
+            column: item.field,
+            operator: 'inList',
+            values: item.value,
+            isNot: false,
+          };
+        }
 
-      console.log('map = ', mapOperator(item.operator));
-      console.log('operator = ', item.operator);
+        if (has(item.value, 'code')) {
+          return {
+            column: item.field,
+            operator: 'inList',
+            value: item.value.code,
+            isNot: false,
+          };
+        }
+      }
 
       return {
         column: item.field,
@@ -31,18 +40,18 @@ export const transformFilters = (filterModel?: GridFilterModel): FilterItem[] =>
 const mapOperator = (muiOperator?: string): string => {
   const operatorMap: Record<string, string> = {
     contains: 'contains',
-    equals: 'eq',
-    '=': 'eq',
+    equals: 'equal',
+    '=': 'equal',
     startsWith: 'startsWith',
     endsWith: 'endsWith',
-    isEmpty: 'isEmpty',
-    isNotEmpty: 'isNotEmpty',
-    '>': 'gt',
-    '>=': 'gte',
-    '<': 'lt',
-    '<=': 'lte',
-    '!=': 'neq',
-    isAnyOf: 'in',
+    isEmpty: 'empty',
+    isNotEmpty: 'empty',
+    '>': 'greaterThan',
+    '>=': 'greaterThanOrEqual',
+    '<': 'lessThan',
+    '<=': 'lessThanOrEqual',
+    '!=': 'equal',
+    isAnyOf: 'inList',
     not: 'not',
     is: 'equal',
   };

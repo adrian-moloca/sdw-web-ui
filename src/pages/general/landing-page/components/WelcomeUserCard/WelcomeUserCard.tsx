@@ -9,6 +9,7 @@ export const WelcomeUserCard = memo(() => {
   const auth = useSelector((x: RootState) => x.auth);
   const theme = useTheme();
   const userName = auth.user?.fullName ?? auth.user?.loginName;
+  const displayName = userName?.includes('@') ? userName.split('@')[0] : userName;
   const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'));
   const content = t('landing.welcome-intro', { returnObjects: true }) as string[];
   return (
@@ -18,7 +19,7 @@ export const WelcomeUserCard = memo(() => {
           <Typography variant="h3" gutterBottom>
             {t('general.hello')}
           </Typography>
-          <Typography variant="h1">{userName}</Typography>
+          <Typography variant="h1">{displayName}</Typography>
           <Typography gutterBottom variant="subtitle1">
             {content[0]}
           </Typography>

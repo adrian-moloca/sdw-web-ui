@@ -2,11 +2,11 @@ import { t } from 'i18next';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import WorkspacePremiumOutlined from '@mui/icons-material/WorkspacePremiumOutlined';
-import { Alert, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Alert } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useModelConfig } from 'hooks';
 import useApiService from 'hooks/useApiService';
-import { ErrorPanel, GenericLoadingPanel } from 'components';
+import { ButtonTab, ErrorPanel, GenericLoadingPanel } from 'components';
 import type { IPanelTabProps } from 'types/views';
 import { SectionCard } from 'components/cards/SectionCard';
 import {
@@ -16,6 +16,7 @@ import {
   AwardTeamChart,
   MedalsByNoc,
 } from '../components';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 export const CompetitionAwardsTab = ({
   data: inputData,
@@ -35,11 +36,9 @@ export const CompetitionAwardsTab = ({
   });
 
   const dataContent = isLoading ? [] : (data?.data ?? []);
-  const [selectedChart, setSelectedChart] = useState('NOC');
-  const handleToggle = (_event: React.MouseEvent<HTMLElement>, newGoal: string | null) => {
-    if (newGoal !== null) {
-      setSelectedChart(newGoal);
-    }
+  const [value, setValue] = useState(0);
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
   };
 
   if (isLoading) return <GenericLoadingPanel loading={true} />;
@@ -58,84 +57,40 @@ export const CompetitionAwardsTab = ({
 
   const renderMedalLists = () => {
     return (
-      <Grid container size={12} spacing={1}>
-        <Grid size={12} display={'flex'} alignItems="center" justifyContent="center">
-          <ToggleButtonGroup
-            value={selectedChart}
-            exclusive
-            onChange={handleToggle}
-            aria-label="Evaluation Goals"
-            size="small"
-          >
-            <ToggleButton
-              value="NOC"
-              aria-label={t('charts.medals-by-noc')}
-              sx={{ px: 2, minWidth: 180, fontWeight: 400 }}
-            >
-              {t('charts.medals-by-noc').toUpperCase()}
-            </ToggleButton>
-            <ToggleButton
-              value="DISCIPLINE"
-              aria-label={t('charts.medals-by-discipline')}
-              sx={{ px: 2, minWidth: 180, fontWeight: 400 }}
-            >
-              {t('charts.medals-by-discipline').toUpperCase()}
-            </ToggleButton>
-            <ToggleButton
-              value="ATHLETE"
-              aria-label={t('charts.medals-by-athlete')}
-              sx={{ px: 2, minWidth: 180, fontWeight: 400 }}
-            >
-              {t('charts.medals-by-athlete').toUpperCase()}
-            </ToggleButton>
-            <ToggleButton
-              value="TEAM"
-              aria-label={t('charts.medals-by-team')}
-              sx={{ px: 2, minWidth: 180, fontWeight: 400 }}
-            >
-              {t('charts.medals-by-team').toUpperCase()}
-            </ToggleButton>
-            <ToggleButton
-              value="EVENT"
-              aria-label={t('charts.medals-by-event')}
-              sx={{ px: 2, minWidth: 180, fontWeight: 400 }}
-            >
-              {t('charts.medals-by-event').toUpperCase()}
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Grid>
-        {selectedChart === 'DISCIPLINE' && (
-          <Grid size={12}>
-            <AwardDisciplineChart data={data} />
-          </Grid>
-        )}
-        {selectedChart === 'EVENT' && (
-          <Grid size={12}>
-            <AwardEventChart data={data} config={config} />
-          </Grid>
-        )}
-        {selectedChart === 'ATHLETE' && (
-          <Grid size={12}>
-            <AwardAthleteChart data={data} />
-          </Grid>
-        )}
-        {selectedChart === 'TEAM' && (
-          <Grid size={12}>
-            <AwardTeamChart data={data} />
-          </Grid>
-        )}
-        {selectedChart === 'NOC' && (
-          <Grid container size={12}>
-            <MedalsByNoc
-              parameter={parameter}
-              data={inputData}
-              parameters={parameters}
-              includeHeader={includeHeader}
-              readOnly={readOnly}
-            />
-          </Grid>
-        )}
-      </Grid>
+      <TabContext value={value}>
+        <TabList
+          onChange={handleChange}
+          aria-label={t('general.rounds')}
+          sx={{ '.MuiTabs-indicator': { backgroundColor: 'transparent' } }}
+        >
+          <ButtonTab label={t('charts.medals-by-noc')} value={0} />
+          <ButtonTab label={t('charts.medals-by-discipline')} value={1} />
+          <ButtonTab label={t('charts.medals-by-athlete')} value={2} />
+          <ButtonTab label={t('charts.medals-by-team')} value={3} />
+          <ButtonTab label={t('charts.medals-by-event')} value={4} />
+        </TabList>
+        <TabPanel value={0} sx={{ px: 0, pt: 1 }}>
+          <MedalsByNoc
+            parameter={parameter}
+            data={inputData}
+            parameters={parameters}
+            includeHeader={includeHeader}
+            readOnly={readOnly}
+          />
+        </TabPanel>
+        <TabPanel value={1} sx={{ px: 0, pt: 1 }}>
+          <AwardDisciplineChart data={data} />
+        </TabPanel>
+        <TabPanel value={2} sx={{ px: 0, pt: 1 }}>
+          <AwardAthleteChart data={data} />
+        </TabPanel>
+        <TabPanel value={3} sx={{ px: 0, pt: 1 }}>
+          <AwardTeamChart data={data} />
+        </TabPanel>
+        <TabPanel value={4} sx={{ px: 0, pt: 1 }}>
+          <AwardEventChart data={data} config={config} />
+        </TabPanel>
+      </TabContext>
     );
   };
 

@@ -21,7 +21,7 @@ export const AwardNocChart = ({ data }: Props) => {
   if (data.length === 0) return null;
 
   return (
-    <MainCard content={false}>
+    <MainCard>
       <PerfectScrollbar
         style={{
           height: '100%',

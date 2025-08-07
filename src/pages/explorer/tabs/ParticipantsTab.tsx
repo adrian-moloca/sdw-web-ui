@@ -15,7 +15,11 @@ export const ParticipantsTab = (props: IPanelTabProps) => {
 
   return (
     <TabContext value={value}>
-      <TabList onChange={handleChange} aria-label={t('general.participants')} centered>
+      <TabList
+        onChange={handleChange}
+        aria-label={t('general.participants')}
+        sx={{ '.MuiTabs-indicator': { backgroundColor: 'transparent' } }}
+      >
         <ButtonTab label={t('general.athletes')} value="1" />
         <ButtonTab label={t('general.teams')} value="2" />
         <ButtonTab label={t('general.officials')} value="3" />

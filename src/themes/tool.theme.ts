@@ -117,9 +117,9 @@ export const toolpadTheme = createTheme(baseTheme, {
     },
     subtitle2: {
       fontFamily: fonts.families.base,
-      fontWeight: 'bold',
-      fontSize: fonts.sizes.footer.desktop,
-      lineHeight: fonts.lineHeights.footer.desktop,
+      fontWeight: 'normal',
+      fontSize: fonts.sizes.footer.mobile,
+      lineHeight: fonts.lineHeights.footer.mobile,
       letterSpacing: '0',
       [baseTheme.breakpoints.down('sm')]: {
         fontSize: fonts.sizes.footer.mobile,

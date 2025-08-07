@@ -5,7 +5,6 @@ import { Metrics } from './components';
 import { t } from 'i18next';
 import {
   DataScopeStatusTable,
-  transformDeliveryScopeRows,
   useColumnsIngestionPackages,
 } from './components/DataScopeStatusTable';
 import { useDataScopeStatus } from 'hooks/useDataScopeStatus';
@@ -15,7 +14,7 @@ import {
   GridPaginationModel,
   GridSortModel,
 } from '@mui/x-data-grid-pro';
-import { DeliveryStatusBreakDown } from '../../../types/delivery-data-scope';
+import { DeliveryStatusBreakDown } from 'types/delivery-data-scope';
 
 const IngestionPackagesTab: React.FC = (): JSX.Element => {
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -31,9 +30,10 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
   const {
     packageDeliveryStatus,
     packageDeliveryStatusBreakDown,
-    isLoading,
-    isError,
     packageDeliveryStatusTotalCount,
+    isLoadingPackages,
+    isLoadingPackagesSummary,
+    isErrorCompetitions,
   } = useDataScopeStatus({
     paginationModel,
     selectedStatus,
@@ -66,7 +66,7 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
     setPaginationModel((prev) => ({ ...prev, page: 0 }));
   }, []);
 
-  if (isError) {
+  if (isErrorCompetitions) {
     return (
       <Box
         height="calc(100vh - 185px)"
@@ -77,7 +77,7 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
     );
   }
 
-  if (isLoading) {
+  if (isLoadingPackages && isLoadingPackagesSummary) {
     return (
       <Box
         height="calc(100vh - 185px)"
@@ -87,8 +87,6 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
       </Box>
     );
   }
-
-  const rows = transformDeliveryScopeRows(packageDeliveryStatusBreakDown || []);
 
   return (
     <DashboardLayout
@@ -104,7 +102,7 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
         <DataScopeStatusTable
           rows={packageDeliveryStatusBreakDown as DeliveryStatusBreakDown[]}
           columns={columnsIngestionPackages as GridColDef[]}
-          isLoading={isLoading}
+          isLoading={isLoadingPackages}
           paginationModel={paginationModel}
           onPaginationModelChange={handlePaginationModelChange}
           filterModel={filterModel}
@@ -112,7 +110,7 @@ const IngestionPackagesTab: React.FC = (): JSX.Element => {
           sortModel={sortModel}
           onSortModelChange={handleSortModelChange}
           onSearchChange={handleSearchChange}
-          rowCount={packageDeliveryStatusTotalCount || rows.length}
+          rowCount={packageDeliveryStatusTotalCount || packageDeliveryStatusBreakDown?.length}
         />
       }
     />

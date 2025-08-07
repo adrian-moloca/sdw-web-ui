@@ -907,7 +907,8 @@
     "usdf-output": "USDF Output",
     "recent-games": "Recent Olympic Games",
     "random-olympians": "Random Olympians",
-    "date-of-passing": "In Memory Since"
+    "date-of-passing": "In Memory Since",
+    "welcome": "Welcome!"
   },
   "extendedInfo": {
     "votes": "Votes",
@@ -1512,7 +1513,7 @@
     ]
   },
   "landing": {
-    "welcome": "Welcome to Sport Data Warehouse!",
+    "welcome": "This is Sport Data Warehouse",
     "starting": "Where should I begin?",
     "welcome-intro": [
       "We’re glad you’re here!",
@@ -1527,10 +1528,10 @@
     "what": "What SDW Can Do?",
     "what-content": [
       "SDW offers a wide array of features that cater to the unique requirements of sports organizations. With SDW, you can:",
-      "📌 <b>Data Explorer</b>: Gain insights with a clean, intuitive interface that lets you navigate through decades of Olympic history. View results, aggregated statistics, and data visualizations in just a few clicks.",
-      "📌 <b>API Access</b>: Our flexible APIs offer structured and raw data, with advanced filtering options. Perfect for developers, analysts, or organisation looking to integrate official data seamlessly into their own tools and platforms.",
-      "📌 <b>Live Data Processing</b>: During the Olympic Games, SDW processes the Olympic Data Feed (ODF) in real-time. This internal feature delivers live, structured data through a dedicated API—removing the complexity of building custom data processors.",
-      "📌 <b>Sport Widgets</b>: Embeddable and customizable widgets that brings sports data to life through interactive visualizations. Easily integrate it into your platform to display real-time stats, player insights, and more — all tailored to match your brand."
+      "🔵 <b>Data Explorer</b>: Gain insights with a clean, intuitive interface that lets you navigate through decades of Olympic history. View results, aggregated statistics, and data visualizations in just a few clicks.",
+      "🔵 <b>API Access</b>: Our flexible APIs offer structured and raw data, with advanced filtering options. Perfect for developers, analysts, or organisation looking to integrate official data seamlessly into their own tools and platforms.",
+      "🔵 <b>Live Data Processing</b>: During the Olympic Games, SDW processes the Olympic Data Feed (ODF) in real-time. This internal feature delivers live, structured data through a dedicated API—removing the complexity of building custom data processors.",
+      "🔵 <b>Sport Widgets</b>: Embeddable and customizable widgets that brings sports data to life through interactive visualizations. Easily integrate it into your platform to display real-time stats, player insights, and more — all tailored to match your brand."
     ],
     "feature1": "Data Explorer",
     "feature1-content": [

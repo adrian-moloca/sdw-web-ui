@@ -73,7 +73,7 @@ export const AwardEventChart = ({ data }: Props) => {
   }
 
   return (
-    <MainCard content={false}>
+    <MainCard>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', paddingRight: 2, mt: 1 }}>
         <Autocomplete
           options={disciplines}

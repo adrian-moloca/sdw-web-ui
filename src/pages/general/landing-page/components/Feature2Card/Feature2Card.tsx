@@ -1,26 +1,31 @@
 import { t } from 'i18next';
 import { memo } from 'react';
 import Grid from '@mui/material/Grid';
-import { CardVariantData } from 'types/cards';
-import { InfoCard } from 'components/cards/InfoCard';
-import { OlympicColors } from 'themes/colors';
-import SDW_Equ from 'assets/images/SDW_Equ.avif';
+import { MainCard } from 'components';
+import { Typography } from '@mui/material';
 
 export const Feature2Card = memo(() => {
-  const data: CardVariantData = {
-    background: `radial-gradient(circle at bottom left, ${OlympicColors.GREEN} 25%, transparent  10%)`,
-    imgSrc: SDW_Equ,
-    //imageHeight: { xs: 100, md: 160, lg: 200 },
-    direction: 'up',
-    imgAlt: t('landing.feature2'),
-    title: t('landing.feature2'),
-    content: t('landing.feature2-content', { returnObjects: true }) as string[],
-    buttons: [],
-  };
+  const content: string[] = t('landing.feature2-content', { returnObjects: true }) as string[];
 
   return (
-    <Grid size={{ xs: 12, md: 6 }}>
-      <InfoCard card={data} reverse={true} />
+    <Grid size={{ xs: 12, md: 3 }}>
+      <MainCard fullHeight contentSX={{ px: 6, paddingTop: 9, paddingBottom: '18px!important' }}>
+        <Typography variant="h5" gutterBottom>
+          {t('landing.feature2')}
+        </Typography>
+        <>
+          {content.map((text, index) => (
+            <Typography
+              key={`${text}-${index}`}
+              component={'div'}
+              gutterBottom
+              variant="body1"
+              sx={{ mb: 4 }}
+              dangerouslySetInnerHTML={{ __html: text }}
+            />
+          ))}
+        </>
+      </MainCard>
     </Grid>
   );
 });

@@ -58,7 +58,7 @@ export const AwardDisciplineChart = ({ data }: Props) => {
   );
 
   return (
-    <MainCard content={false}>
+    <MainCard>
       <Box
         sx={{ display: 'flex', justifyContent: 'flex-end', paddingLeft: 4, paddingRight: 2, mt: 1 }}
       >

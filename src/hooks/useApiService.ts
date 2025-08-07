@@ -47,7 +47,9 @@ export type UseApiService = {
   getHidden: (config: IConfigProps) => Promise<QueryResponse<any>>;
   getById: (config: IConfigProps, id: string, custom_url?: string) => Promise<any>;
   getDeliveryScopeStatusData: (payload: DeliveryDataScopePayload) => Promise<any>;
-  getPackagesSummary: (payload: DeliveryDataScopePayload) => Promise<any>;
+  getDeliveryScopeStatusSummary: () => Promise<any>;
+  getPackagesData: (payload: DeliveryDataScopePayload) => Promise<any>;
+  getPackagesSummary: () => Promise<any>;
   post: (url: string, payload?: any, anonymous?: boolean) => Promise<any>;
   put: (url: string, payload: any) => Promise<any>;
   deleteAny: (url: string, payload?: any) => Promise<any>;
@@ -495,11 +497,32 @@ const useApiService = (): UseApiService => {
       throw error;
     }
   };
+  const getDeliveryScopeStatusSummary = async () => {
+    try {
+      const url = `${apiConfig.reportManagerEndPoint}/scope/status/summary`;
+      const response = await api.post(url);
+      return response.data;
+    } catch (error) {
+      Logger.error(`Error in POST request: ${error}`);
+      throw error;
+    }
+  };
 
-  const getPackagesSummary = async (payload: DeliveryDataScopePayload) => {
+  const getPackagesData = async (payload: DeliveryDataScopePayload) => {
     try {
       const url = `${apiConfig.reportManagerEndPoint}/scope`;
       const response = await api.post(url, payload);
+      return response.data;
+    } catch (error) {
+      Logger.error(`Error in POST request: ${error}`);
+      throw error;
+    }
+  };
+
+  const getPackagesSummary = async () => {
+    try {
+      const url = `${apiConfig.reportManagerEndPoint}/scope/summary`;
+      const response = await api.post(url);
       return response.data;
     } catch (error) {
       Logger.error(`Error in POST request: ${error}`);
@@ -522,6 +545,8 @@ const useApiService = (): UseApiService => {
     getHidden,
     getById,
     getDeliveryScopeStatusData,
+    getDeliveryScopeStatusSummary,
+    getPackagesData,
     getPackagesSummary,
     post,
     put,

@@ -1,4 +1,4 @@
-import { Grid, Stack, Typography, useMediaQuery } from '@mui/material';
+import { Grid, lighten, Stack, Typography, useMediaQuery } from '@mui/material';
 import { formatAthleteName } from '_helpers';
 import { useStoreCache } from 'hooks';
 import { t } from 'i18next';
@@ -33,8 +33,7 @@ export const MatchHeader: React.FC<Props> = ({ match, discipline }: Props) => {
             py: 3,
             borderTopLeftRadius: layout.radius.sm,
             borderTopRightRadius: layout.radius.sm,
-            backgroundColor: theme.palette.grey[900],
-            color: theme.palette.common.white,
+            backgroundColor: lighten(theme.palette.primary.light, 0.8),
           }),
           (theme) =>
             theme.applyStyles('dark', {

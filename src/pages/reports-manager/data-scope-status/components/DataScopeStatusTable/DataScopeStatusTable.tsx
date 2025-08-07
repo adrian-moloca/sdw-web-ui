@@ -15,7 +15,6 @@ import { colors } from 'themes/colors';
 
 interface DataScopeStatusTableProps {
   rows: GridValidRowModel[];
-  // rows: any[];
   columns: GridColDef[];
   isLoading?: boolean;
   paginationModel: GridPaginationModel;

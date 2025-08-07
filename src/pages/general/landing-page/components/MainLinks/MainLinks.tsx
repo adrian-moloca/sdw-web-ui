@@ -1,4 +1,4 @@
-import { Divider, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import SupportAgentTwoTone from '@mui/icons-material/SupportAgentTwoTone';
 import SecurityTwoTone from '@mui/icons-material/SecurityTwoTone';
@@ -49,13 +49,11 @@ export const MainLinks = memo(() => {
     },
   ];
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ pt: 4, background: 'transparent' }}>
       <Grid size={12}>
-        <Divider sx={{ mt: 2 }}>
-          <Typography variant="h5" component="span">
-            {t('landing.starting')}
-          </Typography>
-        </Divider>
+        <Typography variant="h2" gutterBottom>
+          {t('landing.starting')}
+        </Typography>
       </Grid>
       {links.map((e: any) => (
         <Grid size={{ lg: 4, md: 6, sm: 12, xs: 12 }} key={e.title}>

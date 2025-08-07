@@ -1,4 +1,4 @@
-import { Stack, useMediaQuery } from '@mui/material';
+import { Stack } from '@mui/material';
 import { TypographyLink } from 'components/TypographyLink';
 import { UniformChip } from 'components/UniformChip';
 import useAppRoutes from 'hooks/useAppRoutes';
@@ -15,7 +15,6 @@ export const ParticipantIdentity: React.FC<{
   const isLeft = textAlign === 'left';
   const id = get(data, 'participantId');
   const type = id.startsWith('IND') ? EntityType.Person : EntityType.Team;
-  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'));
   const getDisplayName = () => {
     if (displayName.includes('/')) {
       return displayName.split('/');
@@ -26,7 +25,7 @@ export const ParticipantIdentity: React.FC<{
     return (
       <TypographyLink
         value={getDisplayName()}
-        typoSize={isMobile ? 'subtitle1' : 'h5'}
+        typoSize={'h5'}
         sx={{
           textAlign: 'center',
           color: olympicsDesignColors.base.neutral.white,

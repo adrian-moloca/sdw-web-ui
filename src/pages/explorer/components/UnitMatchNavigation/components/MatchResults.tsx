@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Grid, IconButton, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { MatchCard } from './MatchCard';
@@ -83,6 +83,7 @@ export const MatchResults: React.FC<Props> = ({ data }) => {
   const isNextDisabled = currentPage === totalPages;
   return (
     <Grid
+      container
       size={12}
       sx={{
         px: isSmallScreen ? theme.spacing(2) : theme.spacing(6),
@@ -90,16 +91,22 @@ export const MatchResults: React.FC<Props> = ({ data }) => {
         pb: isSmallScreen ? theme.spacing(0) : theme.spacing(6),
       }}
     >
-      <Grid size={12} container spacing={3}>
-        {displayedMatches.map((match) => (
-          <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }} key={match.id}>
+      <Grid size={12}>
+        <Stack
+          direction={isSmallScreen ? 'column' : 'row'}
+          spacing={3}
+          justifyContent="center"
+          alignItems="center"
+        >
+          {displayedMatches.map((match) => (
             <MatchCard
+              key={match.id}
               match={match}
               isSelected={match.id === selectedMatchId}
               onClick={(id) => setUnit(id)}
             />
-          </Grid>
-        ))}
+          ))}
+        </Stack>
       </Grid>
       {showPagination && (
         <Grid

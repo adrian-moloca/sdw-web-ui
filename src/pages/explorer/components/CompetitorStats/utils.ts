@@ -1,3 +1,4 @@
+import { formatAthleteName } from '_helpers/utils';
 import { StatItem, UnifiedStat } from 'types/explorer';
 
 export const unifyStats = (competitors: any[]): UnifiedStat[] => {
@@ -5,7 +6,7 @@ export const unifyStats = (competitors: any[]): UnifiedStat[] => {
   const buildCompetitorStat = (stat: StatItem, competitor: any) => ({
     ...stat,
     id: competitor.id,
-    name: competitor.name,
+    name: competitor.participantType == 'PERSON' ? formatAthleteName(competitor) : competitor.name,
   });
 
   for (const competitor of competitors) {

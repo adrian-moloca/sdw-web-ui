@@ -15,14 +15,14 @@ export const MenuButton = ({ icon, title, subtitle, onClick }: Props) => {
 
   return (
     <MainCard
-      sx={{ position: 'relative', minHeight: 100 }}
+      sx={{ position: 'relative', minHeight: 100, background: 'transparent' }}
       border={true}
       boxShadow={true}
       divider={false}
       fullHeight
     >
-      <CardActionArea onClick={onClick} sx={{ p: 3, minHeight: 90 }}>
-        <Typography variant="h6" sx={{ zIndex: 1 }}>
+      <CardActionArea onClick={onClick} sx={{ p: 2, minHeight: 90, background: 'transparent' }}>
+        <Typography variant="h5" sx={{ zIndex: 1 }}>
           {title}
         </Typography>
         <Typography variant="body1">{subtitle}</Typography>

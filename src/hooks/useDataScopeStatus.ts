@@ -7,7 +7,7 @@ import {
   DeliveryStatusBreakDown,
 } from 'types/delivery-data-scope';
 import { GridFilterModel, GridSortModel } from '@mui/x-data-grid-pro';
-import { transformSort, transformFilters } from 'utils/data-scope-status';
+import { transformFilters, transformSort } from 'utils/data-scope-status';
 
 export interface DataScopeStatusParams {
   paginationModel: { pageSize: number; page: number };
@@ -20,13 +20,25 @@ export interface DataScopeStatusParams {
 
 export type UseDataScopeStatus = {
   packageDeliveryStatus: DeliveryStatus;
-  competitionDeliveryStatus: DeliveryStatus;
   packageDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
-  competitionDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
-  isLoading: boolean;
-  isError: boolean;
   packageDeliveryStatusTotalCount?: number;
+  isLoadingPackages: boolean;
+  isLoadingPackagesSummary: boolean;
+  isErrorPackages: boolean;
+  competitionDeliveryStatus: DeliveryStatus;
+  competitionDeliveryStatusBreakDown?: DeliveryStatusBreakDown[];
   competitionDeliveryStatusTotalCount?: number;
+  isLoadingCompetitions: boolean;
+  isLoadingCompetitionsSummary: boolean;
+  isErrorCompetitions: boolean;
+};
+
+export const overallStatusMap: { [key: string]: string } = {
+  all: 'all',
+  fullyReceived: 'FullyReceived',
+  partiallyReceived: 'PartiallyReceivedWithoutErrors',
+  partiallyReceivedWithErrors: 'PartiallyReceivedWithErrors',
+  notReceived: 'NotReceived',
 };
 
 export const useDataScopeStatus = ({
@@ -51,15 +63,39 @@ export const useDataScopeStatus = ({
     retry: 1,
   });
 
-  const editionId = setupData?.currentEdition?.id ?? 'E010003198074';
+  const editionId = setupData?.currentEdition?.id;
 
   useEffect(() => {
     setStatusToFetch(selectedStatus);
   }, [selectedStatus]);
 
-  const competitionsQuery = {
+  const computePayload = (): DeliveryDataScopePayload => {
+    const filters = transformFilters(filterModel);
+    const sort = transformSort(sortModel);
+
+    if (statusToFetch !== 'all') {
+      filters.push({
+        column: 'overallStatus',
+        isNot: false,
+        operator: 'equal',
+        value: overallStatusMap[statusToFetch],
+      });
+    }
+
+    return {
+      editionId: String(editionId),
+      enablePagination: true,
+      start: paginationModel.page * paginationModel.pageSize,
+      rows: paginationModel.pageSize,
+      filters,
+      sort,
+      search: searchQuery || '',
+    };
+  };
+
+  const deliveryScopeStatusDataQuery = {
     queryKey: [
-      'deliveryScopeStatus',
+      'deliveryScopeStatusData',
       editionId,
       paginationModel,
       statusToFetch,
@@ -68,19 +104,7 @@ export const useDataScopeStatus = ({
       searchQuery,
     ],
     queryFn: async () => {
-      const filters = transformFilters(filterModel);
-      const sort = transformSort(sortModel);
-
-      const payload: DeliveryDataScopePayload = {
-        editionId: String(editionId),
-        enablePagination: true,
-        start: paginationModel.page * paginationModel.pageSize,
-        rows: paginationModel.pageSize,
-        filters,
-        sort,
-        search: searchQuery || '',
-        ...(statusToFetch !== 'all' && { status: statusToFetch }),
-      };
+      const payload = computePayload();
 
       return apiService.getDeliveryScopeStatusData(payload);
     },
@@ -88,9 +112,18 @@ export const useDataScopeStatus = ({
     retry: 1,
   };
 
-  const packagesQuery = {
+  const deliveryScopeStatusSummaryQuery = {
+    queryKey: ['deliveryScopeStatusSummary'],
+    queryFn: async () => {
+      return apiService.getDeliveryScopeStatusSummary();
+    },
+    enabled: Boolean(editionId) && selectedTab === 'competitions',
+    retry: 1,
+  };
+
+  const packagesDataQuery = {
     queryKey: [
-      'packagesSummary',
+      'packagesData',
       editionId,
       paginationModel,
       statusToFetch,
@@ -99,46 +132,79 @@ export const useDataScopeStatus = ({
       searchQuery,
     ],
     queryFn: async () => {
-      const filters = transformFilters(filterModel);
-      const sort = transformSort(sortModel);
+      const payload = computePayload();
 
-      const payload: DeliveryDataScopePayload = {
-        editionId: String(editionId),
-        enablePagination: true,
-        start: paginationModel.page * paginationModel.pageSize,
-        rows: paginationModel.pageSize,
-        filters,
-        sort,
-        search: searchQuery || '',
-        ...(statusToFetch !== 'all' && { status: statusToFetch }),
-      };
+      return apiService.getPackagesData(payload);
+    },
+    enabled: Boolean(editionId) && selectedTab === 'packages',
+    retry: 1,
+  };
 
-      return apiService.getPackagesSummary(payload);
+  const packagesSummaryQuery = {
+    queryKey: ['packagesSummary'],
+    queryFn: async () => {
+      return apiService.getPackagesSummary();
     },
     enabled: Boolean(editionId) && selectedTab === 'packages',
     retry: 1,
   };
 
   const results = useQueries({
-    queries: [competitionsQuery, packagesQuery],
+    queries: [
+      deliveryScopeStatusDataQuery,
+      deliveryScopeStatusSummaryQuery,
+      packagesDataQuery,
+      packagesSummaryQuery,
+    ],
   });
 
   if (setupError) {
     console.error('Setup query error:', setupError);
   }
 
-  const competitionsResult = results[0].data?.content?.[0];
-  const packagesResult = results[1]?.data;
+  const [
+    {
+      data: deliveryScopeStatus,
+      isLoading: isLoadingDeliveryScopeStatus,
+      isPending: isPendingDeliveryScopeStatus,
+      isError: isErrorDeliveryScopeStatus,
+    },
+    {
+      data: deliveryScopeStatusSummary,
+      isLoading: isLoadingDeliveryScopeStatusSummary,
+      isPending: isPendingDeliveryScopeStatusSummary,
+      isError: isErrorDeliveryScopeStatusSummary,
+    },
+    {
+      data: packages,
+      isLoading: isLoadingPackagesData,
+      isPending: isPendingPackagesData,
+      isError: isErrorPackagesData,
+    },
+    {
+      data: packagesSummary,
+      isLoading: isLoadingPackagesSummaryData,
+      isPending: isPendingPackagesSummaryData,
+      isError: isErrorPackagesSummaryData,
+    },
+  ] = results;
+
+  const isLoadingSetup = isPendingSetupData || isLoadingSetupData;
 
   return {
-    packageDeliveryStatus: competitionsResult?.packageDeliveryStatus,
-    competitionDeliveryStatus: competitionsResult?.competitionDeliveryStatus as DeliveryStatus,
-    competitionDeliveryStatusBreakDown:
-      competitionsResult?.competitionDeliveryStatusBreakDown ?? [],
-    packageDeliveryStatusBreakDown: packagesResult?.content,
-    packageDeliveryStatusTotalCount: packagesResult?.pagination?.total,
-    competitionDeliveryStatusTotalCount: 25,
-    isLoading: results.some((query) => query.isLoading) || isPendingSetupData || isLoadingSetupData,
-    isError: false,
+    packageDeliveryStatus: packagesSummary,
+    packageDeliveryStatusBreakDown: packages?.content ?? [],
+    packageDeliveryStatusTotalCount: packages?.pagination?.total,
+    isLoadingPackages: isLoadingPackagesData || isPendingPackagesData || isLoadingSetup,
+    isLoadingPackagesSummary: isLoadingPackagesSummaryData || isPendingPackagesSummaryData,
+    isErrorPackages: isErrorPackagesData || isErrorPackagesSummaryData,
+    competitionDeliveryStatus: deliveryScopeStatusSummary,
+    competitionDeliveryStatusBreakDown: deliveryScopeStatus?.content ?? [],
+    competitionDeliveryStatusTotalCount: deliveryScopeStatus?.pagination?.total,
+    isLoadingCompetitions:
+      isLoadingDeliveryScopeStatus || isPendingDeliveryScopeStatus || isLoadingSetup,
+    isLoadingCompetitionsSummary:
+      isLoadingDeliveryScopeStatusSummary || isPendingDeliveryScopeStatusSummary,
+    isErrorCompetitions: isErrorDeliveryScopeStatus || isErrorDeliveryScopeStatusSummary,
   };
 };

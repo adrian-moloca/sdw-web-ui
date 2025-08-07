@@ -3,11 +3,7 @@ import { t } from 'i18next';
 import { useDataScopeStatus } from 'hooks/useDataScopeStatus';
 import { Metrics } from './components';
 import { Box, CircularProgress, Typography } from '@mui/material';
-import {
-  DataScopeStatusTable,
-  transformDeliveryScopeRows,
-  useColumnsCompetitions,
-} from './components/DataScopeStatusTable';
+import { DataScopeStatusTable, useColumnsCompetitions } from './components/DataScopeStatusTable';
 import {
   GridColDef,
   GridFilterModel,
@@ -15,6 +11,7 @@ import {
   GridSortModel,
 } from '@mui/x-data-grid-pro';
 import DashboardLayout from './components/DashboardLayout/DashboardLayout';
+import { DeliveryStatusBreakDown } from 'types/delivery-data-scope';
 
 const CompetitionsTab: React.FC = (): JSX.Element => {
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
@@ -30,9 +27,10 @@ const CompetitionsTab: React.FC = (): JSX.Element => {
   const {
     competitionDeliveryStatus,
     competitionDeliveryStatusBreakDown,
-    isLoading,
-    isError,
     competitionDeliveryStatusTotalCount,
+    isLoadingCompetitions,
+    isLoadingCompetitionsSummary,
+    isErrorCompetitions,
   } = useDataScopeStatus({
     paginationModel,
     selectedStatus,
@@ -65,7 +63,7 @@ const CompetitionsTab: React.FC = (): JSX.Element => {
     setPaginationModel((prev) => ({ ...prev, page: 0 }));
   }, []);
 
-  if (isError) {
+  if (isErrorCompetitions) {
     return (
       <Box
         height="calc(100vh - 185px)"
@@ -76,7 +74,7 @@ const CompetitionsTab: React.FC = (): JSX.Element => {
     );
   }
 
-  if (isLoading) {
+  if (isLoadingCompetitions && isLoadingCompetitionsSummary) {
     return (
       <Box
         height="calc(100vh - 185px)"
@@ -86,8 +84,6 @@ const CompetitionsTab: React.FC = (): JSX.Element => {
       </Box>
     );
   }
-
-  const rows = transformDeliveryScopeRows(competitionDeliveryStatusBreakDown || []);
 
   return (
     <DashboardLayout
@@ -101,9 +97,9 @@ const CompetitionsTab: React.FC = (): JSX.Element => {
       }
       rightContent={
         <DataScopeStatusTable
-          rows={rows}
+          rows={competitionDeliveryStatusBreakDown as DeliveryStatusBreakDown[]}
           columns={columnsCompetitions as GridColDef[]}
-          isLoading={isLoading}
+          isLoading={isLoadingCompetitions}
           paginationModel={paginationModel}
           onPaginationModelChange={handlePaginationModelChange}
           filterModel={filterModel}
@@ -111,7 +107,7 @@ const CompetitionsTab: React.FC = (): JSX.Element => {
           sortModel={sortModel}
           onSortModelChange={handleSortModelChange}
           onSearchChange={handleSearchChange}
-          rowCount={competitionDeliveryStatusTotalCount || rows.length}
+          rowCount={competitionDeliveryStatusTotalCount}
         />
       }
     />

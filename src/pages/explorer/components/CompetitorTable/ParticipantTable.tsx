@@ -70,7 +70,7 @@ export const ParticipantTable = ({ data, discipline }: Props) => {
     {
       field: 'gender',
       headerName: t('general.gender'),
-      width: 80,
+      width: 100,
       renderCell: (params: GridRenderCellParams) => (
         <Typography variant="body1">
           {getMasterDataValue(params.value, MasterData.PersonGender)?.value}
@@ -81,6 +81,7 @@ export const ParticipantTable = ({ data, discipline }: Props) => {
       field: 'dateOfBirth',
       headerName: t('common.dateOfBirth'),
       width: 130,
+      align: 'right',
       renderCell: (params: GridRenderCellParams) => (
         <Typography variant="body1">
           {params.value

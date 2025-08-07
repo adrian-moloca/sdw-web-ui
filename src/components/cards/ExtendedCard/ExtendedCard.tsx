@@ -22,17 +22,13 @@ export const ExtendedCard: React.FC<Props> = ({
   const Icon = icon;
   return (
     <MainCard
-      title={
-        <Typography variant={variant || 'body1'} fontWeight={500}>
-          {titleText}
-        </Typography>
-      }
+      title={<Typography variant={variant || 'subtitle2'}>{titleText}</Typography>}
       avatar={
         <Avatar
           sx={[
             (theme) => ({
-              width: 24,
-              height: 24,
+              width: 30,
+              height: 30,
               background: theme.palette.background.default,
               color: theme.palette.text.primary,
               borderColor: theme.palette.text.primary,
@@ -40,8 +36,8 @@ export const ExtendedCard: React.FC<Props> = ({
             }),
             (theme) =>
               theme.applyStyles('dark', {
-                width: 24,
-                height: 24,
+                width: 30,
+                height: 30,
                 background: olympicsDesignColors.dark.general.background,
                 color: olympicsDesignColors.dark.text.primary,
                 borderColor: olympicsDesignColors.dark.general.divider,
@@ -54,36 +50,29 @@ export const ExtendedCard: React.FC<Props> = ({
       }
       divider={false}
       border={false}
-      contentSX={{ pt: 0 }}
       headerSX={[
         (theme) => ({
           textAlign: 'left',
-          width: '100%',
           background: theme.palette.grey[50],
-          py: 2,
-          px: 3,
         }),
         (theme) =>
           theme.applyStyles('dark', {
             textAlign: 'left',
-            width: '100%',
             background: olympicsDesignColors.dark.general.background,
-            py: 2,
-            px: 3,
           }),
       ]}
       sx={[
         (theme) => ({
           width: '100%',
           borderRadius: 0,
-          px: theme.spacing(2),
+          textAlign: 'left',
           backgroundColor: theme.palette.grey[50],
         }),
         (theme) =>
           theme.applyStyles('dark', {
-            width: '100%',
             borderRadius: 0,
-            px: theme.spacing(2),
+            width: '100%',
+            textAlign: 'left',
             backgroundColor: olympicsDesignColors.dark.general.background,
           }),
       ]}

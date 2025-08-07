@@ -2,36 +2,58 @@ import Login from '@mui/icons-material/Login';
 import PersonAddOutlined from '@mui/icons-material/PersonAddOutlined';
 import { t } from 'i18next';
 import { memo } from 'react';
-import { CardVariantData } from 'types/cards';
-import { InfoCard } from 'components/cards/InfoCard';
+import { Typography, Button, Stack } from '@mui/material';
+import { Grid, useMediaQuery, Container } from '@mui/system';
 import authService from 'services/auth';
-import SDW_HighJump from 'assets/images/SDW_HighJump.avif';
-import { OlympicColors } from 'themes/colors';
 
 export const WelcomeCard = memo(() => {
-  const data: CardVariantData = {
-    background: `radial-gradient(circle at bottom left, ${OlympicColors.BLUE} 30%,  transparent  30%),
-      radial-gradient(circle at top right, ${OlympicColors.YELLOW} 20%, transparent  10%)`,
-    imgSrc: SDW_HighJump,
-    direction: 'up',
-    imgAlt: t('landing.welcome'),
-    title: t('landing.welcome'),
-    content: t('landing.welcome-intro', { returnObjects: true }) as string[],
-    buttons: [
-      {
-        text: t('actions.buttonLogin'),
-        onClick: () => authService.login(),
-        startIcon: <Login />,
-        sx: { bgcolor: OlympicColors.BLUE },
-      },
-      {
-        text: t('actions.buttonRequestAccess'),
-        route: '/access-request',
-        variant: 'outlined',
-        startIcon: <PersonAddOutlined />,
-      },
-    ],
-  };
+  const content = t('landing.welcome-intro', { returnObjects: true }) as string[];
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('md'));
 
-  return <InfoCard card={data} reverse={false} />;
+  return (
+    <Container maxWidth="lg">
+      <Grid container spacing={2} sx={{ py: isMobile ? 6 : 16 }}>
+        <Grid size={isMobile ? 12 : 5}>
+          <Typography variant="h3" gutterBottom>
+            {t('general.welcome')}
+          </Typography>
+          <Typography variant="h1" gutterBottom>
+            {t('landing.welcome')}
+          </Typography>
+          <Typography gutterBottom variant="subtitle1">
+            {content[0]}
+          </Typography>
+        </Grid>
+        <Grid size={isMobile ? 12 : 7}>
+          {content.slice(1).map((text, index) => (
+            <Typography
+              key={`${text}-${index}`}
+              component={'div'}
+              gutterBottom
+              variant="subtitle1"
+              dangerouslySetInnerHTML={{ __html: text }}
+            />
+          ))}
+          <Stack spacing={2} direction="row" sx={{ mt: 4 }}>
+            <Button
+              variant="contained"
+              disableElevation
+              startIcon={<Login />}
+              onClick={() => authService.login()}
+            >
+              {t('actions.buttonLogin')}
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<PersonAddOutlined />}
+              component="a"
+              href="/access-request"
+            >
+              {t('actions.buttonRequestAccess')}
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
+    </Container>
+  );
 });

@@ -49,8 +49,12 @@ export const RoundCard: React.FC<Props> = ({ title, icon, children, secondary, t
       }
       divider={false}
       border={false}
-      headerSX={{ px: transparent === true ? 0 : 1, pt: 2, textAlign: 'left' }}
-      contentSX={{ paddingTop: '0!important' }}
+      headerSX={{
+        px: transparent === true ? 0 : 1,
+        pt: transparent === true ? 0 : 4,
+        pb: transparent === true ? 0 : 'inherit',
+        textAlign: 'left',
+      }}
       sx={[
         (theme) => ({
           width: '100%',

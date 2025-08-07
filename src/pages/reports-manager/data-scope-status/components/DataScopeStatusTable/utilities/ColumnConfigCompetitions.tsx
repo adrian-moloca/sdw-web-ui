@@ -14,14 +14,18 @@ export const useColumnsCompetitions = () => {
   const { dataInfo } = useStoreCache();
   return [
     {
-      field: 'status',
+      field: 'overallStatus',
       headerName: t('general.overall-status'),
       flex: 1,
       minWidth: 220,
       renderCell: (params: GridRenderCellParams<any, string | undefined>): JSX.Element | string => {
         const status = params.value;
-        if (!status || !isValidStatus(status)) return '';
-        return <StatusCell status={status} />;
+
+        const lowerCaseStatus = `${status?.charAt(0).toLowerCase()}${status?.slice(1)}`;
+
+        if (!lowerCaseStatus || !isValidStatus(lowerCaseStatus)) return '';
+
+        return <StatusCell status={lowerCaseStatus} />;
       },
     },
     {
@@ -101,7 +105,7 @@ export const useColumnsCompetitions = () => {
       minWidth: 150,
     },
     {
-      field: 'scopeTypes',
+      field: 'scope',
       headerName: t('general.scope-type'),
       flex: 2.5,
       minWidth: 160,
@@ -154,7 +158,7 @@ export const useColumnsCompetitions = () => {
       },
     },
     {
-      field: 'readiness',
+      field: 'completionRate',
       headerName: t('general.readiness'),
       flex: 0.8,
       minWidth: 120,
@@ -163,7 +167,7 @@ export const useColumnsCompetitions = () => {
       },
     },
     {
-      field: 'lastDataReceivedOn',
+      field: 'ts',
       headerName: t('general.last-data-received'),
       flex: 1,
       minWidth: 220,

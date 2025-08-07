@@ -638,6 +638,7 @@ export const buildDateColumn = (
   width,
   type: 'date',
   editable: false,
+  align: 'right',
   filterable: model?.allowFiltering ?? false,
   valueFormatter: (value?: any) =>
     value
@@ -658,6 +659,7 @@ export const buildNumericColumn = (
   width,
   type: 'number',
   editable: false,
+  align: 'right',
   filterable,
 });
 

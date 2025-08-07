@@ -55,8 +55,7 @@ export const MatchCard: React.FC<MatchCardProps> = ({ match, isSelected = false,
             ? darken(theme.palette.primary.dark, 0.8)
             : theme.palette.background.paper,
           borderRadius: layout.radius.sm,
-          overflow: 'hidden',
-          width: '100%',
+          width: isMobile ? '100%' : 600,
           height: '100%',
           color: isSelected
             ? theme.palette.getContrastText(theme.palette.primary.dark)
@@ -71,8 +70,7 @@ export const MatchCard: React.FC<MatchCardProps> = ({ match, isSelected = false,
               ? darken(theme.palette.primary.dark, 0.8)
               : olympicsDesignColors.dark.general.background,
             borderRadius: layout.radius.sm,
-            overflow: 'hidden',
-            width: '100%',
+            width: isMobile ? '100%' : 600,
             height: '100%',
             color: isSelected
               ? theme.palette.getContrastText(theme.palette.primary.dark)
@@ -103,13 +101,15 @@ export const MatchCard: React.FC<MatchCardProps> = ({ match, isSelected = false,
           sx={[
             (theme) => ({
               padding: '12px 16px',
+              width: isMobile ? '100%' : '50%',
               color: isSelected
                 ? theme.palette.getContrastText(theme.palette.primary.dark)
                 : theme.palette.text.primary,
             }),
             (theme) =>
               theme.applyStyles('dark', {
-                padding: '12px 16px',
+                padding: '16px 16px',
+                width: isMobile ? '100%' : '50%',
                 justifyItems: 'center',
                 color: isSelected
                   ? theme.palette.getContrastText(theme.palette.primary.dark)
@@ -133,7 +133,7 @@ export const MatchCard: React.FC<MatchCardProps> = ({ match, isSelected = false,
           <Typography variant="body2">{getScheduleDate(match)}</Typography>
           <Typography variant="body2">{status}</Typography>
         </Box>
-        <Box sx={{ padding: '12px 16px', width: '100%' }}>
+        <Box sx={{ padding: '12px 16px', width: isMobile ? '100%' : '50%' }}>
           <MatchCompetitorDisplay competitor={match.competitors?.[0]} isSelected={isSelected} />
           <MatchCompetitorDisplay competitor={match.competitors?.[1]} isSelected={isSelected} />
         </Box>

@@ -48,7 +48,7 @@ export const CompetitionChip = ({ data, extended }: Props) => {
           <DisciplineAvatar
             code={data.discipline?.code}
             title={formatMasterCode(data.discipline?.code)}
-            size={14}
+            size={20}
           />
         )}
         <TypographyLink value={competitionTitle} route={redirectUrl} typoSize="body1" />

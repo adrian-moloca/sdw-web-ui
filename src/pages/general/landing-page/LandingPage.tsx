@@ -1,7 +1,5 @@
 import Grid from '@mui/material/Grid';
 import { MasterFooter } from 'layout/MasterFooter';
-import SDW_Locations from 'assets/images/SDW_Locations.avif';
-import { t } from 'i18next';
 import { PageContainer } from '@toolpad/core';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
@@ -25,6 +23,7 @@ import {
 import baseConfig from 'baseConfig';
 import { RecentGamesTable } from './components/Statistics/RecentGamesTable';
 import { RandomAthletes } from './components/Statistics/RandomAthletes';
+import { Container } from '@mui/system';
 
 const LandingPage = () => {
   const auth = useSelector((x: RootState) => x.auth);
@@ -63,32 +62,29 @@ const LandingPage = () => {
     );
 
   return (
-    <PageContainer maxWidth="xl" title="" breadcrumbs={[]}>
+    <PageContainer maxWidth={false} title="" breadcrumbs={[]}>
       <Grid container spacing={baseConfig.gridSpacing}>
-        <Grid size={12}>
-          <WelcomeCard />
-        </Grid>
-        <Grid size={12}>
+        <WelcomeCard />
+        <Grid container size={12}>
           <WhatItIsCard />
         </Grid>
         <Grid size={12}>
           <WhatCard />
         </Grid>
         <Grid container size={12}>
-          <Feature1Card />
-          <Feature2Card />
-          <Feature3Card />
-          <Feature4Card />
-        </Grid>
-        <Grid size={12} sx={{ my: 4 }}>
-          <img
-            src={SDW_Locations}
-            alt={t('main.project.name')}
-            style={{ height: 'auto', width: '100%' }}
-          />
+          <Container maxWidth="lg">
+            <Grid container size={12} spacing={baseConfig.gridSpacing}>
+              <Feature1Card />
+              <Feature2Card />
+              <Feature3Card />
+              <Feature4Card />
+            </Grid>
+          </Container>
         </Grid>
         <Grid size={12}>
-          <MainLinks />
+          <Container maxWidth="lg" sx={{ my: 8 }}>
+            <MainLinks />
+          </Container>
         </Grid>
         <MasterFooter />
       </Grid>

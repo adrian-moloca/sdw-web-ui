@@ -1,5 +1,6 @@
 import { Avatar, AvatarProps } from '@mui/material';
 import { useState } from 'react';
+import { olympicsDesignColors } from 'themes/colors';
 
 interface AthleteAvatarProps extends AvatarProps {
   src?: string;
@@ -16,7 +17,6 @@ export const AthleteAvatar = ({
   ...props
 }: AthleteAvatarProps) => {
   const [imageError, setImageError] = useState(false);
-
   let urlImage = src ?? '';
 
   if (urlImage.indexOf(';') >= 0) urlImage = urlImage.split(';')[0];
@@ -25,16 +25,33 @@ export const AthleteAvatar = ({
   if (!urlImage || imageError) {
     return (
       <Avatar
-        sx={{
-          width: size,
-          height: size,
-          backgroundColor: '#B4B4B4',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: '50%',
-          border: bordered ? '4px solid #E0E0E0' : 'none',
-        }}
+        sx={[
+          (theme) => ({
+            height: size,
+            width: size,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: '50%',
+            border: bordered ? `6px solid ${theme.palette.divider}!important` : 'none',
+            backgroundColor: bordered ? theme.palette.background.paper : 'transparent',
+          }),
+          (theme) =>
+            theme.applyStyles('dark', {
+              height: size,
+              width: size,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: '50%',
+              border: bordered
+                ? `6px solid ${olympicsDesignColors.dark.general.divider}!important`
+                : 'none',
+              backgroundColor: bordered
+                ? olympicsDesignColors.dark.general.background
+                : 'transparent',
+            }),
+        ]}
         {...props}
       >
         <svg
@@ -139,7 +156,25 @@ export const AthleteAvatar = ({
   // Otherwise, attempt to render the image
   return (
     <Avatar
-      sx={{ height: size, width: size, border: bordered ? '4px solid #E0E0E0' : 'none' }}
+      sx={[
+        (theme) => ({
+          height: size,
+          width: size,
+          border: bordered ? `6px solid ${theme.palette.divider}!important` : 'none',
+          backgroundColor: bordered ? theme.palette.background.paper : 'transparent',
+        }),
+        (theme) =>
+          theme.applyStyles('dark', {
+            height: size,
+            width: size,
+            border: bordered
+              ? `6px solid ${olympicsDesignColors.dark.general.divider}!important`
+              : 'none',
+            backgroundColor: bordered
+              ? olympicsDesignColors.dark.general.background
+              : 'transparent',
+          }),
+      ]}
       alt={alt}
       src={urlImage}
       imgProps={{ onError: () => setImageError(true) }} // Set onError to trigger fallback

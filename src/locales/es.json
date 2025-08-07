@@ -890,7 +890,8 @@
     "usdf-output": "Salida de USDF",
     "recent-games": "Juegos Olímpicos recientes",
     "random-olympians": "Olímpicos al azar",
-    "date-of-passing": "En memoria desde"
+    "date-of-passing": "En memoria desde",
+    "welcome": "¡Bienvenido!"
   },
   "main": {
     "notifications": {
@@ -945,7 +946,7 @@
     "project": {
       "company": "OCS",
       "name": "SDW",
-      "slogan": "Casa de almacenamiento de datos deportivos"
+      "slogan": "Sports Data WareHouse"
     }
   },
   "navigation": {
@@ -1306,7 +1307,7 @@
     "year-of-birth": "Año de Nacimiento"
   },
   "landing": {
-    "welcome": "¡Bienvenido a Sport Data Warehouse!",
+    "welcome": "Esto es Sport Data Warehouse",
     "starting": "¿Por dónde empiezo?",
     "welcome-intro": [
       "¡Nos alegra que estés aquí!",
@@ -1321,10 +1322,10 @@
     "what": "¿Qué puede hacer SDW?",
     "what-content": [
       "SDW ofrece una amplia gama de funciones que se adaptan a las necesidades únicas de las organizaciones deportivas. Con SDW, puedes:",
-      "📌 <b>Explorador de datos</b>: Obtén información con una interfaz clara e intuitiva que te permite navegar por décadas de historia olímpica. Consulta resultados, estadísticas agregadas y visualizaciones de datos con solo unos clics.",
-      "📌 <b>Acceso a la API</b>: Nuestras API flexibles ofrecen datos estructurados y sin procesar, con opciones de filtrado avanzadas. Ideal para desarrolladores, analistas u organizaciones que buscan integrar datos oficiales sin problemas en sus propias herramientas y plataformas.",
-      "📌 <b>Procesamiento de datos en vivo</b>: Durante los Juegos Olímpicos, SDW procesa la Fuente de Datos Olímpicos (ODF) en tiempo real. Esta función interna proporciona datos estructurados en vivo a través de una API dedicada, lo que elimina la complejidad de crear procesadores de datos personalizados.",
-      "📌 <b>Deporte Widgets: widgets integrables y personalizables que dan vida a los datos deportivos a través de visualizaciones interactivas. Intégralo fácilmente en tu plataforma para mostrar estadísticas en tiempo real, información sobre los jugadores y más, todo a la medida de tu marca."
+      "🔵 <b>Explorador de datos</b>: Obtén información con una interfaz clara e intuitiva que te permite navegar por décadas de historia olímpica. Consulta resultados, estadísticas agregadas y visualizaciones de datos con solo unos clics.",
+      "🔵 <b>Acceso a la API</b>: Nuestras API flexibles ofrecen datos estructurados y sin procesar, con opciones de filtrado avanzadas. Ideal para desarrolladores, analistas u organizaciones que buscan integrar datos oficiales sin problemas en sus propias herramientas y plataformas.",
+      "🔵 <b>Procesamiento de datos en vivo</b>: Durante los Juegos Olímpicos, SDW procesa la Fuente de Datos Olímpicos (ODF) en tiempo real. Esta función interna proporciona datos estructurados en vivo a través de una API dedicada, lo que elimina la complejidad de crear procesadores de datos personalizados.",
+      "🔵 <b>Deporte Widgets</b>: widgets integrables y personalizables que dan vida a los datos deportivos a través de visualizaciones interactivas. Intégralo fácilmente en tu plataforma para mostrar estadísticas en tiempo real, información sobre los jugadores y más, todo a la medida de tu marca."
     ],
     "feature1": "Explorador de datos",
     "feature1-content": [

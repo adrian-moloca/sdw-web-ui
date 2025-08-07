@@ -101,21 +101,19 @@ export const mapDataToMetrics = (
     },
   ];
 
-  const metrics: Metric[] = statusConfig
-    .filter((cfg) => deliveryStatus?.[cfg.id]?.count > 0)
-    .map((cfg) => ({
-      id: cfg.id,
-      title: t(cfg.titleKey),
-      value: deliveryStatus[cfg.id].count,
-      hasProgressBar: true,
-      progressValue: deliveryStatus[cfg.id].readinessPercentage,
-      label: cfg.labelKey ? t(cfg.labelKey) : undefined,
-      icon: {
-        node: cfg.icon,
-        color: cfg.color,
-        backgroundColor: cfg.backgroundColor,
-      },
-    }));
+  const metrics: Metric[] = statusConfig.map((cfg) => ({
+    id: cfg.id,
+    title: t(cfg.titleKey),
+    value: deliveryStatus[cfg.id].count,
+    hasProgressBar: true,
+    progressValue: deliveryStatus[cfg.id].readinessPercentage,
+    label: cfg.labelKey ? t(cfg.labelKey) : undefined,
+    icon: {
+      node: cfg.icon,
+      color: cfg.color,
+      backgroundColor: cfg.backgroundColor,
+    },
+  }));
 
   return [...base, ...metrics];
 };

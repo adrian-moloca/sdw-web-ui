@@ -1,4 +1,4 @@
-import { AvatarGroup, Box, Stack, Typography, useTheme } from '@mui/material';
+import { AvatarGroup, Box, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import get from 'lodash/get';
 import { useNavigate } from 'react-router-dom';
 import { AwardCardMedal } from '../AwardCardMedal';
@@ -24,7 +24,7 @@ export const AwardCard = ({ data }: Props) => {
   const navigate = useNavigate();
   const numberOfAthletes = data.participants?.length ?? 0;
   const hasParticipants = data.participants && data.participants?.length > 0;
-
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'));
   if (data.type === 'INDIVIDUAL')
     return (
       <MainCard
@@ -45,7 +45,7 @@ export const AwardCard = ({ data }: Props) => {
               <AthleteAvatar
                 src={data.person.profileImages}
                 alt={data.participationName}
-                size="12rem"
+                size={isMobile ? '8rem' : '12rem'}
                 bordered={true}
               />
             ) : (
@@ -71,7 +71,6 @@ export const AwardCard = ({ data }: Props) => {
             alignContent="center"
             alignItems={'center'}
             justifyContent={'center'}
-            sx={{ mt: 4 }}
           >
             <CountryChip code={country} hideTitle={true} size={'small'} />
             <Typography variant="body1"> {fullName} </Typography>
@@ -95,11 +94,11 @@ export const AwardCard = ({ data }: Props) => {
       >
         <AwardCardMedal data={data} />
         <Box padding={4} gap={4} textAlign={'center'}>
-          <Box display="flex" justifyContent="center" my={8}>
+          <Box display="flex" justifyContent="center" my={isMobile ? 4 : 8}>
             <CountryChip
               code={country}
               title={data.participationName}
-              size="xlarge"
+              size={isMobile ? 'large' : 'xlarge'}
               hideTitle={true}
             />
           </Box>
@@ -139,15 +138,15 @@ export const AwardCard = ({ data }: Props) => {
     >
       <AwardCardMedal data={data} />
       <Box padding={4} gap={4} textAlign={'center'}>
-        <Box display="flex" justifyContent="center" my={8}>
+        <Box display="flex" justifyContent="center" my={isMobile ? 4 : 8}>
           {hasParticipants ? (
-            <AvatarGroup max={3}>
+            <AvatarGroup max={3} spacing={20}>
               {data.participants.map((p: any) => (
                 <AthleteAvatar
                   key={p.id}
                   src={p.profileImages}
                   alt={p.name}
-                  size="9rem"
+                  size={isMobile ? '8rem' : '12rem'}
                   bordered={true}
                 />
               ))}
@@ -156,7 +155,7 @@ export const AwardCard = ({ data }: Props) => {
             <CountryChip
               code={country}
               title={data.participationName}
-              size="xlarge"
+              size={isMobile ? 'large' : 'xlarge'}
               hideTitle={true}
             />
           )}
@@ -184,7 +183,6 @@ export const AwardCard = ({ data }: Props) => {
           alignContent="center"
           alignItems={'center'}
           justifyContent={'center'}
-          sx={{ mt: 4 }}
         >
           <CountryChip code={country} hideTitle={true} size={'small'} />
           <Typography variant="body1"> {fullName} </Typography>

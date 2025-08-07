@@ -11,9 +11,7 @@ import {
   PhaseDisplay,
   UnitDisplay,
 } from 'pages/explorer/components';
-import { Typography } from '@mui/material';
 import React from 'react';
-import { t } from 'i18next';
 import { stripCommonPrefixFromField } from '_helpers';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
@@ -110,9 +108,6 @@ export const CumulativeDisplay: React.FC<Props> = ({
             {stageRounds.map((row: any, index: number) => (
               <ButtonTab key={row.id} value={index} label={row.title} minWidth={50} />
             ))}
-            <Typography variant="subtitle1" sx={{ mr: 4 }}>
-              {`${totalUnits} ${t('general.rounds')}`}
-            </Typography>
           </TabList>
           {stageRounds.map((row: any, index: number) => (
             <TabPanel key={row.id} value={index} sx={{ px: 0, py: 0 }}>
